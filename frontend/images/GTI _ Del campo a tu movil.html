@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)http://localhost:4000/mapa.html?email= -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link type="text/css" rel="stylesheet" href="./GTI _ Del campo a tu movil_files/css"><style type="text/css">.gm-style .gm-style-cc span,.gm-style .gm-style-cc a,.gm-style .gm-style-mtc div{font-size:10px}
+</style><style type="text/css">@media print {  .gm-style .gmnoprint, .gmnoprint {    display:none  }}@media screen {  .gm-style .gmnoscreen, .gmnoscreen {    display:none  }}</style><style type="text/css">.gm-style-pbc{transition:opacity ease-in-out;background-color:rgba(0,0,0,0.45);text-align:center}.gm-style-pbt{font-size:22px;color:white;font-family:Roboto,Arial,sans-serif;position:relative;margin:0;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}
+</style>
+	
+	<title>GTI | Del campo a tu movil</title>
+	<link rel="shortcut icon" href="http://localhost:4000/images/favicon.ico">
+	<!-- ******************* POR DEFECTO ANCHO = ANCHO DISPOSITIVO, SIN ZOOM -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- ******************* COMPATIBILIDAD CON Internet Explorer/EDGE -->
+	<meta http-equiv="x-ua-compatible" content="ie-edge">
+	<!-- ******************* Bootstrap 4.0 -->
+	<link rel="stylesheet" href="./GTI _ Del campo a tu movil_files/css(1)">
+	<link rel="stylesheet" href="./GTI _ Del campo a tu movil_files/mapa.css">
+	<link rel="stylesheet" href="./GTI _ Del campo a tu movil_files/icon">
+	<link rel="stylesheet" href="./GTI _ Del campo a tu movil_files/font-awesome.min.css">
+	<link rel="stylesheet" href="./GTI _ Del campo a tu movil_files/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	<!--
+        Librería de gráficos
+                            -->
+	<script src="./GTI _ Del campo a tu movil_files/Chart.js"></script><style type="text/css">/* Chart.js */
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style>
+
+	<script src="./GTI _ Del campo a tu movil_files/moment.js"></script>
+
+	<script src="./GTI _ Del campo a tu movil_files/es.js"></script>
+	<script src="./GTI _ Del campo a tu movil_files/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="UTF-8" src="./GTI _ Del campo a tu movil_files/common.js"></script><script type="text/javascript" charset="UTF-8" src="./GTI _ Del campo a tu movil_files/util.js"></script><script type="text/javascript" charset="UTF-8" src="./GTI _ Del campo a tu movil_files/map.js"></script><script type="text/javascript" charset="UTF-8" src="./GTI _ Del campo a tu movil_files/geometry.js"></script><script type="text/javascript" charset="UTF-8" src="./GTI _ Del campo a tu movil_files/poly.js"></script><style type="text/css">.gm-style {
+        font: 400 11px Roboto, Arial, sans-serif;
+        text-decoration: none;
+      }
+      .gm-style img { max-width: none; }</style><script type="text/javascript" charset="UTF-8" src="./GTI _ Del campo a tu movil_files/onion.js"></script><script type="text/javascript" charset="UTF-8" src="./GTI _ Del campo a tu movil_files/ViewportInfoService.GetViewportInfo"></script><link type="text/css" rel="stylesheet" href="chrome-extension://pioclpoplcdbaefihamjohnefbikjilc/content.css"><script type="text/javascript" charset="UTF-8" src="./GTI _ Del campo a tu movil_files/ViewportInfoService(1).GetViewportInfo"></script><script type="text/javascript" charset="UTF-8" src="./GTI _ Del campo a tu movil_files/controls.js"></script><script type="text/javascript" charset="UTF-8" src="./GTI _ Del campo a tu movil_files/AuthenticationService.Authenticate"></script><script type="text/javascript" charset="UTF-8" src="./GTI _ Del campo a tu movil_files/stats.js"></script><script type="text/javascript" charset="UTF-8" src="./GTI _ Del campo a tu movil_files/QuotaService.RecordEvent"></script></head>
+
+<body>
+
+	<header class="encabezado" role="banner">
+
+
+		<a href="http://localhost:4000/mapa.html?email=#">
+			<img src="./GTI _ Del campo a tu movil_files/menu.svg" alt="barra_navegación" id="menu">
+		</a>
+		<div>
+			<a href="http://localhost:4000/index.html">
+				<img src="./GTI _ Del campo a tu movil_files/logoGTI.svg" alt="logo" id="logo">
+			</a>
+			<div id="sesion">
+			</div>
+		</div>
+	</header>
+	<section id="zonas" style="background: rgb(206, 78, 62);">
+		<select class="form-control" id="desplegable" style="display: none;">
+			<option value="0" selected="selected">Seleccione zona</option>
+			<option value="1" onclick="seleccionarZona()">Tomates</option>
+			<option value="2" onclick="">Melones</option>
+			<option value="3" onclick="">Berenjenas</option>
+		</select>
+		<button id="irSeleccionarZona" class="btn btn-primary" onclick="seleccionarZona()" style="display: none;">VER</button>
+	
+			<a href="http://localhost:4000/mapa.html?email=">
+			<img class="volver" id="volver" src="./GTI _ Del campo a tu movil_files/atras.svg" alt="volver">
+			</a>
+			
+
+          <div id="formEditarZona">
+			<div width="200px" class="zona btn" id="zona_btn">
+			<h4 id="nombreZona"> <strong>TOMATES</strong></h4></div>
+			</div>
+
+			<div id="opciones">
+
+			<img id="editarZona" src="./GTI _ Del campo a tu movil_files/editwhite.svg" alt="editar" onclick="editarZona(zonas[0])">
+
+			<img id="eliminarZona" src="./GTI _ Del campo a tu movil_files/deletewhite.svg" alt="eliminar" data-toggle="modal" data-target="#deleteEmployeeModal">
+
+			</div>
+
+			</section>
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">TEMPERATURA</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<canvas id="grafica"></canvas>
+					<div class="alert alert-primary" role="alert">
+						La
+						<strong id="sensorValorMedio">temperatura</strong> media es de:
+						<button id="valorMedio" idtype="button" class="btn btn-primary btn-sm">22.3ºC</button>
+					</div>
+
+					<div class="alert alert-danger" role="alert">
+						<strong>¡Alerta!</strong>
+						Se prevé una tormenta en tu zona
+						<a href="https://www.accuweather.com/es/es/gandia/306359/weather-forecast/306359" target="_blanck">
+							<span class="badge badge-info">Información</span>
+						</a>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" disabled="">
+						<img src="./GTI _ Del campo a tu movil_files/excel.png" alt="excel"> Exportar Excel </button>
+					<button type="button" class="btn btn-primary" disabled="">
+						<img src="./GTI _ Del campo a tu movil_files/pdf.png" alt="pdf"> Guardar PDF </button>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+	
+
+	<div id="mapa" style="width: 100%; height: 700px; position: relative; overflow: hidden;"><div style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgb(229, 227, 223);"><div class="gm-style" style="position: absolute; z-index: 0; left: 0px; top: 0px; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px;"><div tabindex="0" style="position: absolute; z-index: 0; left: 0px; top: 0px; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px; cursor: url(&quot;https://maps.gstatic.com/mapfiles/openhand_8_8.cur&quot;), default;"><div style="z-index: 1; position: absolute; left: 50%; top: 50%; transform: translate(0px, 0px);"><div style="position: absolute; left: 0px; top: 0px; z-index: 100; width: 100%;"><div style="position: absolute; left: 0px; top: 0px; z-index: 0;"><div style="position: absolute; z-index: 1; transform: matrix(1, 0, 0, 1, -77, -8);"><div style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px;"><div style="width: 256px; height: 256px;"></div></div><div style="position: absolute; left: -256px; top: 0px; width: 256px; height: 256px;"><div style="width: 256px; height: 256px;"></div></div><div style="position: absolute; left: -256px; top: -256px; width: 256px; height: 256px;"><div style="width: 256px; height: 256px;"></div></div><div style="position: absolute; left: 0px; top: -256px; width: 256px; height: 256px;"><div style="width: 256px; height: 256px;"></div></div><div style="position: absolute; left: 256px; top: -256px; width: 256px; height: 256px;"><div style="width: 256px; height: 256px;"></div></div><div style="position: absolute; left: 256px; top: 0px; width: 256px; height: 256px;"><div style="width: 256px; height: 256px;"></div></div><div style="position: absolute; left: 256px; top: 256px; width: 256px; height: 256px;"><div style="width: 256px; height: 256px;"></div></div><div style="position: absolute; left: 0px; top: 256px; width: 256px; height: 256px;"><div style="width: 256px; height: 256px;"></div></div><div style="position: absolute; left: -256px; top: 256px; width: 256px; height: 256px;"><div style="width: 256px; height: 256px;"></div></div><div style="position: absolute; left: -256px; top: -512px; width: 256px; height: 256px;"><div style="width: 256px; height: 256px;"></div></div><div style="position: absolute; left: 0px; top: -512px; width: 256px; height: 256px;"><div style="width: 256px; height: 256px;"></div></div><div style="position: absolute; left: 256px; top: -512px; width: 256px; height: 256px;"><div style="width: 256px; height: 256px;"></div></div></div></div></div><div style="position: absolute; left: 0px; top: 0px; z-index: 101; width: 100%;"><div style="position: absolute; left: 0px; top: 0px; z-index: 30;"><div style="position: absolute; z-index: 1; transform: matrix(1, 0, 0, 1, -77, -8);"><div style="width: 256px; height: 256px; position: absolute; left: 0px; top: 0px;"><canvas width="512" height="512" draggable="false" style="width: 256px; height: 256px; user-select: none; position: absolute; left: 0px; top: 0px;"></canvas></div><div style="width: 256px; height: 256px; position: absolute; left: -256px; top: 0px;"><canvas width="512" height="512" draggable="false" style="width: 256px; height: 256px; user-select: none; position: absolute; left: 0px; top: 0px;"></canvas></div><div style="width: 256px; height: 256px; position: absolute; left: -256px; top: -256px;"><canvas width="512" height="512" draggable="false" style="width: 256px; height: 256px; user-select: none; position: absolute; left: 0px; top: 0px;"></canvas></div><div style="width: 256px; height: 256px; position: absolute; left: 256px; top: -256px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 256px; top: 0px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 256px; top: 256px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 0px; top: 256px;"></div><div style="width: 256px; height: 256px; position: absolute; left: -256px; top: 256px;"></div><div style="width: 256px; height: 256px; position: absolute; left: -256px; top: -512px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 0px; top: -512px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 256px; top: -512px;"></div><div style="width: 256px; height: 256px; position: absolute; left: 0px; top: -256px;"><canvas width="512" height="512" draggable="false" style="width: 256px; height: 256px; user-select: none; position: absolute; left: 0px; top: 0px;"></canvas></div></div></div></div><div style="position: absolute; left: 0px; top: 0px; z-index: 102; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 103; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 0;"><div style="position: absolute; z-index: 1; transform: matrix(1, 0, 0, 1, -77, -8);"><div style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px;"><img draggable="false" alt="" src="./GTI _ Del campo a tu movil_files/kh" style="width: 256px; height: 256px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: -256px; top: 0px; width: 256px; height: 256px;"><img draggable="false" alt="" src="./GTI _ Del campo a tu movil_files/kh(1)" style="width: 256px; height: 256px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: -256px; top: -256px; width: 256px; height: 256px;"><img draggable="false" alt="" src="./GTI _ Del campo a tu movil_files/kh(2)" style="width: 256px; height: 256px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 0px; top: -256px; width: 256px; height: 256px;"><img draggable="false" alt="" src="./GTI _ Del campo a tu movil_files/kh(3)" style="width: 256px; height: 256px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 256px; top: -256px; width: 256px; height: 256px;"><img draggable="false" alt="" src="./GTI _ Del campo a tu movil_files/kh(4)" style="width: 256px; height: 256px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 256px; top: 0px; width: 256px; height: 256px;"><img draggable="false" alt="" src="./GTI _ Del campo a tu movil_files/kh(5)" style="width: 256px; height: 256px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 256px; top: 256px; width: 256px; height: 256px;"><img draggable="false" alt="" src="./GTI _ Del campo a tu movil_files/kh(6)" style="width: 256px; height: 256px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 0px; top: 256px; width: 256px; height: 256px;"><img draggable="false" alt="" src="./GTI _ Del campo a tu movil_files/kh(7)" style="width: 256px; height: 256px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: -256px; top: 256px; width: 256px; height: 256px;"><img draggable="false" alt="" src="./GTI _ Del campo a tu movil_files/kh(8)" style="width: 256px; height: 256px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: -256px; top: -512px; width: 256px; height: 256px;"><img draggable="false" alt="" src="./GTI _ Del campo a tu movil_files/kh(9)" style="width: 256px; height: 256px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 0px; top: -512px; width: 256px; height: 256px;"><img draggable="false" alt="" src="./GTI _ Del campo a tu movil_files/kh(10)" style="width: 256px; height: 256px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;"></div><div style="position: absolute; left: 256px; top: -512px; width: 256px; height: 256px;"><img draggable="false" alt="" src="./GTI _ Del campo a tu movil_files/kh(11)" style="width: 256px; height: 256px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;"></div></div></div></div><div class="gm-style-pbc" style="z-index: 2; position: absolute; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px; left: 0px; top: 0px; opacity: 0; transition-duration: 0.8s;"><p class="gm-style-pbt">Mantén pulsada la tecla Ctrl mientras te desplazas para acercar o alejar el mapa</p></div><div style="z-index: 3; position: absolute; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px; left: 0px; top: 0px;"><div style="z-index: 1; position: absolute; height: 100%; width: 100%; padding: 0px; border-width: 0px; margin: 0px; left: 0px; top: 0px;"></div><div style="z-index: 4; position: absolute; left: 50%; top: 50%; transform: translate(0px, 0px);"><div style="position: absolute; left: 0px; top: 0px; z-index: 104; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 105; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 106; width: 100%;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 107; width: 100%;"><div style="z-index: -202; cursor: pointer; display: none;"><div style="width: 30px; height: 27px; overflow: hidden; position: absolute;"><img alt="" src="./GTI _ Del campo a tu movil_files/undo_poly.png" draggable="false" style="position: absolute; left: 0px; top: 0px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none; width: 90px; height: 27px;"></div></div></div></div></div></div><iframe frameborder="0" src="./GTI _ Del campo a tu movil_files/saved_resource.html" style="z-index: -1; position: absolute; width: 100%; height: 100%; top: 0px; left: 0px; border: none;"></iframe><div style="margin-left: 5px; margin-right: 5px; z-index: 1000000; position: absolute; left: 0px; bottom: 0px;"><a target="_blank" href="https://maps.google.com/maps?ll=38.979246,-0.175367&amp;z=18&amp;t=k&amp;hl=es&amp;gl=US&amp;deg=0&amp;mapclient=apiv3" title="Haz clic aquí para visualizar esta zona en Google Maps" style="position: static; overflow: visible; float: none; display: inline;"><div style="width: 66px; height: 26px; cursor: pointer;"><img alt="" src="./GTI _ Del campo a tu movil_files/google_white5_hdpi.png" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 66px; height: 26px; user-select: none; border: 0px; padding: 0px; margin: 0px;"></div></a></div><div style="background-color: white; padding: 15px 21px; border: 1px solid rgb(171, 171, 171); font-family: Roboto, Arial, sans-serif; color: rgb(34, 34, 34); box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 16px; z-index: 10000002; display: none; width: 256px; height: 148px; position: absolute; left: 57px; top: 260px;"><div style="padding: 0px 0px 10px; font-size: 16px;">Datos de mapas</div><div style="font-size: 13px;">Datos de mapas ©2018</div><div style="width: 13px; height: 13px; overflow: hidden; position: absolute; opacity: 0.7; right: 12px; top: 12px; z-index: 10000;"><img alt="" src="./GTI _ Del campo a tu movil_files/mapcnt6.png" draggable="false" style="position: absolute; left: -2px; top: -336px; width: 59px; height: 492px; user-select: none; border: 0px; padding: 0px; margin: 0px; max-width: none;"></div><img alt="" src="./GTI _ Del campo a tu movil_files/transparent.png" draggable="false" style="width: 37px; height: 37px; user-select: none; border: 0px; padding: 0px; margin: 0px; position: absolute; right: 0px; top: 0px; z-index: 10001; cursor: pointer;"></div><div class="gmnoprint" style="z-index: 1000001; position: absolute; right: 94px; bottom: 0px; width: 126px;"><div draggable="false" class="gm-style-cc" style="user-select: none; height: 14px; line-height: 14px;"><div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;"><div style="width: 1px;"></div><div style="background-color: rgb(245, 245, 245); width: auto; height: 100%; margin-left: 1px;"></div></div><div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(68, 68, 68); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;"><a style="text-decoration: none; cursor: pointer; display: none;">Datos de mapas</a><span>Datos de mapas ©2018</span></div></div></div><div class="gmnoscreen" style="position: absolute; right: 0px; bottom: 0px;"><div style="font-family: Roboto, Arial, sans-serif; font-size: 11px; color: rgb(68, 68, 68); direction: ltr; text-align: right; background-color: rgb(245, 245, 245);">Datos de mapas ©2018</div></div><div class="gmnoprint gm-style-cc" draggable="false" style="z-index: 1000001; user-select: none; height: 14px; line-height: 14px; position: absolute; right: 0px; bottom: 0px;"><div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;"><div style="width: 1px;"></div><div style="background-color: rgb(245, 245, 245); width: auto; height: 100%; margin-left: 1px;"></div></div><div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(68, 68, 68); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;"><a href="https://www.google.com/intl/es_US/help/terms_maps.html" target="_blank" style="text-decoration: none; cursor: pointer; color: rgb(68, 68, 68);">Términos de uso</a></div></div><button draggable="false" title="Cambiar a la vista en pantalla completa" aria-label="Cambiar a la vista en pantalla completa" type="button" style="background: none rgb(255, 255, 255); border: 0px; margin: 10px 14px; padding: 0px; position: absolute; cursor: pointer; user-select: none; width: 25px; height: 25px; overflow: hidden; display: none; top: 0px; right: 0px;"><img alt="" src="./GTI _ Del campo a tu movil_files/sv9.png" draggable="false" class="gm-fullscreen-control" style="position: absolute; left: -52px; top: -86px; width: 164px; height: 175px; user-select: none; border: 0px; padding: 0px; margin: 0px;"></button></div></div></div>
+
+	<!-- Delete Modal HTML -->
+	<div id="deleteEmployeeModal" class="modal fade">
+		<div class="modal-dialog" id="deleteModal">
+			<div class="modal-content" id="deleteModalContent">
+				<form>
+					<div class="modal-header">
+						<h4 class="modal-title">Eliminar Zona</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					</div>
+					<div class="modal-body">
+						<p>¿Estás seguro de eliminar esta zona?</p>
+						<p class="text-warning">
+							<small>Esta acción no se puede deshacer.</small>
+						</p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+						<input type="submit" class="btn btn-danger" value="Borrar">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		var email, zonas;
+		document.getElementById("desplegable").selectedIndex = 0;
+		var f = new Date();
+	</script>
+	<script>
+		var mapa;
+		var zonas = [];
+		var coloresSensor = {};
+		coloresSensor.humedad = "rgb(88,172,250)";
+		coloresSensor.humedadOpacidad = "rgb(88,172,250, 0.2)";
+		coloresSensor.temperatura = "rgb(250,88,88)";
+		coloresSensor.temperaturaOpacidad = "rgb(250,88,88, 0.2)";
+		coloresSensor.iluminacion = "rgb(244,250,88)";
+		coloresSensor.iluminacionOpacidad = "rgb(244,250,88, 0.2)";
+		coloresSensor.salinidad = "rgb(95,76,11)";
+		coloresSensor.salinidadOpacidad = "rgb(95,76,11, 0.2)";
+
+		function initMap() {
+			mapa = new google.maps.Map(document.getElementById("mapa"), {
+				zoom: 17,
+				center: {
+					lat: 38.980868,
+					lng: -0.174966
+				},
+				disableDefaultUI: true,
+				/* mapTypeId: google.maps.MapTypeId.SATELLITE, */
+				// mapTypeId: 'satellite'
+				streetViewControl: false
+			});
+
+			mapa.setMapTypeId('satellite');
+			// mapa.setStreetViewContro('false');
+			cargarZonas();
+
+		}
+		var divZonas = document.getElementById("zonas");
+
+		function cargarZonas() {
+			var apiZonas = "http://localhost:4000/zonas?email=" + email;
+			fetch(apiZonas).then(function (respuesta) {
+				return respuesta.json();
+			}).then(function (datos) {
+
+				datos.forEach(function (datosZona) {
+
+					var limites = new google.maps.LatLngBounds();
+
+					datosZona.vertices.forEach(function (vertice) {
+						vertice.lat = parseFloat(vertice.lat);
+						vertice.lng = parseFloat(vertice.lng);
+
+						limites.extend(vertice);
+					});
+
+					var zona = {};
+					zona.color = datosZona.color;
+					zona.id = datosZona.id;
+					zona.nombre = datosZona.nombre;
+
+					zona.poligono = new google.maps.Polygon({
+						paths: datosZona.vertices,
+						strokeColor: datosZona.color,
+						fillColor: datosZona.color
+					});
+
+					//zona.poligono.setMap(mapa);
+
+					zonas.push(zona);
+				})
+			})
+
+			console.log(zonas);
+			
+		}
+
+
+		function editarZona(zona) {
+
+			zona.poligono.setEditable(!zona.poligono.getEditable());
+
+			var editar = document.getElementById("editarZona");
+			editar.style.display = "none";
+
+			var eliminar = document.getElementById("eliminarZona");
+			eliminar.style.display = "none";
+
+			var nombreZona = document.getElementById("nombreZona");
+			nombreZona.style.display = "none";
+
+			var ir = document.getElementById("irSeleccionarZona");
+			ir.style.display = "none";
+
+			var opciones = document.getElementById("opciones");
+
+			opciones.innerHTML +=
+				`
+			
+			<img id="guardarZona" src="./images/savewhite.svg" alt="icono temperatura" onclick="editarZona2(zonas[0])" />
+			
+			`
+
+			var zona_btn = document.getElementById("formEditarZona");
+
+			zona_btn.innerHTML =
+				` 
+			<form id="formularioZona">
+		
+			<input id="inputZona" class="form-control" type="text" onfocus="this.value = this.value; value=" ` +
+				zonas[0].nombre +
+				`" />
+		
+            <label for="inputColor">Color:</label>
+			<input class="form-control" type="color" id="inputColor" value=` + zonas[0].color + `  />
+		
+			</form>
+			`
+
+
+
+			var cambiarNombre = document.getElementById("inputZona");
+			cambiarNombre.value = zonas[0].nombre;
+			cambiarNombre.autofocus = true;
+
+
+
+
+		}
+
+
+
+		function cargarSensores() {
+
+
+			email = window.location.href.split("?")[1].split("&")[0].split("=")[1];
+
+			var sensoresAPI = "http://localhost:4000/sensores?email=" + email;
+	
+			//Hacemos la petición
+			fetch(sensoresAPI).then(function (respuesta) {
+				return respuesta.json();
+			}).then(function (datosSondas) {
+				datosSondas.forEach(function (sonda) {
+			
+					crearMarcador(sonda);
+				});
+
+			});
+		}
+
+		function crearMarcador(sonda) {
+
+
+			var contentString =
+				'<div id="contentInfo">' +
+				'<div id="siteNotice">' +
+				'</div>' +
+				'<div id="headerZona"><div><h2 id="firstHeading" class="firstHeading">SONDA ' + sonda.ID_SONDA +
+				'</h2></div><span id="bateria"><img src="./images/battery.png" alt="bateria"><span class="badge badge-danger">8%</span></span></div>' +
+				'<div id="bodyContent">' +
+				'<ul id="iconosSensores"><li class="active">' +
+				'<button type="button" onclick="mostrarDatos(this)" data-toggle="modal" data-target="#exampleModal">' +
+				'<img src="./images/sensores/ther.svg" alt="icono temperatura" />' +
+				'<div class="badge-info colorTemperatura"><p> TEMP.<br/> 21 ºC </p></div>' +
+				'</button>' + '</li>' +
+
+
+				'<li><button type="button" onclick="mostrarDatos(this)"  data-toggle="modal" data-target="#exampleModal">' +
+				'<img src="./images/sensores/salt.svg" alt="icono salinidad" />' +
+				'<div class="badge-info colorSalinidad"><p>SAL <br/> 77%</p></div>' +
+				'</button></li>' +
+
+				'<li><button type="button" onclick="mostrarDatos(this)"  data-toggle="modal" data-target="#exampleModal">' +
+				'<img src="./images/sensores/hum.svg" alt="icono humedad" />' +
+				'<div class="badge-info colorHumedad"><p>AGUA<br/> 58%</p></div>' +
+				'</button></li>' +
+				'<li><button type="button" onclick="mostrarDatos(this)"  data-toggle="modal" data-target="#exampleModal">' +
+				'<img src="./images/sensores/lum.svg" alt="icono iluminacion" />' +
+				'<div class="badge-info colorIluminacion"><p>LUZ<br /> 72%</p></div>' +
+				'</button></li>' +
+				'</ul>' +
+				'<p class="blockquote-footer">Última medición hace 5 minutos (' + f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear() +
+				" - " + f.getHours() + ":" + (f.getMinutes() - 5) + ":" + f.getSeconds() + ')' +
+
+				'</div>';
+			var infowindow = new google.maps.InfoWindow({
+				content: contentString,
+				//maxWidth: 900 //especifica el ancho máximo de la ventana de información en píxeles.
+			});
+			var latLng = new google.maps.LatLng(sonda.LAT, sonda.LNG);
+			var marker = new google.maps.Marker({
+				position: latLng,
+				animation: google.maps.Animation.DROP,
+				map: mapa
+
+			});
+
+			marker.addListener('click', function () {
+
+				infowindow.open(mapa, marker);
+
+			});
+
+		}
+
+
+
+
+
+		function seleccionarZona(zona) {
+		
+			cargarSensores();
+
+			var desplegable = document.getElementById("desplegable");
+			desplegable.style.display = "none";
+
+			var ir = document.getElementById("irSeleccionarZona");
+			ir.style.display = "none";
+
+			var botonZona = document.getElementById("zonas");
+			botonZona.innerHTML +=
+				`
+			<a href="mapa.html?email="`+ email +`>
+			<img class="volver" id="volver" src="./images/atras.svg" alt="volver"/>
+			</a>
+			
+
+          <div id="formEditarZona">
+			<div width="200px"class="zona btn" id="zona_btn">
+			<h4 id="nombreZona" > <strong>` +
+				zonas[0].nombre.toUpperCase() +
+				`</strong></h4></div>
+			</div>
+
+			<div id="opciones">
+
+			<img id="editarZona" src="./images/editwhite.svg" alt="editar" onclick="editarZona(zonas[0])">
+
+			<img id="eliminarZona" src="./images/deletewhite.svg" alt="eliminar" data-toggle="modal" data-target="#deleteEmployeeModal" >
+
+			</div>
+
+			`;
+			var fondoZonas = document.getElementById("zonas");
+			fondoZonas.style.background = zonas[0].color;
+
+			var apiZonas = "http://localhost:4000/zonas?email=" + email;
+			fetch(apiZonas).then(function (respuesta) {
+				return respuesta.json();
+			}).then(function (datos) {
+
+				//datos.forEach(function (datosZona) {
+
+				var limites = new google.maps.LatLngBounds();
+
+				datos[0].vertices.forEach(function (vertice) {
+					vertice.lat = parseFloat(vertice.lat);
+					vertice.lng = parseFloat(vertice.lng);
+
+					limites.extend(vertice);
+				});
+
+				var zona = {};
+				zona.color = datos[0].color;
+				zona.id = datos[0].id;
+				zona.nombre = datos[0].nombre;
+
+				zona.poligono = new google.maps.Polygon({
+					paths: datos[0].vertices,
+					strokeColor: datos[0].color,
+					fillColor: datos[0].color
+				});
+
+				zona.poligono.setMap(mapa);
+				mapa.fitBounds(limites, 20);
+
+				zonas.push(zona);
+				//})
+			})
+
+			console.log(zonas);
+
+
+
+			//botonEditar.onclick = editarZona(zonas[0]);
+		}
+
+
+		function crearGrafica(medidasSensor, tipo) {
+
+			var sensorValorMedio = document.getElementById("sensorValorMedio");
+			var valorMedio = document.getElementById("valorMedio");
+			sensorValorMedio.innerText = tipo.toUpperCase();
+			switch (tipo) {
+				case "temperatura":
+				valorMedio.innerText = medidasSensor[length] + " ºC";
+					break;
+				case "iluminacion":
+				valorMedio.innerText = medidasSensor[length] + " lux";
+					break;
+				default:
+				valorMedio.innerText = medidasSensor[length] + " %";
+			}
+		
+
+			opciones = {};
+			opciones.salinidad = {
+				max: 23,
+				min: 0,
+				step: 20
+
+			}
+
+			opciones.humedad = {
+				max: 48,
+				min: 0,
+				step: 20
+
+			}
+
+			opciones.iluminacion = {
+				max: 86.01000000000022,
+				min: 6200,
+				step: 50
+
+			}
+
+			opciones.temperatura = {
+				max: 0.2,
+				min: 20.1,
+				step: 0.3
+
+			}
+
+			//console.log(medidasSensor);
+			var graficaTemperatura = {
+				numeroDeMediciones: 8,
+				valorMaximo: Math.max.apply(null, medidasSensor),
+				valorMinimo: Math.min.apply(null, medidasSensor),
+				valoresSensor: medidasSensor
+
+			};
+
+			var inicio = moment(graficaTemperatura.valorMinimo);
+
+			var ejeY = {
+				ticks: {
+					// beginAtZero: true,
+					max: graficaTemperatura.valorMaximo + opciones[tipo].max,
+					stepSize: opciones[tipo].step,
+					min: opciones[tipo].min
+				}
+			};
+
+			var opciones = {
+				responsive: true,
+				maintainAspectRatio: true,
+				scales: {
+					yAxes: [ejeY]
+				}
+			};
+
+			var datos = {
+				labels: [],
+				datasets: []
+			};
+
+			var contDias = 0;
+			while (datos.labels.length < graficaTemperatura.numeroDeMediciones) {
+				var dia = moment(inicio).add(contDias, 'h');
+				datos.labels.push(dia.format('HH:mm'));
+				//aquí añadiremos las horas en las que se toman las mediciones
+				//sacar de la base de datos
+				contDias++;
+			}
+
+			var lineaTemperatura = {
+				label: tipo.toUpperCase(),
+				backgroundColor: coloresSensor[tipo + "Opacidad"],
+				borderColor: coloresSensor[tipo],
+				fill: true,
+				borderWidth: 1,
+				lineTension: 0,
+				data: []
+			};
+
+			lineaTemperatura.data[0] = graficaTemperatura.valoresSensor[0];
+			for (let i = 1; i < datos.labels.length; i++) {
+				lineaTemperatura.data[i] = graficaTemperatura.valoresSensor[i];
+			}
+
+			datos.datasets = [lineaTemperatura];
+
+			var ctx = document.getElementById('grafica').getContext('2d');
+
+			var chart = new Chart(ctx, {
+				type: 'line',
+				data: datos,
+				options: opciones
+			});
+
+		}
+
+
+
+		function mostrarDatos(elemento) {
+			tipoDatos = "temperatura";
+			console.log(elemento);
+			var img = elemento.getElementsByTagName('img')[0];
+			var nombreZona = document.getElementById("nombreZona").innerText;
+			var numeroSonda = document.getElementById("firstHeading");
+			numeroSonda = numeroSonda.innerText.split(" ")[1];
+			console.log(numeroSonda);
+			//console.log(img);
+			var alt = img.alt;
+			//console.log(alt);
+			var tipo = alt.split(" ")[1];
+			//console.log(tipo);
+			var tituloSensor = document.getElementById("exampleModalLabel");
+			tituloSensor.innerHTML = "zona " + nombreZona.toUpperCase() + " - sonda nº " + numeroSonda + "<br />" + tipo.toUpperCase();
+			
+			var valoresSensor = [];
+			//var sondaNumero = sonda.innerHTML.split(" ")[1].split("<")[0];
+			var sondaNumero = document.getElementById("firstHeading").innerText.split(" ")[1];
+			//console.log(sondaNumero);
+			//creamos la url para hacer la petición a la api
+			var datosSensor = "http://localhost:4000/" + tipo + "?id=" + sondaNumero;
+			//Hacemos la petición
+			fetch(datosSensor).then(function (respuesta) {
+				//console.log(respuesta);
+				return respuesta.json();
+
+			}).then(function (objetoJson) {
+				for (i in objetoJson) {
+
+					valoresSensor.push(objetoJson[i][tipo]);
+					console.log(objetoJson[i]);
+				}
+
+				console.log(valoresSensor);
+				crearGrafica(valoresSensor, tipo);
+
+
+
+			});
+
+		}
+	</script>
+
+	<!-- API KEY = "AIzaSyATgQbmemny732LSpGML4fA4dGBxwAiX8I" -->
+	<script async="" defer="" src="./GTI _ Del campo a tu movil_files/js">
+	</script>
+	<!-- ******************* Bootstrap 4.0 -->
+	<script src="./GTI _ Del campo a tu movil_files/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+	<script src="./GTI _ Del campo a tu movil_files/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+
+</body></html>

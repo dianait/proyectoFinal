@@ -1,0 +1,302 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat";
+}
+
+header {
+    background-color: #721952;
+    margin: 0;
+    height: 3.7rem;
+    border-bottom: 5px solid orange;
+}
+
+#iconosSensores img {
+    width:3.7rem; 
+    /*border-radius:20%;
+    border: 1px solid black; 
+    box-shadow: 4px 2px #888888; */
+    padding: 0.5rem;
+
+}
+
+div.alert-primary {
+    margin-top:3rem;
+}
+
+div.modal-footer button {
+    width:10rem;
+    font-size:.9rem;
+}
+
+#headerZona{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+}
+
+#bateria img{
+    width: 32px;
+}
+
+
+#iconosSensores li {
+     border-radius:10%;
+    border: 1px solid black; 
+    box-shadow: 4px 2px #888888; 
+}
+
+button {
+    margin:0;
+    padding:0;
+    border:none;
+    background-color:transparent;
+
+}
+#iconosSensores {
+    display:flex;
+    list-style:none;
+    justify-content: space-evenly;
+   
+}
+
+div#contentInfo {
+    width:19.5rem;
+}
+
+
+#logo {
+    background-color: #fff;
+    display: block;
+    width: 120px;
+    margin: 0 auto;
+    margin-top: -2.9rem;
+}
+
+#logoDos {
+    display: block;
+    width: 400px;
+    margin: 0 auto;
+    margin-top: -1rem;
+}
+
+#sesion {
+    background-color: #fff;
+    text-align: right;
+    padding: 0rem 1rem;
+}
+
+#sesion a {
+    text-decoration: none;
+    font-family: sans-serif;
+    color: black;
+    padding: 1rem;
+    font-size: 0.7rem;
+    cursor: hand;
+    padding-right: 0px;
+}
+
+#sesion a:hover {
+    font-weight: bold;
+}
+
+img#menu {
+    position: relative;
+    top: 0.1rem;
+    left: 0.5rem;
+}
+
+
+
+/********* fin CSS PARA HEADER Y FOOTER  ***************/
+
+/***************** PAGINA SENSORES ********************/
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+section#containerUser {
+    color: white;
+    height: 1.7rem;
+    padding: 0;
+    width: 15rem;
+    margin: 0 auto;
+}
+
+div#backgroundContainerUser {
+    background-color: #FDA41F;
+    margin-bottom: 1rem;
+}
+
+section#userName img {
+    width: 38px;
+    height: 38px;
+    margin-right: 0.7rem;
+    margin-top: -12px;
+
+}
+
+.nav {
+    display: flex;
+
+}
+section#zonas {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+div.zona {
+    height: 40px;
+    color: white;
+    text-align: center;
+}
+
+#editarZona, #eliminarZona,#guardarZona, #volver {
+    width: 32px;
+    margin: 0rem 0.5rem;
+    cursor: hand;
+    cursor: pointer;
+}
+
+
+#inputZona {
+
+ border-radius: 5px;
+ width:100px;
+
+
+}
+
+#zona_btn{
+
+    margin-left: 3rem;
+  
+
+}
+
+form#formularioZona {
+    display:flex;
+}
+
+form#formularioZona * {
+    margin-left:0.5rem;
+}
+
+form#formularioZona input#inputColor {
+    width: 4rem;
+    height: 2.2rem;
+}
+    
+
+  div.zona {
+    padding-bottom: 1.2rem;
+    width:70%;
+  }
+
+
+section.tituloZonas {
+    padding: 0.5rem;
+    margin: 0 auto;
+    width: 80%;
+    background-color: #721952;
+    color: white;
+    text-align: center;
+}
+
+#grafica {
+    width: 100%;
+    height: 400px;
+}
+
+#desplegable {
+    width:70%;
+}
+
+
+/* ventana de Información de SONDA */
+
+div#siteNotice {
+    background-color: #721952;
+    color:white;
+    
+}
+
+#firstHeading {
+    text-align:center;
+}
+
+ ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    /*width:50%;
+    margin: 0 auto;
+   */
+}
+
+
+div.modal-body ul li img {
+    width: 60px;
+    padding: 0.5rem;
+}
+
+/********* CSS DEL ARCHIVO STYLE.CSS footer ***************/
+
+footer {
+
+    padding: 0.9rem;
+    text-align: center;
+    background-color: #721952;
+    height: 3rem;
+    color: #fff;
+}
+
+div.badge-info {
+    width:60px;
+    padding:0.5px;
+    border-radius:0% 0% 11% 11%; 
+   
+}
+
+div.badge-info p {
+    text-align:center;
+    /* padding-top:10px; */
+}
+
+/********* fin CSS DEL ARCHIVO STYLE.CSS ***************/
+
+.modal-dialog:not(#deleteModal){
+    width: 98%;
+    height: 92%;
+    padding: 0;
+  }
+  
+  .modal-content:not(#deleteModalContent){
+    height: 99%;
+  }
+   
+  h5 {
+      text-align:center;
+  }
+
+
+  .colorTemperatura {
+      background-color:rgb(250,88,88) !important;
+  }
+  .colorHumedad {
+    background-color:rgb(88,172,250) !important;
+  }
+  .colorSalinidad {
+    background-color:rgb(95,76,11)!important;
+  }
+  .colorIluminacion {
+    background-color:#FF8000 !important;
+  }

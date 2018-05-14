@@ -1,0 +1,578 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat";
+}
+
+
+
+.modal-header {
+    background-color:#721952;
+    color: white; 
+    padding: 1.3rem !important;
+  
+}
+
+body > nav > div.navbar-header.d-flex.col {
+    height: 3.5rem;
+}
+#iconosSensores img, #iconosSensoresUtimaMedicion img {
+    width:2.7rem; 
+    /*border-radius:20%;
+    border: 1px solid black; 
+    box-shadow: 4px 2px #888888; */
+    padding: 0.5rem;
+
+}
+
+
+.activo {
+    background:lightgrey;
+    border-radius:10%;
+}
+
+div.alert-primary {
+    margin-top:3rem;
+}
+
+div.modal-footer button {
+    width:10rem;
+    font-size:.9rem;
+}
+
+#headerZona{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+}
+
+#bateria img{
+    width: 32px;
+}
+
+div.contenedorAlerta{
+     height: 1rem;
+}
+
+#iconosSensores li, #iconosSensoresUtimaMedicion button {
+     border-radius:10%;
+    border: 1px solid black; 
+    box-shadow: 4px 2px #888888; 
+}
+
+button {
+    margin:0;
+    padding:0;
+    border:none;
+    background-color:transparent;
+
+}
+#iconosSensores, #iconosSensoresUtimaMedicion {
+    display:flex;
+    list-style:none;
+    justify-content: space-evenly;
+   
+}
+
+div#contentInfo {
+    width:19.5rem;
+}
+
+
+#logo {
+    background-color: #fff;
+    display: block;
+    width: 120px;
+    margin: 0 auto;
+    margin-top: -2.9rem;
+}
+
+#logoDos {
+    display: block;
+    width: 400px;
+    margin: 0 auto;
+    margin-top: -1rem;
+}
+
+#sesion {
+    background-color: #fff;
+    text-align: right;
+    padding: 0rem 1rem;
+}
+
+#sesion a {
+    text-decoration: none;
+    font-family: sans-serif;
+    color: black;
+    padding: 1rem;
+    font-size: 0.7rem;
+    cursor: hand;
+    padding-right: 0px;
+}
+
+#sesion a:hover {
+    font-weight: bold;
+}
+
+img#menu {
+    position: relative;
+    top: 0.1rem;
+    left: 0.5rem;
+}
+
+
+
+
+/********* fin CSS PARA HEADER Y FOOTER  ***************/
+
+/***************** PAGINA SENSORES ********************/
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+section#containerUser {
+    color: white;
+    height: 1.7rem;
+    padding: 0;
+    width: 15rem;
+    margin: 0 auto;
+}
+
+div#backgroundContainerUser {
+    background-color: #FDA41F;
+    margin-bottom: 1rem;
+}
+
+section#userName img {
+    width: 38px;
+    height: 38px;
+    margin-right: 0.7rem;
+    margin-top: -12px;
+
+}
+
+#nombreZona {
+    color:white;
+}
+
+.nav {
+    display: flex;
+
+}
+section#zonas {
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgb(129, 0, 81, .3);
+
+
+}
+
+
+
+#irSeleccionarZona {
+    background: #810051;
+    border: none;
+    width: 80px;
+};
+
+div.zona {
+    height: 40px;
+    color: white;
+    text-align: center;
+}
+
+#editarZona, #eliminarZona,#guardarZona, #volver {
+    width: 32px;
+    margin: 0rem 0.5rem;
+    cursor: hand;
+    cursor: pointer;
+}
+
+#inputZona {
+
+ border-radius: 5px;
+ width:150px;
+
+
+}
+
+#zona_btn{
+
+    margin-left: 3rem;
+    padding: 0.5rem;
+  
+
+}
+
+form#formularioZona {
+    display:flex;
+}
+
+form#formularioZona * {
+    margin-left:0.5rem;
+}
+
+form#formularioZona input#inputColor {
+    width: 4rem;
+    height: 2.2rem;
+}
+    
+
+  div.zona {
+    padding-bottom: 1.2rem;
+    width:70%;
+  }
+
+
+section.tituloZonas {
+    padding: 0.5rem;
+    margin: 0 auto;
+    width: 80%;
+    background-color: #721952;
+    color: white;
+    text-align: center;
+}
+
+#grafica {
+    width: 100%;
+    height: 400px;
+}
+
+#desplegable {
+    width:70%;
+
+}
+
+
+/* ventana de Información de SONDA */
+
+div#siteNotice {
+    background-color: #721952;
+    color:white;
+    
+}
+
+#firstHeading {
+    text-align:center;
+}
+
+ ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    /*width:50%;
+    margin: 0 auto;
+   */
+}
+
+
+div.modal-body ul li img {
+    width: 60px;
+    padding: 0.5rem;
+}
+
+/********* CSS DEL ARCHIVO STYLE.CSS footer ***************/
+
+footer {
+
+    padding: 0.9rem;
+    text-align: center;
+    background-color: #721952;
+    height: 3rem;
+    color: #fff;
+}
+
+div.badge-info {
+    background-color: none !important;
+    width:60px;
+    padding:0.5px;
+    border-radius:0% 0% 11% 11%; 
+   
+}
+
+div.badge-info * {
+    height:.7rem;
+    border-top:1px solid white;
+    
+}
+
+div.badge-info div:last-child {
+    border-radius: 0% 0% 30% 30%;
+}
+/* QUITAR OPACIDAD AL MAPA ==> NO HAY ZONA SELECCIONADA */
+
+#deshabilitar {
+    z-index:1;
+    position: absolute;
+    top:7.9rem; 
+    left:0;
+    width:100%;
+    height:650px;
+    opacity:0.7;
+    background:black;
+}
+
+
+.aviso {
+    z-index: 2;
+    color:lightgrey;
+    font-size: 18px;
+    border-top: 3px solid white;
+    border-bottom: 3px solid white;
+    width:384px;
+    margin:15% auto;
+    padding:0.8rem 0;
+}
+
+#mapa {
+    width:100%;
+    height:650px;
+   opacity:0.6;
+  
+}
+
+/* fin QUITAR OPACIDAD AL MAPA ==> NO HAY ZONA SELECCIONADA */
+
+
+/********* fin CSS DEL ARCHIVO STYLE.CSS ***************/
+
+.modal-dialog:not(#deleteModal){
+    width: 98%;
+    height: 92%;
+    padding: 0;
+  }
+  
+
+  h5 {
+      text-align:center;
+  }
+
+
+  .colorTemperatura {
+      background-color:rgb(250,88,88) !important;
+  }
+  .colorHumedad {
+    background-color:rgb(88,172,250) !important;
+  }
+  .colorSalinidad {
+    background-color:rgb(95,76,11)!important;
+  }
+  .colorIluminacion {
+    background-color:#FF8000 !important;
+  }
+
+  body{
+    background: #eeeeee;
+}
+.form-inline {
+    display: inline-block;
+}
+.navbar-header.col {
+    padding: 0 !important;
+}	
+.navbar {		
+     background: #fff; 
+    padding-left: 16px;
+    padding-right: 16px;
+    border-bottom: 1px solid #d6d6d6;
+    box-shadow: 0 0 4px rgba(0,0,0,.1);
+}
+.nav-link img {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    margin: -8px 0;
+    float: left;
+    margin-right: 10px;
+
+}
+.navbar .navbar-brand {
+    color: #555;
+    padding-left: 0;
+    padding-right: 50px;
+    font-family: 'Merienda One', sans-serif;
+}
+.navbar .navbar-brand i {
+    font-size: 20px;
+    margin-right: 5px;
+   
+}
+.search-box {
+    position: relative;
+}	
+
+.nav-link {
+   /*  color:white !important; */
+}
+
+.avatar {
+    /* background-color:white; */ 
+}
+.search-box input {
+    box-shadow: none;
+    padding-right: 35px;
+    border-radius: 3px !important;
+}
+.search-box .input-group-addon {
+    min-width: 35px;
+    border: none;
+    background: transparent;
+    position: absolute;
+    right: 0;
+    z-index: 9;
+    padding: 7px;
+    height: 100%;
+}
+.search-box i {
+    color: #a0a5b1;
+    font-size: 19px;
+}
+.navbar .nav-item i {
+    font-size: 18px;
+}
+.navbar .dropdown-item i {
+    font-size: 16px;
+    min-width: 22px;
+
+}
+.navbar .nav-item.open > a {
+    background: none !important;
+}
+.navbar .dropdown-menu {
+    border-radius: 1px;
+    border-color: #e5e5e5;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  
+}
+.navbar .dropdown-menu li a {
+    color: #777;
+    padding: 8px 20px;
+    line-height: normal;
+}
+.navbar .dropdown-menu li a:hover, .navbar .dropdown-menu li a:active {
+    color: #333;
+}	
+.navbar .dropdown-item .material-icons {
+    font-size: 21px;
+    line-height: 16px;
+    vertical-align: middle;
+    margin-top: -2px;
+}
+.navbar .badge {
+    background: #f44336;
+    font-size: 11px;
+    border-radius: 20px;
+    position: absolute;
+    min-width: 10px;
+    padding: 4px 6px 0;
+    min-height: 18px;
+    top: 5px;
+}
+.navbar ul.nav li a.notifications, .navbar ul.nav li a.messages {
+    position: relative;
+    margin-right: 10px;
+}
+.navbar ul.nav li a.messages {
+    margin-right: 20px;
+}
+.navbar a.notifications .badge {
+    margin-left: -8px;
+}
+.navbar a.messages .badge {
+    margin-left: -4px;
+}	
+.navbar .active a, .navbar .active a:hover, .navbar .active a:focus {
+    background: transparent !important;
+}
+
+.ml-auto, .mx-auto {
+margin-left: 0 !important;
+}
+#iconoAlertas {
+    margin-left: auto!important;
+}
+
+.dropdown-item {
+    text-align: auto !important;
+}
+
+#listaAlertas {
+    width: 100%;
+/* margin-left: -20px; */
+}
+
+#listaAlertas li a {
+    font-size:14px;
+
+}
+
+.contenedorAlerta i{
+    color: green;
+    font-size:1.5rem;
+    margin-left:1.4rem;
+    margin-top:-1.2rem
+} 
+
+    #listaAlertas li {
+        border-bottom:1px solid #f0f0f0;
+        height:3.8rem;
+        display:flex;
+    }
+
+
+
+#listaAlertas li a i, #listaAlertas li i {
+    float:right;
+    font-size: 2rem;
+    color: #7F7F7F;
+    margin: .3rem;
+    
+
+}
+
+.modal-dialog {
+    width: 98%;
+    height: 92%;
+    padding: 0;
+  }
+  
+  .modal-content {
+    height: 99%;
+  }
+
+#iconoAlertas {
+color: #7F7F7F;
+}
+
+#iconoAlertas span {
+    color:white;
+}
+
+@media (min-width: 1200px){
+    .form-inline .input-group {
+        width: 300px;
+        margin-left: 30px;
+    }
+}
+@media (max-width: 1199px){
+
+    .navbar-expand-xl .navbar-collapse {
+        flex-basis: none !important;
+    }
+    .form-inline {
+        display: block;
+        margin-bottom: 10px;
+    }
+    .input-group {
+        width: 100%;
+    }
+}
+
+
+  

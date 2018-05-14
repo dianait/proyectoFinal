@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+	<title>GTI | Del campo a tu movil</title>
+	<link rel="shortcut icon" href="./images/favicon.ico">
+	<!-- ******************* POR DEFECTO ANCHO = ANCHO DISPOSITIVO, SIN ZOOM -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- ******************* COMPATIBILIDAD CON Internet Explorer/EDGE -->
+	<meta http-equiv="x-ua-compatible" content="ie-edge">
+	<!-- ******************* Bootstrap 4.0 -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="./css/profile.css">
+    <link rel="stylesheet" href="./css/style.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    
+
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-expand-xl  fixed-top navbar-light">
+        <div class="navbar-header d-flex col">
+			<a href="index.html"><img width="150px" src="./images/logoGTI.svg" class="avatar" alt="Avatar">	</a>
+			
+			
+			<a href="#" style="color:#7F7F7F;visibility:hidden;" id="iconoAlertas" data-toggle="dropdown" class="nav-link dropdown-toggle user-action nav-link notifications ml-auto" ><i class="fa fa-bell-o fa-2x"></i><span id="numAlertas" class="badge"></span></a>
+                    <ul id="listaAlertas" class="dropdown-menu">					
+                   
+                    </ul>
+            <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle navbar-toggler">
+                <span class="navbar-toggler-icon"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <!-- Collection of nav links, forms, and other content for toggling -->
+        <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
+            <ul class="nav navbar-nav">
+                <li class="nav-item"><a href="/" class="nav-link"><i class="fa fa-home"></i>&nbsp;Inicio</a></li>
+                <li class="nav-item">
+					<a class="nav-link " href="/mapa" class="nav-link"><i class="fa fa-map"></i>&nbsp;Mapa</a>
+                </li>
+    
+    
+				<li class="nav-item"><a href="/zonas.html?email=" + getCookie("email") + "'" class="nav-link"><i class="fa fa-table"></i>&nbsp;Zonas</a></li>
+				<li class="nav-item"><a href="usuarios.html" class="nav-link"><i class="fa fa-table"></i>&nbsp;Usuarios</a></li>
+            </ul>
+    
+            <ul class="nav navbar-nav navbar-right ml-auto nav-item dropdown">
+                <li class="nav-item">
+                  </li>
+            
+                <li class="nav-item dropdown">
+                    <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"><img src="./images/team/matt.jpg" class="avatar" alt="Avatar"> Matthew Conde </a>
+                    <ul class="dropdown-menu">
+                            <li><a href="/perfil" class="dropdown-item"><i class="fa fa-user-o"></i>Perfil</a></li>
+        
+                        <li class="divider dropdown-divider"></li>
+                        <li><a href="/" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Cerrar Sesión</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <section id="datos">
+        <div class="imagenPerfil" style="display:flex;justify-content: center;padding:1rem;border-top:5px solid #721952;border-bottom:5px solid #721952;">
+              <!--   <img width="40px" height="80px" src="./images/farmer.svg" alt="AVATAR" id="avatar"> -->
+                <img width="40px" height=80px" style="border-radius: 50%;border:1px solid white;" src="./images/matt.jpg" alt="AVATAR" id="avatar">
+                <h3 style="padding-left:2rem;margin-top:1.4rem;" id="userName">
+                        
+                    </h3>
+        </div>
+      <br />
+        <form id="formulario">
+            </div>
+            <div class="casilla">
+                    <img src="./images/id-card.svg" alt="DNI">
+                    <input type="text" name="DNI" value="" id="nombreUser" placeholder="Nombre" class="formulario" />
+                </div>
+    
+                <div class="casilla">
+                    <img src="./images/smartphone.svg" alt="teléfono">
+                    <input type="text" name="telefono" value="" id="apellidoUser" placeholder="Apellido" class="formulario" />
+                </div>
+            <div class="casilla">
+                <img src="./images/mail.svg" alt="e-mail" />
+                <input type="text" name="email" id="emailUser" value="" placeholder="EMAIL" class="formulario" />
+            </div>
+
+            <div class="casilla">
+                <img src="./images/key.svg" alt="contraseña">
+                <input type="password" name="password" id="passwordUser" value="" placeholder="Contraseña" class="formulario" />
+            </div>
+            <div class="casilla">
+                    <img src="./images/id-card.svg" alt="rol">
+                    <input type="text" name="rol" id="rolUser" value="" placeholder="rol" class="formulario" />
+                </div>
+           
+    
+
+      
+          
+           
+        </form>
+        <div style="display:flex;justify-content: center;">
+
+                <button style="background-color:#721952;border:none;" "role="boton" class="btn btn-primary">Guardar Cambios</button>
+                
+        </div>
+    </section>
+   
+    <footer style="margin-top: 2rem;">
+        <img class="logo" src="./images/logoGTI.svg" />
+    
+        <div class="rrss responsive">
+                <a href=""><i class="fa fa-twitter-square"></i></a>
+                <a href=""><i class="fa fa-instagram"></i></a>
+                <a href=""><i class="fa fa-facebook-square"></i></a>
+            </div>
+    
+        <div class="sitemap desktop">
+        <a href="index.html"><i class="fa fa-home"></i>&nbsp;Inicio</a>
+        <a href="services.html"><i class="fa fa-suitcase"></i>&nbsp;Servicios</a>
+        <a href="faq.html"><i class="fa fa-question"></i>&nbsp;FAQ</a>
+        <a href="team.html"><i class="fa fa-users"></i>&nbsp;Nosotros</a>
+        <a href="contact.html"><i class="fa fa-envelope"></i>&nbsp;Contacto</a>
+    </div>
+    </footer>
+      <!-- Hacemos referencia a nuestro archivo usuario.js con las funciones para esta pagina -->
+      <script type="application/javascript" src="./js/profile.js"></script>
+<!-- ******************* Bootstrap 4.0 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+    crossorigin="anonymous"></script>
+          
+</body>
+
+</html>

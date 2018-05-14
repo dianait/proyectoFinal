@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width-device-width, initial-scale=1, shrink-to-fit-no">
+    <title>Contacto</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0 auto;
+            padding: 0 auto;
+
+        }
+
+        header {
+            background-color: #721952;
+            margin: 0;
+            height: 9.5rem;
+
+        }
+
+        #logo {
+            background-color: #fff;
+            display: block;
+            width: 200px;
+            margin: 0 auto;
+            margin-top: -2rem;
+        }
+
+        #sesion {
+            background-color: #fff;
+            text-align: right;
+            width: 100%;
+            padding: 0.2rem 1rem;
+        }
+
+        #sesion a {
+            text-decoration: none;
+            font-family: sans-serif;
+            color: black;
+        }
+
+        img#menu {
+            position: relative;
+            top: 1rem;
+            left: 1rem;
+        }
+
+        section form {
+            max-width: 50%;
+            padding: 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            flex-direction: column;
+        }
+
+        form div {
+            margin-top: 2em;
+        }
+
+        input,
+        textarea {
+            font: 1em sans-serif;
+            width: 100%;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            border: 1px solid #999;
+        }
+
+        inputfocus,
+        textareafocus {
+            border-color: #000;
+        }
+
+        .button button {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex: 0 1 100px;
+            color: red;
+            cursor: pointer;
+            text-decoration: none;
+            background-color: #4c4cfa;
+            color: white;
+            border-radius: 20px;
+            background-size: 1rem;
+            margin: 0 auto;
+            padding: .5rem 2rem;
+            font-size: 12px
+        }
+
+        .button button:hover {
+            background-color: #721952;
+        }
+
+        button {
+            color: white;
+        }
+
+        .campos {
+            color: crimson;
+        }
+
+        .gti {
+            background-color: #721952;
+            flex-grow: 1;
+            flex-shrink: 0;
+            flex-basis: 100px;
+            justify-content: center;
+            align-content: center;
+            color: white;
+        }
+
+        .nombre {
+            width: 100%;
+            flex-grow: 1;
+            flex-shrink: 0;
+            flex-basis: 100px;
+        }
+
+        .correo {
+            width: 100%;
+            flex-grow: 1;
+            flex-shrink: 0;
+            flex-basis: 100px;
+        }
+
+        .motivo {
+            width: 100%;
+            flex-grow: 1;
+            flex-shrink: 0;
+            flex-basis: 100px;
+        }
+
+        .otro {
+            width: 100%;
+            flex-grow: 1;
+            flex-shrink: 0;
+            flex-basis: 100px;
+        }
+
+        .consulta {
+            width: 100%;
+            flex-grow: 1;
+            flex-shrink: 0;
+            flex-basis: 100px;
+        }
+
+        .logogti {
+            flex-grow: 1;
+            flex-shrink: 0;
+            flex-basis: 100px;
+            display: flex;
+        }
+
+        .texto-identificador {
+            color: aliceblue;
+            border: none;
+            margin: 8px auto;
+            padding: 0.3rem;
+            border-radius: 5px;
+            background-color: rgba(114, 25, 82, 0.8);
+            font-weight: bold;
+        }
+        
+        .return:hover{
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header class="encabezado" role="banner">
+        <a href="#">
+                <img src="images/menu.svg" alt="barra_navegación" id="menu">
+            </a>
+        <div id="logoysesion">
+            <a href="/">
+                <img src="images/logoGTI.svg" alt="logo" id="logo"></a>
+            <div id="sesion">
+                <a href="/" class="return">VOLVER</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="Datos">
+
+        <form>
+
+            <div class="nombre" id="Nombre">
+                <!-- Nombre -->
+                <p class="texto-identificador">Nombre:</p>
+                <input id="Nombre" type="text" placeholder="Nombre" name="Nombre" required>
+            </div>
+
+            <div class="correo" id="Correo">
+                <!-- Correo Electronico*<br> -->
+                <p class="texto-identificador">Email:</p>
+                <input id="E-mail" type="text" placeholder="Introduzca su correo" name="E-mail" required>
+            </div>
+
+            <div class="motivo" id="Motivo">
+                <!-- Seleccione un motivo*<br> -->
+                <p class="texto-identificador">Motivo por el cual se quiere poner en contacto con el servicio tecnico:</p>
+                <input type="text" placeholder="Seleccione uno..." list="Incidencias" required>
+                <datalist id="Incidencias">
+            <option value="Asistencia Tecnica">
+            <option value="Obtener información">
+            <option value="Otro">    
+            </datalist>
+            </div>
+
+            <div class="otro" id="otro">
+                <!-- Especifique su motivo* (Solo si es Otro)<br> -->
+                <p class="texto-identificador">Otros motivos:</p>
+
+                <input id="Otro" type="text" placeholder="Especifiquenos su motivo si es Otro" name="Otro" required>
+            </div>
+
+            <div class="consulta" id="consulta">
+                <!-- Escriba su consulta*<br> -->
+                <p class="texto-identificador">Consulta:</p>
+                <textarea name="comentarios" placeholder="Escribanos su consulta" rows="10" cols="40"></textarea>
+            </div>
+            <div class="button" id="enviar">
+                <button>ENVIAR</button>
+            </div>
+
+            <div class="campos">
+                <p>Campos Obligatorios*</p>
+            </div>
+        </form>
+    </section>
+
+
+    <footer>
+        <div class="logogti">
+            <img src="images/logoGTI.svg" alt="logo.svg">
+        </div>
+        <div class="SA" id="S.A">
+            <p class="gti">GTI S.A © 2018. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

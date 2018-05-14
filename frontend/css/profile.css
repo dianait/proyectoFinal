@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat";
+}
+
+
+.texto-encabezado::after {
+    content: "";
+    background-image: url("../images/bg-encabezado.jpg");
+    opacity: 0.4;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-size: cover;
+    max-height: 400px;
+}
+
+section#datos {
+    width: 80%;
+    margin:0 auto;
+    margin-top:7rem;
+
+}
+
+section#datos img:not(#avatar) {
+    vertical-align: initial !important;
+    /*
+    
+    Sets this property to its default value. Read about initial ==> https://www.w3schools.com/cssref/css_initial.asp
+    fuente: https://www.w3schools.com/cssref/pr_pos_vertical-align.asp 
+    
+    */
+}
+
+#avatar {
+    width:5rem;
+
+}
+
+.casilla {
+    width: 370px;
+    display:flex;
+}
+
+.casilla img {
+    padding: 0 !important;
+    margin-top: -3.3rem;
+}
+
+
+.casilla img {
+    margin-right: 1.5rem;
+    width: 30px;
+}
+
+#contenedor {
+    margin-top: 1rem;
+}
+
+.casilla input {
+    height: 44px;
+    font-size: 16px;
+    width: 100%;
+    border-radius:5% 5% 5% 5%;
+    margin-bottom: 10px;
+    -webkit-appearance: none;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    border-top: 1px solid silver;
+    padding: 0 8px;
+    box-sizing: border-box;
+}
+
+section#datos #boton {
+    font-size: 15px;
+    padding: 0.5rem;
+}
+
+#sesion {
+    background-color: #fff;
+    text-align: right;
+
+    padding: 0.2rem 1rem;
+}
+
+
+#sesion a {
+    text-decoration: none;
+    font-family: sans-serif;
+    color: black;
+}
+
+
+#formulario {
+    padding-top:2.8rem;
+    align-items: center;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+}
+
+#formulario:focus {
+    border: 2.5px solid #740070;
+}
+
+#boton {
+    text-decoration: none;
+    align-self: center;
+}
+
+#boton div {
+    color: white;
+    font-weight: bold;
+    width: 9rem;
+    height: 2rem;
+    text-align: center;
+    padding: 0.4rem;
+    background-color: #ad1fa9;
+    border-radius: 5px;
+    border-bottom: 5px solid #8b0090;
+    margin-left: 2rem;
+}
+
+#boton div:hover {
+    background-color: #8b0090;
+}
+
+#boton div:active {
+    background-color: #da6dde;
+    border-bottom: 5px solid #da6dde;
+    transition: 0.5s;
+}
+
+.form-inline {
+    display: inline-block;
+}
+.navbar-header.col {
+    padding: 0 !important;
+}	
+.navbar {		
+     background: #fff; 
+     position:absolute;
+     top: 0;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-bottom: 1px solid #d6d6d6;
+    box-shadow: 0 0 4px rgba(0,0,0,.1);
+}
+.nav-link img {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    margin: -8px 0;
+    float: left;
+    margin-right: 10px;
+
+}
+.navbar .navbar-brand {
+    color: #555;
+    padding-left: 0;
+    padding-right: 50px;
+    font-family: 'Merienda One', sans-serif;
+}
+.navbar .navbar-brand i {
+    font-size: 20px;
+    margin-right: 5px;
+   
+}
+
+.navbar .nav-item i {
+    font-size: 18px;
+}
+.navbar .dropdown-item i {
+    font-size: 16px;
+    min-width: 22px;
+
+}
+.navbar .nav-item.open > a {
+    background: none !important;
+}
+.navbar .dropdown-menu {
+    border-radius: 1px;
+    border-color: #e5e5e5;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  
+}
+.navbar .dropdown-menu li a {
+    color: #777;
+    padding: 8px 20px;
+    line-height: normal;
+}
+.navbar .dropdown-menu li a:hover, .navbar .dropdown-menu li a:active {
+    color: #333;
+}	
+.navbar .dropdown-item .material-icons {
+    font-size: 21px;
+    line-height: 16px;
+    vertical-align: middle;
+    margin-top: -2px;
+}
+.navbar .badge {
+    background: #f44336;
+    font-size: 11px;
+    border-radius: 20px;
+    position: absolute;
+    min-width: 10px;
+    padding: 4px 6px 0;
+    min-height: 18px;
+    top: 5px;
+}
+.navbar ul.nav li a.notifications, .navbar ul.nav li a.messages {
+    position: relative;
+    margin-right: 10px;
+}
+.navbar ul.nav li a.messages {
+    margin-right: 20px;
+}
+.navbar a.notifications .badge {
+    margin-left: -8px;
+}
+.navbar a.messages .badge {
+    margin-left: -4px;
+}	
+.navbar .active a, .navbar .active a:hover, .navbar .active a:focus {
+    background: transparent !important;
+}
+
+.ml-auto, .mx-auto {
+margin-left: 0 !important;
+}
+#iconoAlertas {
+    margin-left: auto!important;
+}
+
+.dropdown-item {
+    text-align: auto !important;
+}
+
+@media (min-width: 1200px){
+    .form-inline .input-group {
+        width: 300px;
+        margin-left: 30px;
+    }
+}
+@media (max-width: 1199px){
+
+    .navbar-expand-xl .navbar-collapse {
+        flex-basis: none !important;
+    }
+    .form-inline {
+        display: block;
+        margin-bottom: 10px;
+    }
+    .input-group {
+        width: 100%;
+    }
+}

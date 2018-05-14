@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GTI | Del campo a tu movil</title>
+<link rel="shortcut icon" href="./images/favicon.ico">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="./css/crud.css">
+<style type="text/css">
+	body{
+		background: #eeeeee;
+	}
+    .form-inline {
+        display: inline-block;
+    }
+	.navbar-header.col {
+		padding: 0 !important;
+	}	
+	.navbar {		
+		 background: #fff; 
+		padding-left: 16px;
+		padding-right: 16px;
+		border-bottom: 1px solid #d6d6d6;
+		box-shadow: 0 0 4px rgba(0,0,0,.1);
+	}
+	.nav-link img {
+		border-radius: 50%;
+		width: 36px;
+		height: 36px;
+		margin: -8px 0;
+		float: left;
+        margin-right: 10px;
+
+	}
+	.navbar .navbar-brand {
+		color: #555;
+		padding-left: 0;
+		padding-right: 50px;
+		font-family: 'Merienda One', sans-serif;
+	}
+	.navbar .navbar-brand i {
+		font-size: 20px;
+        margin-right: 5px;
+       
+	}
+	.search-box {
+        position: relative;
+    }	
+
+ .nav-link {
+       /*  color:white !important; */
+    }
+
+    .avatar {
+        /* background-color:white; */ 
+    }
+    .search-box input {
+		box-shadow: none;
+        padding-right: 35px;
+        border-radius: 3px !important;
+    }
+	.search-box .input-group-addon {
+        min-width: 35px;
+        border: none;
+        background: transparent;
+        position: absolute;
+        right: 0;
+        z-index: 9;
+        padding: 7px;
+		height: 100%;
+    }
+    .search-box i {
+        color: #a0a5b1;
+		font-size: 19px;
+    }
+	.navbar .nav-item i {
+		font-size: 18px;
+	}
+	.navbar .dropdown-item i {
+		font-size: 16px;
+        min-width: 22px;
+   
+	}
+	.navbar .nav-item.open > a {
+		background: none !important;
+	}
+	.navbar .dropdown-menu {
+		border-radius: 1px;
+		border-color: #e5e5e5;
+        box-shadow: 0 2px 8px rgba(0,0,0,.05);
+      
+	}
+	.navbar .dropdown-menu li a {
+		color: #777;
+		padding: 8px 20px;
+		line-height: normal;
+	}
+	.navbar .dropdown-menu li a:hover, .navbar .dropdown-menu li a:active {
+		color: #333;
+	}	
+	.navbar .dropdown-item .material-icons {
+		font-size: 21px;
+		line-height: 16px;
+		vertical-align: middle;
+		margin-top: -2px;
+	}
+	.navbar .badge {
+		background: #f44336;
+		font-size: 11px;
+		border-radius: 20px;
+		position: absolute;
+		min-width: 10px;
+		padding: 4px 6px 0;
+		min-height: 18px;
+		top: 5px;
+	}
+	.navbar ul.nav li a.notifications, .navbar ul.nav li a.messages {
+		position: relative;
+		margin-right: 10px;
+	}
+	.navbar ul.nav li a.messages {
+		margin-right: 20px;
+	}
+	.navbar a.notifications .badge {
+		margin-left: -8px;
+	}
+	.navbar a.messages .badge {
+		margin-left: -4px;
+	}	
+	.navbar .active a, .navbar .active a:hover, .navbar .active a:focus {
+		background: transparent !important;
+	}
+
+	.ml-auto, .mx-auto {
+    margin-left: 0 !important;
+	}
+	#iconoAlertas {
+		margin-left: auto!important;
+	}
+
+	.dropdown-item {
+		text-align: center !important;
+	}
+
+	#listaAlertas {
+		width:100%;
+	}
+	@media (min-width: 1200px){
+		.form-inline .input-group {
+			width: 300px;
+			margin-left: 30px;
+		}
+	}
+	@media (max-width: 1199px){
+
+        .navbar-expand-xl .navbar-collapse {
+            flex-basis: none !important;
+        }
+		.form-inline {
+			display: block;
+			margin-bottom: 10px;
+		}
+		.input-group {
+			width: 100%;
+		}
+	}
+</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-default navbar-expand-xl navbar-light">
+        <div class="navbar-header d-flex col">
+			<img width="170px" src="./images/logoGTI.svg" class="avatar" alt="Avatar">	
+			
+            <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle navbar-toggler ml-auto">
+                <span class="navbar-toggler-icon"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <!-- Collection of nav links, forms, and other content for toggling -->
+        <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
+            <ul class="nav navbar-nav">
+                <li class="nav-item"><a href="/" class="nav-link"><i class="fa fa-home"></i>&nbsp;Inicio</a></li>
+				<li class="nav-item">
+                    <a class="nav-link " href="/mapa" class="nav-link"><i class="fa fa-map"></i>&nbsp;Mapa</a>
+                </li>
+             
+    
+				<li class="nav-item"><a href="/zonas.html?email=" + getCookie("email") + "'" class="nav-link"><i class="fa fa-table"></i>&nbsp;Zonas</a></li>
+				<li class="nav-item"><a href="usuarios.html" class="nav-link"><i class="fa fa-table"></i>&nbsp;Usuarios</a></li>
+            </ul>
+    
+            <ul class="nav navbar-nav navbar-right ml-auto nav-item dropdown">
+                <li class="nav-item">
+                  </li>
+            
+                <li class="nav-item dropdown">
+                    <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"><img src="./images/team/matt.jpg" class="avatar" alt="Avatar"> Matthew Conde </a>
+                    <ul class="dropdown-menu">
+                            <li><a href="/perfil" class="dropdown-item"><i class="fa fa-user-o"></i>Perfil</a></li>
+                        <li class="divider dropdown-divider"></li>
+                        <li><a href="/" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+         
+    <div class="container">
+        <div class="table-wrapper">
+            <div class="table-title">
+                 
+                <div class="row">
+                    <div class="col-sm-6">
+						<h2> Zonas</h2>
+                    </div>
+                    <div class="col-sm-6">
+                            <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Añadir Zona</span></a>
+                        					
+                        </div>
+				
+                </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+
+						<th>ID</th>
+                        <th>Nombre</th>
+                        <th>Color</th>
+						<th>Vértices</th>
+						<th>Opciones</th>
+                      
+                    </tr>
+                </thead>
+                <tbody id="tablaUsers">
+
+                  <!-- AQUÍ SE CARGARÁN LOS USUARIOS DESDE LA BASE DE DATOS -->
+
+                </tbody>
+            </table>
+      
+		    <div id="msg"></div>    
+	<!-- Modal Añadir Zona -->
+	<div id="addEmployeeModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Añadir Zona</h4>
+						<button id="modalAddUser" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<div class="form-group">
+							<label>Nombre</label>
+							<input type="text" id="nombreZona" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Color</label>
+							<input type="color"  id="colorZona" class="form-control" required>
+						</div>			
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+						<input  id="addUser" type="button" onclick="addZona(this)" class="btn btn-success" value="Añadir">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Modal Editar Zona -->
+	<div id="editEmployeeModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Editar Zona</h4>
+						<button id="cerrarEditarUser" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">					
+						<div class="form-group">
+							<label>Nombre</label>
+							<input type="text" id="nombreUserEDIT" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Color</label>
+							<input type="color" id="apellidoUserEDIT" class="form-control" required>
+						</div>
+							
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+						<input type="button" id="botonedit" onclick="editarUsuario(this)" class="btn btn-info" value="Guardar">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Modal Confirmación Borrar Usuario -->
+	<div id="deleteEmployeeModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">						
+						<h4 class="modal-title">Eliminar Zona</h4>
+						<button type="button" id="cerrarModal" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+                        <div id="infoUser"></div>					
+						<p id="confirmacionEliminar">¿Está seguro que quiere eliminar esta Zona?</p>
+						<p class="text-warning"><small>Esta acción no se puede deshacer.</small></p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+						<input id="botondelete" type="button" class="btn btn-danger" onclick="borrarUser(this);" value="Eliminar">
+					</div>
+				</form>
+			</div>
+		</div>
+    </div>
+
+    <!-- Hacemos referencia a nuestro archivo api.js con las llamadas al servidor -->
+    <script type="application/javascript" src="./js/api.js"></script>
+      <!-- Hacemos referencia a nuestro archivo usuario.js con las funciones para esta pagina -->
+    <script type="application/javascript" src="./js/zonas.js"></script>
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>   
