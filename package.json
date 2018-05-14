@@ -1,0 +1,23 @@
+{
+  "name": "sqlite3",
+  "version": "1.0.0",
+  "description": "sistema de visualización de datos ambientales en explotaciones agrarias",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon ./app.js"
+
+  },
+  "keywords": [
+    "smartagriculture",
+    "agricultura de precisión",
+    "visualización de datos"
+  ],
+  "author": "Grupo 8 GTI",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "nodemon": "^1.17.2",
+    "sqlite3": "^3.1.13"
+  },
+  "devDependencies": {}
+}
