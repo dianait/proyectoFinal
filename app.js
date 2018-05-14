@@ -72,7 +72,7 @@ function comprobar_login(peticion, respuesta, siguiente)
     }
 }
 
-// ejemplo de petición GET
+
 app.get('/login', (peticion, respuesta) => {
     base_datos.get('SELECT * FROM clientes WHERE email=? AND password=?',
         [ peticion.query.email, peticion.query.password ],
@@ -542,6 +542,32 @@ function getAlertas(peticion, respuesta) {
 		}
 	});
 };
+
+/*===================================================
+====================================================*/
+/*============== VERTICES ===========================
+====================================================*/
+
+app.post('/vertices', (peticion, respuesta) => {
+	var vertices = [];
+	 console.log(peticion.body);
+	console.log(peticion.body.vertices);
+	  
+	base_datos.run("DELETE FROM vertice WHERE ZONA=?", [peticion.body.zona], function (error){
+		if (error) {console.log("problema al borrar: " + error )};
+		console.log("Vertices eliminados correctamente");
+	});
+	  vertices = peticion.body.vertices;
+	  for (var i = 0; i< vertices.length; i++){
+		base_datos.run('INSERT INTO vertice (ZONA, ORDEN, LAT, LNG) VALUES(?,?,?,?)',[peticion.body.zona, (i + 1), vertices[i].lat, vertices[i].lng], (error) => {
+			if (error) {console.log("problema al guardar los vertices: " + error)}
+			console.log("vertices zona actualizados");
+		
+	
+		});
+	  };
+  
+});
 
 
 app.listen(app.get('port'), function () {

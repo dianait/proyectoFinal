@@ -99,40 +99,107 @@ function cargarZonas() {
 			opt.value = datosZona.zona;
 			opt.innerHTML = datosZona.nombre;
 			desplegable.appendChild(opt);
-
-
+			var path = new google.maps.MVCArray();
 			var limites = new google.maps.LatLngBounds();
 
 			datosZona.vertices.forEach(function (vertice) {
-				vertice.lat = parseFloat(vertice.lat);
-				vertice.lng = parseFloat(vertice.lng);
-
+				var ll = new google.maps.LatLng(parseFloat(vertice.lat), parseFloat (vertice.lng));
+				path.push(ll);
 				limites.extend(vertice);
 			});
 
+			
+	
 			var zona = {};
 			zona.color = datosZona.color;
 			zona.id = datosZona.zona;
 			zona.nombre = datosZona.nombre;
 
 			zona.poligono = new google.maps.Polygon({
-				paths: datosZona.vertices,
+				paths: path,
 				strokeColor: datosZona.color,
-				fillColor: datosZona.color
+				fillColor: datosZona.color,
+				geodesic: true
 			});
 
+			
+
 			zonas.push(zona);
+			
+
+			
 		});
 
 	});
 
+}
 
+var vertices = [];
+
+function updateCoords(path) {
+	vertices = [];
+	//console.log('Length: ' + google.maps.geometry.spherical.computeLength(path).toFixed(2));
+
+	path.forEach(function(element, index) {
+		var vertice = {};
+		vertice.lat = element.lat();
+		vertice.lng = element.lng();
+		vertices.push(vertice);
+		
+	
+	});	
+}
+
+function guardarVertices(id){
+	console.log(vertices);
+	fetch("http://localhost:4000/vertices", {
+	method: 'post',
+	headers: {
+        'Content-Type': 'application/json',
+    },
+	credentials: 'include',
+	
+	body: JSON.stringify({
+		zona: id,
+		vertices: vertices
+	})
+    
+  }).then(function(response) {
+	return response;
+  }).then(function(data) {
+    console.log("vertices actualizados");
+  });
+	
 }
 
 function editarZona(id) {
     id = id + 1;
 	zonas[id].poligono.setEditable(!zonas[id].poligono.getEditable());
+	zonas[id].poligono.getPath().addListener('insert_at', function(vertex) {
+		updateCoords(this);
+	});
 
+	zonas[id].poligono.getPath().addListener('set_at', function(vertex) {
+		updateCoords(this);
+	});
+	
+	zonas[id].poligono.getPath().addListener('remove_at', function(vertex) {
+		updateCoords(this);
+	});
+
+	google.maps.event.addListener(zonas[id].poligono, 'dragend', function(event) {
+		console.log('Drag');
+		console.log(event);
+	});
+
+	$('body').on('click', 'a', function(event) {
+		event.preventDefault();
+		if (zonas[id].poligono.getPath().getLength() > 2) {
+			zonas[id].poligono.getPath().removeAt($(this).data('id'));
+		}
+		return false;
+	});
+	 
 	//Incio => ESTO ES PARA LA VENTANA EMERGENTE QUE SALE AL PULSAR EL ICONO DE GUARDAR
 	var titleZonaAdd = document.getElementById("titleZonaAdd");
 	titleZonaAdd.style.color = "white";
@@ -142,7 +209,8 @@ function editarZona(id) {
 
 	var opciones = document.getElementById("opciones");
 	opciones.innerHTML =
-		`<img id="guardarZona" src="./images/savewhite.svg" alt="icono temperatura" data-toggle="modal" data-target="#addZona"/>`;
+	//data-toggle="modal" data-target="#addZona"
+		`<img id="guardarZona" src="./images/savewhite.svg" alt="icono guardar" onclick="guardarVertices(`+ zonas[id].id +`)"/>`;
 
 	var zona_btn = document.getElementById("formEditarZona");
 	zona_btn.innerHTML = `
@@ -156,6 +224,9 @@ function editarZona(id) {
 
 	//COLOCAMOS EL CURSOS AL FINAL DEL TEXTO EN EL INPUT DEL NOMBRE DE LA ZONA
 	cursoralFinal(document.getElementById("inputZona"), zonas[id].nombre);
+
+
+
 
 }
 
@@ -351,6 +422,7 @@ function seleccionarZona(elemento) {
 	fondoZonas.style.background = zonas[id].color;
 	zonasGet(email, function (datos) {
 		datos.forEach(function (datosZona) {
+
 			var limites = new google.maps.LatLngBounds();
 			datos[id].vertices.forEach(function (vertice) {
 				vertice.lat = parseFloat(vertice.lat);
@@ -364,6 +436,7 @@ function seleccionarZona(elemento) {
 			}
 
 		});
+		
 	});
 
 }

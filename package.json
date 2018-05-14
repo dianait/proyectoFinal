@@ -5,7 +5,6 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon ./app.js"
-
   },
   "keywords": [
     "smartagriculture",
@@ -15,6 +14,7 @@
   "author": "Grupo 8 GTI",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
     "nodemon": "^1.17.2",
     "sqlite3": "^3.1.13"
