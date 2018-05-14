@@ -112,7 +112,7 @@ app.get("/sensores", [comprobar_login, pedirSensores]);
 y no tengo que pasar por la página de perfil para confirmar sus datos porque ya lo ha hecho la primera vez que inició sesión */
 
 function pedirSensores(req, res) {
-	console.log(req.query.email);
+
 	var querySensores = "SELECT sondas.* FROM sondantes INNER JOIN sondas ON sondas.ID_SONDA = sondantes.SONDA WHERE CLIENTE = (SELECT ID FROM clientes WHERE email=?)";
 	function pedirSensores2(err, row) {
 		if (err) {
@@ -164,7 +164,7 @@ de momento la consulta es sobre clientes porque todavía no está la última ver
 app.get("/zonas", [comprobar_login, pedirZonas]);
 
 function pedirZonas(req, res) {
-	console.log(req.cookies);
+
 	//consulta para recoger las zonas que tiene el cliente
 	var queryZonas = "SELECT ZONA FROM sondas_zonas LEFT JOIN clientes WHERE email=? GROUP BY ZONA;";
 	//función que utiliza el resultado de la consulta anterior (numero de cada ZONA) para sacar los vertices de cada ZONA

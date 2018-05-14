@@ -134,21 +134,46 @@ function cargarZonas() {
 
 }
 
-var vertices = [];
+//-----------------------------------------------------------------------------------
+//Función que cada vez que arrastras un vertice o creas otro lo añade al array vertices
+// fuente ==> https://duncan99.wordpress.com/2015/10/16/google-maps-editable-polylines/
+//-----------------------------------------------------------------------------------
 
+// --> path: google.maps.MVCArray<google.maps.LatLng>
+//f()
+// 
+
+//-----------------------------------------------------------------------------------
+
+var vertices = [];
 function updateCoords(path) {
 	vertices = [];
-	//console.log('Length: ' + google.maps.geometry.spherical.computeLength(path).toFixed(2));
-
-	path.forEach(function(element, index) {
+	path.forEach(function(element) {
 		var vertice = {};
 		vertice.lat = element.lat();
 		vertice.lng = element.lng();
 		vertices.push(vertice);
-		
-	
 	});	
+	
 }
+
+//-----------------------------------------------------------------------------------
+//Función a partir del array creado en updateCoords actualiza la base de datos
+//-----------------------------------------------------------------------------------
+
+// --> id: Z id de la zona a actualizar
+// --> vertices: array de vertices rellenado en la función updateCoords  !!!!! DEBERÍA SER UN PARÁMETRO DE LA FUNCIÓN
+// VERTICES no se le pasa como paremetro se crea de manera global, porque me daba problemas y no insertaba bien los datos
+//	
+//  body: JSON.stringify({
+//	zona: id,
+//	vertices: --> vertices <--
+//  })
+//
+//f()
+// 
+
+//-----------------------------------------------------------------------------------
 
 function guardarVertices(id){
 	console.log(vertices);
@@ -156,13 +181,19 @@ function guardarVertices(id){
 	method: 'post',
 	headers: {
         'Content-Type': 'application/json',
-    },
+	}, 
+	/* NO FUNCIONABA HASTA PONER ESTO DE ARRIBA
+	fuente ==> https://es.stackoverflow.com/questions/55250/problema-al-recibir-el-body-en-nodejs-desde-javascript/55263#55263
+	*/
 	credentials: 'include',
 	
 	body: JSON.stringify({
 		zona: id,
 		vertices: vertices
 	})
+	/* 
+	HAY QUE PASARLE LOS DATOS SIEMPRE CON JSON.strigify SI NO TAMPOCO FUNCIONA
+	*/
     
   }).then(function(response) {
 	return response;
@@ -175,6 +206,9 @@ function guardarVertices(id){
 function editarZona(id) {
     id = id + 1;
 	zonas[id].poligono.setEditable(!zonas[id].poligono.getEditable());
+
+// fuente ==> https://duncan99.wordpress.com/2015/10/16/google-maps-editable-polylines/
+
 	zonas[id].poligono.getPath().addListener('insert_at', function(vertex) {
 		updateCoords(this);
 	});
@@ -199,6 +233,8 @@ function editarZona(id) {
 		}
 		return false;
 	});
+
+// fuente ==> https://duncan99.wordpress.com/2015/10/16/google-maps-editable-polylines/
 	 
 	//Incio => ESTO ES PARA LA VENTANA EMERGENTE QUE SALE AL PULSAR EL ICONO DE GUARDAR
 	var titleZonaAdd = document.getElementById("titleZonaAdd");
