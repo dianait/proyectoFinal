@@ -412,25 +412,27 @@ function getUser(peticion, respuesta) {
 ====================================================*/
 /* Método que guarda los cambios en un usuario */
 
-app.get("/EditarUsuario",  [comprobar_login, editUser]);
+app.get("/editarUsuario",  [comprobar_login, editarUsuario]);
 
-function editUser(peticion, respuesta) {
-	var queryEditUser = "UPDATE clientes SET EMAIL=?, NOMBRE=?, APELLIDO=?, ROL=?, PASSWORD=? WHERE ID=?";
-	var userData = [peticion.query.email,
+function editarUsuario(peticion, respuesta) {
+
+	var queryEditUser = "UPDATE clientes SET EMAIL=?, NOMBRE=?, APELLIDO=?, ROL=?, PASSWORD=?, ACTIVO=? WHERE ID=?";
+	var datosUsuario = [peticion.query.email,
 		peticion.query.nombre,
 		peticion.query.apellido,
 		peticion.query.rol,
 		peticion.query.password,
+		peticion.query.activo,
 		peticion.query.id
 	];
 
-	base_datos.run(queryEditUser, userData, (error) => {
+	base_datos.run(queryEditUser, datosUsuario, (error) => {
 		if (error) {
-			console.log("error: " + error)
-		} else {
+			console.log("error: " + error);	
+			}
 			console.log("Usuario actualizado correctamente");
-		}
 	});
+
 };
 
 /*================= CRUD ZONAS ======================

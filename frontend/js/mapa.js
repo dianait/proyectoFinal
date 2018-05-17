@@ -179,32 +179,8 @@ function updateCoords(path) {
 function guardarVertices(id) {
 
 	if (vertices.length > 0) {
-
-		fetch("http://localhost:4000/vertices", {
-			method: 'post',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			/* NO FUNCIONABA HASTA PONER ESTO DE ARRIBA
-			fuente ==> https://es.stackoverflow.com/questions/55250/problema-al-recibir-el-body-en-nodejs-desde-javascript/55263#55263
-			*/
-			credentials: 'include',
-			/* 
-			HAY QUE PASARLE LOS DATOS SIEMPRE CON JSON.strigify SI NO TAMPOCO FUNCIONA
-			*/
-			body: JSON.stringify({
-				zona: id,
-				vertices: vertices
-			})
-
-		}).then(function (response) {
-			return response;
-		}).then(function (data) {
-
-		});
-
+		verticesUpdate(id, vertices);
 	}
-
 };
 
 function getFotoZona() {
@@ -253,7 +229,6 @@ function guardarZona(id){
 	zonaEditar(trozoUrl, function (res){
 		console.log(res)
 	});
-
 
 	var msgUpdateZona = document.getElementById("msgUpdateZona");
 	msgUpdateZona.innerHTML = `<div class="alert alert-success" role="alert">
@@ -336,7 +311,7 @@ function editarZona(id) {
 	var zona_btn = document.getElementById("formEditarZona");
 	zona_btn.innerHTML = `
 						<form id="formularioZona">
-							<input id="inputZona" class="form-control" type="text" onfocus="this.value = this.value; value=" ` +
+							<input id="inputZona" class="form-control" type="text" onfocus="this.value = this.value"; value=" ` +
 		zonas[id].nombre + `" />
 							<label for="inputColor">Color:</label>
 							<input class="form-control" type="color" id="inputColor" value=` + zonas[id].color + `  />
@@ -845,7 +820,6 @@ function ultimosValores(tipoSensores, email, sonda) {
 			var claseNivel = "nivel" + tipo;
 			var arrayNiveles = document.getElementById("iconosSensoresUtimaMedicion").getElementsByClassName(claseNivel);
 			var ultima = valores[valores.length - 1];
-
 			mostrarNivel(arrayNiveles, ultima, tipo);
 		});
 	});

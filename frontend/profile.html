@@ -79,6 +79,7 @@
                     </h3>
         </div>
       <br />
+      <div id="mensajeRespuesta"></div>
         <form id="formulario">
             </div>
             <div class="casilla">
@@ -103,16 +104,11 @@
                     <img src="./images/id-card.svg" alt="rol">
                     <input type="text" name="rol" id="rolUser" value="" placeholder="rol" class="formulario" />
                 </div>
-           
-    
-
-      
-          
-           
+ 
         </form>
         <div style="display:flex;justify-content: center;">
 
-                <button style="background-color:#721952;border:none;" "role="boton" class="btn btn-primary">Guardar Cambios</button>
+                <button style="background-color:#721952;border:none;" "role="boton" class="btn btn-primary" onclick="guardarPerfil()">Guardar Cambios</button>
                 
         </div>
     </section>
@@ -136,6 +132,7 @@
     </footer>
       <!-- Hacemos referencia a nuestro archivo usuario.js con las funciones para esta pagina -->
       <script type="application/javascript" src="./js/profile.js"></script>
+      <script type="application/javascript" src="./js/api.js"></script>
 <!-- ******************* Bootstrap 4.0 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
     crossorigin="anonymous"></script>

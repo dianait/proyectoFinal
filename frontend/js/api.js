@@ -242,22 +242,27 @@ function getUser(id, callback) {
       });
   }
   
-  //----------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------
-//Editar un usuario de la BBDD por su id
-function userEdit(userData, callback) {
+//----------------------------------------------------------------------------------------------------------
+
+
+//EDITAR USUARIO
+
+function usuarioEditar(datosUsuario, callback) {
 
   //creamos la URL para hacer la peticion a la api
-  var urlEditUser = urlBase + "/EditarUsuario" + userData;
+  var urlEditUser = urlBase + "/editarUsuario" + datosUsuario;
+
   //Hacemos la peticion
   fetch(urlEditUser, {credentials: 'include'})
     .then(function(respuesta) {
       return respuesta;
     })
     .then(function(data) {
-      callback(error, data);
+      callback(data);
     });
 }
+
 
 //----------------------------------------------------------------------------------------------------------
 //--------------------------------------CRUD ZONAS ---------------------------------------------------------
@@ -290,6 +295,30 @@ function zonaAdd(datosZona, callback) {
     });
 }
 
+function verticesUpdate(id, vertices){
+  fetch(urlBase + "/vertices", {
+			method: 'post',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			/* NO FUNCIONABA HASTA PONER ESTO DE ARRIBA
+			fuente ==> https://es.stackoverflow.com/questions/55250/problema-al-recibir-el-body-en-nodejs-desde-javascript/55263#55263
+			*/
+			credentials: 'include',
+			/* 
+			HAY QUE PASARLE LOS DATOS SIEMPRE CON JSON.strigify SI NO TAMPOCO FUNCIONA
+			*/
+			body: JSON.stringify({
+				zona: id,
+				vertices: vertices
+			})
+
+		}).then(function (response) {
+			return response;
+		}).then(function (data) {
+
+		});
+}
 //EDITAR ZONA
 function zonaEditar(datosZona, callback) {
 
