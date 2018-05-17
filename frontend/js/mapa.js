@@ -189,10 +189,10 @@ function getFotoZona() {
 
 	var options = {
 		width: 450,
-		hieght: 100,
-		scrollY: 200,
-		x: 200,
-		y: 220,
+		height:250,
+		x: 150,
+		y: 350,
+		scale: 3,
 		allowTaint: true
 	};
 
