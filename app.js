@@ -508,12 +508,13 @@ app.get("/editarZona",  [comprobar_login, editZona]);
 
 function editZona(peticion, respuesta) {
 	var queryEditZona = "UPDATE zonas SET NOMBRE=?, COLOR=? WHERE VERTICE_ID=?";
-	var userData = [peticion.query.nombre,
-		peticion.query.color,
+	var valorColor = '#'+peticion.query.color
+	var datosZona = [peticion.query.nombre,
+		valorColor,
 		peticion.query.id
 	];
 
-	base_datos.run(queryEditZona, userData, (error) => {
+	base_datos.run(queryEditZona, datosZona, (error) => {
 		if (error) {
 			console.log("error: " + error)
 		} else {
@@ -521,6 +522,7 @@ function editZona(peticion, respuesta) {
 		}
 	});
 };
+
 
 
 /*===================================================
@@ -548,11 +550,9 @@ function getAlertas(peticion, respuesta) {
 /*============== VERTICES ===========================
 ====================================================*/
 
-app.post('/vertices', (peticion, respuesta) => {
+app.post('/vertices', [comprobar_login, (peticion, respuesta) => {
 	var vertices = [];
-	 console.log(peticion.body);
-	console.log(peticion.body.vertices);
-	  
+
 	base_datos.run("DELETE FROM vertice WHERE ZONA=?", [peticion.body.zona], function (error){
 		if (error) {console.log("problema al borrar: " + error )};
 		console.log("Vertices eliminados correctamente");
@@ -567,7 +567,7 @@ app.post('/vertices', (peticion, respuesta) => {
 		});
 	  };
   
-});
+}]);
 
 
 app.listen(app.get('port'), function () {

@@ -4,7 +4,6 @@ var tipoSensores, email, zonas, marcadores, listaMarcadores, alertasguardadas, m
 //-----------------------------------------------------------------------------------
 (function () {
 
-
 	tipoSensores = ["Humedad", "Salinidad", "Iluminacion", "Temperatura"];
 	email = getCookie("email");
 	marcadores = false;
@@ -23,12 +22,13 @@ var tipoSensores, email, zonas, marcadores, listaMarcadores, alertasguardadas, m
 	alertasGet(function (alertas) {
 		alertas.forEach(function (alerta) {
 			alertasguardadas.push(alerta);
+			
 		});
 
 		rellenar(listaAlertas, alertas);
+		document.getElementById("numAlertas").innerHTML = alertasguardadas.length;
+
 	});
-	 
-	  document.getElementById("numAlertas").innerHTML = alertasguardadas.length + 1;
 
 })();
 
@@ -103,13 +103,13 @@ function cargarZonas() {
 			var limites = new google.maps.LatLngBounds();
 
 			datosZona.vertices.forEach(function (vertice) {
-				var ll = new google.maps.LatLng(parseFloat(vertice.lat), parseFloat (vertice.lng));
+				var ll = new google.maps.LatLng(parseFloat(vertice.lat), parseFloat(vertice.lng));
 				path.push(ll);
 				limites.extend(vertice);
 			});
 
-			
-	
+
+
 			var zona = {};
 			zona.color = datosZona.color;
 			zona.id = datosZona.zona;
@@ -122,12 +122,12 @@ function cargarZonas() {
 				geodesic: true
 			});
 
-			
+
 
 			zonas.push(zona);
-			
 
-			
+
+
 		});
 
 	});
@@ -146,15 +146,16 @@ function cargarZonas() {
 //-----------------------------------------------------------------------------------
 
 var vertices = [];
+
 function updateCoords(path) {
 	vertices = [];
-	path.forEach(function(element) {
+	path.forEach(function (element) {
 		var vertice = {};
 		vertice.lat = element.lat();
 		vertice.lng = element.lng();
 		vertices.push(vertice);
-	});	
-	
+	});
+
 }
 
 //-----------------------------------------------------------------------------------
@@ -175,78 +176,162 @@ function updateCoords(path) {
 
 //-----------------------------------------------------------------------------------
 
-function guardarVertices(id){
-	console.log(vertices);
-	fetch("http://localhost:4000/vertices", {
-	method: 'post',
-	headers: {
-        'Content-Type': 'application/json',
-	}, 
-	/* NO FUNCIONABA HASTA PONER ESTO DE ARRIBA
-	fuente ==> https://es.stackoverflow.com/questions/55250/problema-al-recibir-el-body-en-nodejs-desde-javascript/55263#55263
-	*/
-	credentials: 'include',
-	
-	body: JSON.stringify({
-		zona: id,
-		vertices: vertices
-	})
-	/* 
-	HAY QUE PASARLE LOS DATOS SIEMPRE CON JSON.strigify SI NO TAMPOCO FUNCIONA
-	*/
-    
-  }).then(function(response) {
-	return response;
-  }).then(function(data) {
-    console.log("vertices actualizados");
-  });
+function guardarVertices(id) {
+
+	if (vertices.length > 0) {
+
+		fetch("http://localhost:4000/vertices", {
+			method: 'post',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			/* NO FUNCIONABA HASTA PONER ESTO DE ARRIBA
+			fuente ==> https://es.stackoverflow.com/questions/55250/problema-al-recibir-el-body-en-nodejs-desde-javascript/55263#55263
+			*/
+			credentials: 'include',
+			/* 
+			HAY QUE PASARLE LOS DATOS SIEMPRE CON JSON.strigify SI NO TAMPOCO FUNCIONA
+			*/
+			body: JSON.stringify({
+				zona: id,
+				vertices: vertices
+			})
+
+		}).then(function (response) {
+			return response;
+		}).then(function (data) {
+
+		});
+
+	}
+
+};
+
+function getFotoZona() {
+	var imagen = document.getElementById("fotoZona");
+	//imagen.remove();
+
+	var options = {
+		width: 450,
+		hieght: 100,
+		scrollY: 200,
+		x: 200,
+		y: 220,
+		allowTaint: true
+	};
+
+
+
+	html2canvas(document.querySelector("#mapa"), options).then(canvas => {
+		imagen.prepend(canvas);
+
+	});
+
+}
+
+//-----------------------------------------------------------------------------------
+//Función que se activa al querer guardar los cambios en la zona
+//-----------------------------------------------------------------------------------
+
+// --> id: Z ==> número identificativo de la zona a actualizar
+// 
+
+//-----------------------------------------------------------------------------------
+function guardarZona(id){
+	//recogemos los valores del formulario
+	var nombre = document.getElementById("inputZona").value;
+	var color = document.getElementById("inputColor").value;
+	//console.log(id)
+	color = color.split('#')[1];
+	//console.log(color)
+	if(vertices.length != 0){
+		guardarVertices(id)
+	}
+	//parámetros para la petición a la api con los datos recogidos del formulario
+	var trozoUrl = `?nombre=`+nombre+`&color=`+color+`&id=`+id;
+	//console.log(trozoUrl)
+	zonaEditar(trozoUrl, function (res){
+		console.log(res)
+	});
+
+
+	var msgUpdateZona = document.getElementById("msgUpdateZona");
+	msgUpdateZona.innerHTML = `<div class="alert alert-success" role="alert">
+    <strong>¡Perfecto!</strong> Zona actualizada correctamente
+</div>`;
+
+	msgUpdateZona.style.display = "block";
+
+	setTimeout(function () {
+		msgUpdateZona.style.display = "none";
+		document.getElementById("cerrarModal").click();
+	}, 3000);
+
 	
 }
 
+//-----------------------------------------------------------------------------------
+//Función que se activa presionar sobre el icono editar de una zona 
+//-----------------------------------------------------------------------------------
+
+// --> id: Z ==> número identificativo de la zona a actualizar
+// 
+
+//-----------------------------------------------------------------------------------
 function editarZona(id) {
-    id = id + 1;
+	id = id + 1;
 	zonas[id].poligono.setEditable(!zonas[id].poligono.getEditable());
 
-// fuente ==> https://duncan99.wordpress.com/2015/10/16/google-maps-editable-polylines/
+	// fuente ==> https://duncan99.wordpress.com/2015/10/16/google-maps-editable-polylines/
 
-	zonas[id].poligono.getPath().addListener('insert_at', function(vertex) {
+	zonas[id].poligono.getPath().addListener('insert_at', function (vertex) {
 		updateCoords(this);
 	});
 
-	zonas[id].poligono.getPath().addListener('set_at', function(vertex) {
-		updateCoords(this);
-	});
-	
-	zonas[id].poligono.getPath().addListener('remove_at', function(vertex) {
+	zonas[id].poligono.getPath().addListener('set_at', function (vertex) {
 		updateCoords(this);
 	});
 
-	google.maps.event.addListener(zonas[id].poligono, 'dragend', function(event) {
+	zonas[id].poligono.getPath().addListener('remove_at', function (vertex) {
+		updateCoords(this);
+	});
+
+	google.maps.event.addListener(zonas[id].poligono, 'dragend', function (event) {
 		console.log('Drag');
 		console.log(event);
 	});
 
-	$('body').on('click', 'a', function(event) {
-		event.preventDefault();
-		if (zonas[id].poligono.getPath().getLength() > 2) {
-			zonas[id].poligono.getPath().removeAt($(this).data('id'));
-		}
-		return false;
-	});
+	// fuente ==> https://duncan99.wordpress.com/2015/10/16/google-maps-editable-polylines/
 
-// fuente ==> https://duncan99.wordpress.com/2015/10/16/google-maps-editable-polylines/
-	 
 	//Incio => ESTO ES PARA LA VENTANA EMERGENTE QUE SALE AL PULSAR EL ICONO DE GUARDAR
 	var titleZonaAdd = document.getElementById("titleZonaAdd");
 	titleZonaAdd.style.color = "white";
 	titleZonaAdd.style.backgroundColor = zonas[id].color;
-	titleZonaAdd.innerHTML = "ZONA de " + zonas[id].nombre;
+	titleZonaAdd.innerHTML = "ACTUALIZAR zona de " + zonas[id].nombre;
+	var infoZona = document.getElementById("infoZona");
+	infoZona.style.backgroundColor = "white";
+	infoZona.style.position = "absolute";
+	infoZona.style.top = "285px";
+	infoZona.style.width = "91%";
+	var prueba = `<div class="card-body">
+	  <h5 class="card-title">` + zonas[id].nombre + `</h5>
+	   Número de vértices: ` + zonas[id].poligono.getPath().getArray().length +
+		`<br/>color: <div style="display:inline-block;background:` + zonas[id].color + `;width:20px;height:20px;border:1px solid grey;"></div>
+	  <hr /> 
+	  ¿Seguro que quiere actualizar la zona con estos datos? 
+	  <br /><br /><button style="width:100px;float:right;margin:0.2rem;" class="btn btn-outline-success" onclick="guardarZona(`+ zonas[id].id +`)" >SI</button>
+	  <button style="width:100px;float:right;margin:0.2rem;" data-dismiss="modal" class="btn btn-outline-danger">NO</button>
+	</div>
+  </div>`;
+
+	infoZona.innerHTML = prueba;
+
 	// Fin => ESTO ES PARA LA VENTANA EMERGENTE QUE SALE AL PULSAR EL ICONO DE GUARDAR
 
 	var opciones = document.getElementById("opciones");
 	opciones.innerHTML =
-	//data-toggle="modal" data-target="#addZona"
-		`<img id="guardarZona" src="./images/savewhite.svg" alt="icono guardar" onclick="guardarVertices(`+ zonas[id].id +`)"/>`;
+		//
+		`<img id="guardarZona" src="./images/savewhite.svg" alt="icono guardar" data-toggle="modal" data-target="#updateZona" onclick="getFotoZona()" />`;
 
 	var zona_btn = document.getElementById("formEditarZona");
 	zona_btn.innerHTML = `
@@ -260,9 +345,6 @@ function editarZona(id) {
 
 	//COLOCAMOS EL CURSOS AL FINAL DEL TEXTO EN EL INPUT DEL NOMBRE DE LA ZONA
 	cursoralFinal(document.getElementById("inputZona"), zonas[id].nombre);
-
-
-
 
 }
 
@@ -292,50 +374,107 @@ function crearMarcador(sonda, alerta) {
 		'<div id="bodyContent">' +
 		'<p style="background:grey;text-align:center;padding:0.3rem 0;" class="text-light">Última medición hace 5 minutos <br /> (' + f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear() +
 		" - " + f.getHours() + ":" + (f.getMinutes() - 5) + ":" + f.getSeconds() + ')</p>' +
-
-		'<ul id="iconosSensoresUtimaMedicion"><li>' +
-		'<div id="temperatura" class="contenedorAlerta"><i class="fa fa-check-circle"></i></div>' +
-		'<button type="button" onclick="mostrarDatos(this)" data-toggle="modal" data-target="#exampleModal">' +
-		'<img src="./images/sensores/ther.svg" alt="icono temperatura" />' + `
-		<div class="badge-info">
-		<div class="nivelTemperatura I"></div>
-		<div class="nivelTemperatura II"></div>
-		<div class="nivelTemperatura III"></div>
-		<div class="nivelTemperatura IIII"></div>
-</div>
-		` +
-		'</button>' + '</li>' +
-		'<li><div id="salinidad" class="contenedorAlerta"><i class="fa fa-check-circle"></i></div><button type="button" onclick="mostrarDatos(this)"  data-toggle="modal" data-target="#exampleModal">' +
-		'<img src="./images/sensores/salt.svg" alt="icono salinidad" />'+ `
-		<div class="badge-info">
-		<div class="nivelSalinidad I"></div>
-		<div class="nivelSalinidad II"></div>
-		<div class="nivelSalinidad III"></div>
-		<div class="nivelSalinidad IIII"></div>
-</div>
-		` +
-		'</button></li>' +
-		'<li><div id="humedad" class="contenedorAlerta"><i class="fa fa-check-circle"></i></div><button type="button" onclick="mostrarDatos(this)"  data-toggle="modal" data-target="#exampleModal">' +
-		'<img src="./images/sensores/hum.svg" alt="icono humedad" />' + `
-		<div class="badge-info">
-		<div class="nivelHumedad I"></div>
-		<div class="nivelHumedad II"></div>
-		<div class="nivelHumedad III"></div>
-		<div class="nivelHumedad IIII"></div>
-</div>
-		` +
-		'</button></li>' +
-		'<li><div id="iluminacion" class="contenedorAlerta"><i class="fa fa-check-circle"></i></div><button type="button" onclick="mostrarDatos(this)"  data-toggle="modal" data-target="#exampleModal">' +
-		'<img src="./images/sensores/lum.svg" alt="icono iluminacion" />' + `
-		<div class="badge-info">
-		<div class="nivelIluminacion I"></div>
-		<div class="nivelIluminacion II"></div>
-		<div class="nivelIluminacion III"></div>
-		<div class="nivelIluminacion IIII"></div>
-</div>
-		` +
-		'</button></li>' +
-		'</ul>' +
+		`<ul id="iconosSensoresUtimaMedicion">
+		<li onclick="mostrarDatos(this)"  data-toggle="modal" data-target="#exampleModal">
+		<div class="containerLastMesure">
+		<div class="level">
+		  <div class="nivelTemperatura"></div>
+		    <div class="nivelTemperatura"></div>
+		    <div class="nivelTemperatura"></div>
+		    <div class="nivelTemperatura"></div>
+		    <div class="nivelTemperatura"></div>
+		    <div class="nivelTemperatura"></div>
+		    <div class="nivelTemperatura"></div>
+		    <div class="nivelTemperatura"></div>
+		    <div class="nivelTemperatura"></div>
+		    <div class="nivelTemperatura"></div>
+	  
+		</div>
+		<div class="okSensor">
+		  <div class="ok" id="temperatura">
+		  	<i class="fa fa-check-circle"></i>
+		  </div>
+		  <div class="iconoLevelSensor">
+			  <img src="./images/sensores/temperatura.svg"  alt="icono temperatura" />
+		  </div>
+		</div>
+	  </div>
+		</li>
+		<li onclick="mostrarDatos(this)"  data-toggle="modal" data-target="#exampleModal">
+		  <div class="containerLastMesure">
+		<div class="level">
+		  <div  class="nivelSalinidad"></div>
+		   <div  class="nivelSalinidad"></div>
+		   <div  class="nivelSalinidad"></div>
+		   <div  class="nivelSalinidad"></div>
+		   <div  class="nivelSalinidad"></div>
+		   <div  class="nivelSalinidad"></div>
+		   <div  class="nivelSalinidad"></div>
+		   <div  class="nivelSalinidad"></div>
+		   <div  class="nivelSalinidad"></div>
+		   <div  class="nivelSalinidad"></div>
+	  
+		</div>
+		<div class="okSensor">
+		  <div class="ok" id="salinidad">
+		  <i class="fa fa-check-circle"></i>
+		  <div class="iconoLevelSensor">
+		  <img src="./images/sensores/salinidad.svg" alt="icono salinidad" />
+			   </div>
+		</div>
+	  </div>
+		</li>
+		<li onclick="mostrarDatos(this)"  data-toggle="modal" data-target="#exampleModal">
+		<div class="containerLastMesure">
+		<div class="level">
+		  <div class="nivelHumedad"></div>
+		    <div class="nivelHumedad"></div>
+		    <div class="nivelHumedad"></div>
+		    <div class="nivelHumedad"></div>
+		    <div class="nivelHumedad"></div>
+		    <div class="nivelHumedad"></div>
+		    <div class="nivelHumedad"></div>
+		    <div class="nivelHumedad"></div>
+		    <div class="nivelHumedad"></div>
+		    <div class="nivelHumedad"></div>
+	  
+		</div>
+		<div class="okSensor">
+		  <div class="ok" id="humedad">
+		  <i class="fa fa-check-circle"></i>
+		  </div>
+		  <div class="iconoLevelSensor">
+			  <img src="./images/sensores/humedad.svg"  alt="icono humedad" />
+			   </div>
+		</div>
+	  </div>
+		</li>
+		  <li onclick="mostrarDatos(this)"  data-toggle="modal" data-target="#exampleModal">
+		  <div class="containerLastMesure">
+		<div class="level">
+		  <div class="nivelIluminacion"></div>
+		  <div class="nivelIluminacion"></div>
+		  <div class="nivelIluminacion"></div>
+		  <div class="nivelIluminacion"></div>
+		  <div class="nivelIluminacion"></div>
+		  <div class="nivelIluminacion"></div>
+		  <div class="nivelIluminacion"></div>
+		  <div class="nivelIluminacion"></div>
+		  <div class="nivelIluminacion"></div>
+		  <div class="nivelIluminacion"></div>
+			
+		</div>
+		<div class="okSensor">
+		  <div class="ok" id="iluminacion">
+		  <i class="fa fa-check-circle"></i>
+		  </div>
+		  <div class="iconoLevelSensor">
+		  <img src="./images/sensores/iluminacion.svg" alt="icono iluminacion" />
+			   </div>
+		</div>
+	  </div>
+		</li>
+	  </ul>` +
 		'</div>';
 
 	var latLng = new google.maps.LatLng(sonda.LAT, sonda.LNG);
@@ -360,7 +499,7 @@ function crearMarcador(sonda, alerta) {
 
 		infowindow.open(mapa, marker);
 
-	
+
 
 
 		/* tipoSensores = ["Humedad", "Salinidad", "Iluminacion", "Temperatura"]; */
@@ -391,7 +530,6 @@ function seleccionarZona(elemento) {
 
 	if (document.getElementById("desplegable")) {
 		var zonaSeleccionada = document.getElementById("desplegable").selectedIndex;
-		console.log(zonaSeleccionada);
 		var desplegable = document.getElementById("desplegable");
 		desplegable.style.display = "none";
 		var ir = document.getElementById("irSeleccionarZona");
@@ -411,7 +549,7 @@ function seleccionarZona(elemento) {
 		var idAlerta = elemento.getAttribute("alerta");
 		elemento.parentNode.style.backgroundColor = "lightgrey";
 
-		crearMarcadorConAlerta(listaMarcadores[numeroSonda - 1], alertasguardadas[idAlerta -1]);
+		crearMarcadorConAlerta(listaMarcadores[numeroSonda - 1], alertasguardadas[idAlerta - 1]);
 
 		if (numeroAlertas.innerHTML == 1) {
 			numeroAlertas.style.display = "none";
@@ -419,11 +557,10 @@ function seleccionarZona(elemento) {
 			elemento.style.display = "none";
 			listaAlertas.style.display = "none";
 
-		} 
-		
+		}
+
 	} else {
-		id = zonaSeleccionada -1;
-		console.log(id);
+		id = zonaSeleccionada - 1;
 	}
 
 	var botonZona = document.getElementById("zonas");
@@ -453,7 +590,7 @@ function seleccionarZona(elemento) {
 
 		   `;
 
-		  
+
 	var fondoZonas = document.getElementById("zonas");
 	fondoZonas.style.background = zonas[id].color;
 	zonasGet(email, function (datos) {
@@ -472,7 +609,7 @@ function seleccionarZona(elemento) {
 			}
 
 		});
-		
+
 	});
 
 }
@@ -621,7 +758,7 @@ function mostrarDatos(elemento) {
 	img.classList.add("activo");
 	var alt = img.alt;
 	var tipo = alt.split(" ")[1];
-    var nombreZona = document.getElementById("nombreZona").innerText;
+	var nombreZona = document.getElementById("nombreZona").innerText;
 
 	var numeroSonda = document.getElementById("firstHeading");
 	numeroSonda = numeroSonda.innerText.split(" ")[1];
@@ -635,7 +772,6 @@ function mostrarDatos(elemento) {
 		for (i in objetoJson) {
 
 			valoresSensor.push(objetoJson[i][tipo]);
-			console.log(objetoJson[i]);
 		}
 
 		crearGrafica(valoresSensor, tipo);
@@ -645,7 +781,7 @@ function mostrarDatos(elemento) {
 
 }
 
-function mostrarDatosAlertas(alerta){
+function mostrarDatosAlertas(alerta) {
 	var nombreZona = alerta.zona;
 	var numeroSonda = alerta.sonda;
 
@@ -703,14 +839,14 @@ function calcularMedia(array) {
 function ultimosValores(tipoSensores, email, sonda) {
 
 	tipoSensores.forEach(function (tipo) {
-		
+
 		valoresGet(tipo, email, sonda, function (valores) {
 			var clase = "color" + tipo;
 			var claseNivel = "nivel" + tipo;
-		    var arrayNiveles = document.getElementById("iconosSensoresUtimaMedicion").getElementsByClassName(claseNivel);
+			var arrayNiveles = document.getElementById("iconosSensoresUtimaMedicion").getElementsByClassName(claseNivel);
 			var ultima = valores[valores.length - 1];
 
-			mostrarNivel(arrayNiveles, ultima, tipo);  
+			mostrarNivel(arrayNiveles, ultima, tipo);
 		});
 	});
 	calcularMedias(tipoSensores, email, sonda);
@@ -790,7 +926,6 @@ function calcularMediasSondas(tipoSensores, email) {
 	});
 	var i;
 	for (i = 1; i < 11; i++) {
-		console.log();
 		listaMedias[i] = calcularMedias(tipoSensores, email, i);
 
 	}
@@ -863,27 +998,23 @@ f()
 
 -----------------------------------------------------------------------------------	*/
 function crearMarcadorConAlerta(sonda, alerta) {
-	console.log(sonda);
-	console.log(alerta);
-
 	var contentString =
-	'<div id="contentInfo">' +
-	'<div id="siteNotice">' +
-	'</div>' +
-	'<div id="headerZona"><div><h2 id="firstHeading" class="firstHeading">SONDA ' + sonda.ID_SONDA +
-	'</h2></div>' /* <span id="bateria"><img src="./images/battery.png" alt="bateria"><span class="badge badge-danger">8%</span></span> */ + '</div>' +
-	'<div id="bodyContent">' +
-	'<p style="background:grey;text-align:center;padding:0.3rem 0;" class="text-light">Última medición hace 5 minutos <br /> (' + f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear() +
-	" - " + f.getHours() + ":" + (f.getMinutes() - 5) + ":" + f.getSeconds() + ')</p>' +
-	`<div style="padding-left:4rem;">
+		'<div id="contentInfo">' +
+		'<div id="siteNotice">' +
+		'</div>' +
+		'<div id="headerZona"><div><h2 id="firstHeading" class="firstHeading">SONDA ' + sonda.ID_SONDA +
+		'</h2></div>' /* <span id="bateria"><img src="./images/battery.png" alt="bateria"><span class="badge badge-danger">8%</span></span> */ + '</div>' +
+		'<div id="bodyContent">' +
+		'<p style="background:grey;text-align:center;padding:0.3rem 0;" class="text-light">Última medición hace 5 minutos <br /> (' + f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear() +
+		" - " + f.getHours() + ":" + (f.getMinutes() - 5) + ":" + f.getSeconds() + ')</p>' +
+		`<div style="padding-left:4rem;">
 
-	<img width="50px" src="./images/sensores/`+ alerta.sensor.toLowerCase() + `.svg" />
-	<i style="color: `+ alerta.nivel + `;font-size:2rem;" class="fa fa-exclamation-triangle" ></i>
-	<p style="display:inline;">`+  alerta.msg +`</p>
+	<img width="50px" src="./images/sensores/` + alerta.sensor.toLowerCase() + `.svg" />
+	<i style="color: ` + alerta.nivel + `;font-size:2rem;" class="fa fa-exclamation-triangle" ></i>
+	<p style="display:inline;">` + alerta.msg + `</p>
 	<button style="margin:.5rem 0rem;" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">MAS INFORMACION</button>
-	`
-	+
-	'</div>';
+	` +
+		'</div>';
 
 	var idSensor = tipoSensores.indexOf(alerta.sensor);
 	var icono = document.getElementById("iconosSensores").getElementsByTagName('img')[idSensor];
@@ -1012,7 +1143,7 @@ function getAlerta(sonda, alertas) {
 Función que coloca icono de alerta en la parte superior del sensor correspondiente
 -----------------------------------------------------------------------------------
 
---> sonda: Objeto Sonda
+--> lista: Array<Elemento HTML<img>>
 --> alerta: Objeto Alerta
 
 f()
@@ -1023,9 +1154,10 @@ function mostrarAlerta(lista, alerta) {
 
 	for (var i = 0; i < lista.length; i++) {
 		var sensor = lista[i].alt.split(" ")[1];
-		if (alerta.sensor == sensor) {
-			document.getElementById(sensor).innerHTML = `<i style="color:` + alerta.nivel + `;font-size:1.5rem;margin-left:1.3rem;margin-top:-1.2rem" class="fa fa-exclamation-triangle" ></i>`;
-		}
+	if (alerta.sensor == sensor) {
+			document.getElementById(sensor).innerHTML = `<i style="color:` + alerta.nivel + `;font-size:1.5rem" class="fa fa-exclamation-triangle" ></i>
+			<div class="iconoLevelSensor"><img src="images/sensores/`+ sensor + `.svg" /></div>`;
+		} 
 	}
 };
 
@@ -1034,20 +1166,19 @@ function mostrarAlerta(lista, alerta) {
 Función que borra una zona mediante su id con el método de api.js zonaDelete
 -----------------------------------------------------------------------------------
 
---> elemento: ELEMENTO HTML 
-f()
+--> id: Z  ==> ID del a zona a eliminar
 
 -----------------------------------------------------------------------------------	*/
 function activarEliminar(id) {
 	id = id + 1;
-    console.log(id);
+	console.log(id);
 	var trozoURL = `?id=${id}`;
 	zonaDelete(trozoURL, function (err, res) {
 		if (err) {
 			console.log(`Error: ${err}`);
 			return;
 		}
-        console.log("Zona eliminada correctamente");
+		console.log("Zona eliminada correctamente");
 	});
 }
 
@@ -1056,11 +1187,9 @@ Función que muestra el nivel de la ultima medición de manera visual
 -----------------------------------------------------------------------------------
 
 --> arrayNiveles: array<div> 
-lenght: 4
-100%
-75%
-50%
-25%
+lenght: 10
+de 10% a 100%
+
 -->nivel: Z valor de la última medición 
 { 75% }
 --> tipo: TEXT nombre del sensor 
@@ -1069,42 +1198,83 @@ f()
 -->
 -----------------------------------------------------------------------------------	*/
 
-function mostrarNivel(arrayNiveles, nivel, tipo){
+function mostrarNivel(arrayNiveles, nivel, tipo) {
 	var clase = "color" + tipo;
 	nivel = nivel[tipo.toLowerCase()];
 	if (tipo == "Temperatura") {
 		nivel += 25;
-	}
-	else if (tipo == "Iluminacion") {
+	} else if (tipo == "Iluminacion") {
 		nivel -= 6355;
 
 	}
 
-	var j;
-	var contenedores = document.getElementsByClassName("badge-info");
-	for (j = 1; j<contenedores.length; j++){
-		contenedores[j].style.backgroundColor = "white";
+	if (nivel < 10) {
+		arrayNiveles[10].classList.add(clase);
+	} else if (nivel > 10 && nivel < 20) {
+		arrayNiveles[9].classList.add(clase);
+		arrayNiveles[8].classList.add(clase);
+	} else if (nivel > 20 && nivel < 30) {
+		arrayNiveles[9].classList.add(clase);
+		arrayNiveles[8].classList.add(clase);
+		arrayNiveles[7].classList.add(clase);
+	} else if (nivel > 30 && nivel < 40) {
+		arrayNiveles[9].classList.add(clase);
+		arrayNiveles[8].classList.add(clase);
+		arrayNiveles[7].classList.add(clase);
+		arrayNiveles[6].classList.add(clase);
+	} else if (nivel > 40 && nivel < 50) {
+		arrayNiveles[9].classList.add(clase);
+		arrayNiveles[8].classList.add(clase);
+		arrayNiveles[7].classList.add(clase);
+		arrayNiveles[6].classList.add(clase);
+		arrayNiveles[5].classList.add(clase);
+	} else if (nivel > 50 && nivel < 60) {
+		arrayNiveles[9].classList.add(clase);
+		arrayNiveles[8].classList.add(clase);
+		arrayNiveles[7].classList.add(clase);
+		arrayNiveles[6].classList.add(clase);
+		arrayNiveles[5].classList.add(clase);
+		arrayNiveles[4].classList.add(clase);
+	} else if (nivel > 60 && nivel < 70) {
+		arrayNiveles[9].classList.add(clase);
+		arrayNiveles[8].classList.add(clase);
+		arrayNiveles[7].classList.add(clase);
+		arrayNiveles[6].classList.add(clase);
+		arrayNiveles[5].classList.add(clase);
+		arrayNiveles[4].classList.add(clase);
+		arrayNiveles[3].classList.add(clase);
+	} else if (nivel > 70 && nivel < 80) {
+		arrayNiveles[9].classList.add(clase);
+		arrayNiveles[8].classList.add(clase);
+		arrayNiveles[7].classList.add(clase);
+		arrayNiveles[6].classList.add(clase);
+		arrayNiveles[5].classList.add(clase);
+		arrayNiveles[4].classList.add(clase);
+		arrayNiveles[3].classList.add(clase);
+		arrayNiveles[2].classList.add(clase);
+	} else if (nivel > 80 && nivel < 90) {
+		arrayNiveles[9].classList.add(clase);
+		arrayNiveles[8].classList.add(clase);
+		arrayNiveles[7].classList.add(clase);
+		arrayNiveles[6].classList.add(clase);
+		arrayNiveles[5].classList.add(clase);
+		arrayNiveles[4].classList.add(clase);
+		arrayNiveles[3].classList.add(clase);
+		arrayNiveles[2].classList.add(clase);
+		arrayNiveles[1].classList.add(clase);
+	} else if (nivel > 90) {
+		arrayNiveles[9].classList.add(clase);
+		arrayNiveles[8].classList.add(clase);
+		arrayNiveles[7].classList.add(clase);
+		arrayNiveles[6].classList.add(clase);
+		arrayNiveles[5].classList.add(clase);
+		arrayNiveles[4].classList.add(clase);
+		arrayNiveles[3].classList.add(clase);
+		arrayNiveles[2].classList.add(clase);
+		arrayNiveles[1].classList.add(clase);
+		arrayNiveles[0].classList.add(clase);
 	}
 
-	if (nivel < 25){
-        arrayNiveles[3].classList.add(clase);
-	}
-	else if (nivel > 25 && nivel < 50){
-		arrayNiveles[3].classList.add(clase);
-		arrayNiveles[2].classList.add(clase);
-	}
-	else if (nivel > 50 && nivel < 75){
-		arrayNiveles[1].classList.add(clase);
-		arrayNiveles[2].classList.add(clase);
-		arrayNiveles[3].classList.add(clase);
-	}
-	else if (nivel > 75){
-		arrayNiveles[0].classList.add(clase);
-		arrayNiveles[1].classList.add(clase);
-		arrayNiveles[2].classList.add(clase);
-		arrayNiveles[3].classList.add(clase);
-	}
-    
 
 }
 
@@ -1121,17 +1291,34 @@ COOKE ==> {"email = --> DEMO <-- "}
 
 -----------------------------------------------------------------------------------	*/
 function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
+	var name = cname + "=";
+	var decodedCookie = decodeURIComponent(document.cookie);
+	var ca = decodedCookie.split(';');
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
+}
+
+
+/*---------------------------------------------------------------------------------
+Función que comprueba si un elemento está lleno y si es así, lo vacia
+-----------------------------------------------------------------------------------
+--> elemento: Elemento HTML a comprobar  
+f() 
+-->
+-----------------------------------------------------------------------------------	*/
+
+function vaciar(elemento) {
+
+	if (elemento && elemento.innerHTML != "") {
+		elemento.innerHTML = "";
+	}
+
 }

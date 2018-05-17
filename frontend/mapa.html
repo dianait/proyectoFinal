@@ -27,8 +27,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/locale/es.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
-        <link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
-
+		<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
 </head>
 
 <body>
@@ -97,22 +96,22 @@
 					<ul id="iconosSensores"><li class="active"> 
 						<button type="button" onclick="mostrarDatos(this)"> 
 						<img src="./images/sensores/ther.svg" alt="icono temperatura" /> 
-			
+			          
 						</button>  </li> 
 		
 		
 						<li><button type="button" onclick="mostrarDatos(this)"> 
 						<img src="./images/sensores/salt.svg" alt="icono salinidad" /> 
-				
+						
 						</button></li> 
 		
 						<li><button type="button" onclick="mostrarDatos(this)"> 
 						<img src="./images/sensores/hum.svg" alt="icono humedad" /> 
-				
+					
 						</button></li> 
 						<li><button type="button" onclick="mostrarDatos(this)"> 
 						<img src="./images/sensores/lum.svg" alt="icono iluminacion" /> 
-				
+						
 						</button></li> 
 						</ul> 
 					<canvas id="grafica"></canvas>
@@ -180,24 +179,26 @@
 	</div>
 
 		<!-- Modal Confirmación editar zona -->
-		<div id="addZona" class="modal fade">
+		<div id="updateZona" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<form>
+					
+					
 						<div id="titleZonaAdd" class="modal-header">						
 							<h4  class="modal-title">ZONA</h4>
-							<button type="button" id="cerrarModal" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							
 						</div>
 						<div class="modal-body">
-							<div id="infoUser"></div>					
-							<p id="confirmacionEliminar">Cambios guardados correctamente.</p>
-							<div id="datosZonaAdd"></div>
+								<button type="button" id="cerrarModal" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<div style:"display:none;" id="msgUpdateZona"></div>
+										
+							<div id="fotoZona">
+								<!-- <img src="" /> -->
+							</div>
+							
+							<div id="infoZona"></div>	
 						</div>
-						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-							<input id="botondelete" type="button" class="btn btn-danger" onclick="guardarZona(this);" value="Eliminar">
-						</div>
-					</form>
+					
 				</div>
 			</div>
 		</div>
@@ -244,7 +245,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
 	    crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-	    crossorigin="anonymous"></script>
+		crossorigin="anonymous"></script>
+		<script src="js/html2canvas.min.js"></script>
 </body>
 
 
