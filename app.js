@@ -575,3 +575,110 @@ app.post('/vertices', [comprobar_login, (peticion, respuesta) => {
 app.listen(app.get('port'), function () {
 	console.log('Node está funcionando en el puerto: ', app.get('port'));
 });
+
+/*===================================================
+====================================================*/
+/*============== PASSWORD ========================
+====================================================*/
+/* Método que DEVUELVE la contraseña de un usuario  */
+
+function generarCodigo(){
+
+	var x = parseInt(Math.random()* 99);
+
+	var y = parseInt(Math.random() * 999);
+
+	var pw = Number(x.toString() + y.toString())
+	
+	return pw;
+}
+
+function destruirCodigo(email){
+
+	var queryDestruirCodigo = 'update clientes set codigoemail= null  where email=?'
+
+	base_datos.run(queryDestruirCodigo, [email], (err, res)=>{
+		if (err){
+			console.log(err) ;
+		}
+	});
+
+	console.log("Código destruido correctamente.");
+
+}
+
+app.get("/generarCodigo", ( pet, res ) =>{
+
+	if(pet == null){
+
+			res.status(400).send({message: "Introduzca un e-mail"}) ;
+
+			return;
+
+	}
+
+	var queryE = "SELECT * FROM clientes where email =?";
+
+	base_datos.get(queryE, [pet.query.email], (err, row)=>{
+
+	var queryP = "UPDATE clientes SET codigoemail = ? WHERE email = ? ;" ;
+
+	var codigoGenerado = generarCodigo();
+
+	if(row){
+
+	base_datos.run( queryP , [codigoGenerado , pet.query.email]) ;
+
+
+	res.status(200).send({servidor: `El código de seguridad es: ${codigoGenerado}`}) ;
+
+	console.log(`El código de seguridad es: ${codigoGenerado}`) ;
+
+	//setTimeout(destruirCodigo(pet.query.email), 10000) ;
+
+	res.end();
+
+}
+	
+	if(!row){
+		 console.log("no se ha encontrado el usuario") ;
+		 res.end();
+	}
+	
+
+})
+
+});
+
+
+
+app.get('/comprobarCodigo/:email/', comprobanding);
+
+function comprobanding(pet, respuesta){
+
+	var queryC = `SELECT codigoemail FROM clientes WHERE email='${pet.params.email}';` ;
+
+	base_datos.get(queryC, (err, row)=>{
+
+		respuesta.status(200).send(row);
+
+		//respuesta.json(row);
+
+	});
+
+
+}
+
+app.get('/cambiarPassword/:email/:password', cambiarContrasenya) ;
+
+function cambiarContrasenya (pet, respuesta) {
+
+	console.log("email: "+pet.params.email);	//para ver que la petición que le llega es el e-mail
+
+	var textoModificar = `UPDATE clientes set password='${pet.params.password}' where email='${pet.params.email}';`
+			base_datos.run(textoModificar, function(err, row){
+				if(err) throw err;
+				respuesta.status(200).send({Servidor: "Contraseña cambiada correctamente."})
+			});
+
+} // cambiarContrasenya()

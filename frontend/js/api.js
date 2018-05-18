@@ -381,3 +381,60 @@ function alertasGet(callback){
       callback(alertas);
     });
 }
+
+/**C********S**********************
+ ***O*****A***E***A****************
+ ****N**R*******Ñ******************
+ *****T***************************/ 
+
+function codigoGenerated(datos){
+
+  var urlP = urlBase + "/generarCodigo" + datos ;
+
+  fetch(urlP).then((res)=>{
+    return res.json();
+
+  }).then((data)=>{
+    console.log(data) ;
+    dibujarCodigo();
+  })
+
+}
+
+function comprobandoCodigo(datos, codigoIntroducido){
+  var urlCC = `${urlBase}/${datos}` ;
+
+  fetch(urlCC).then((res)=>{
+    return res.json();
+  }).then((data)=>{
+    console.log(data);
+    if(data.CODIGOEMAIL ==  codigoIntroducido){
+    dibujarPassword();
+    }
+  })
+}
+
+function codigoDeleted(email){
+
+  var urlP = urlBase + "/destruir" + email ;
+
+  fetch(urlP).then((res)=>{
+    return res.json();
+
+  }).then((data)=>{
+    console.log(data) ;
+    console.log("Código destruido") ;
+  })
+
+}
+
+function changePassword(email, clave){
+
+  var url = `${urlBase}/cambiarPassword/${email}/${clave}` ;
+
+fetch(url).then((res)=>{
+  return res.json();
+}).then((data)=>{
+  console.log(data);
+})
+}
