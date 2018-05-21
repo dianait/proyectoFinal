@@ -2,6 +2,7 @@ const express = require('express');
 const sqlite3 = require('sqlite3');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+var nodemailer = require("nodemailer");
 const app = express();
 var path = require('path');
 base_datos = new sqlite3.Database('proyectoweb.db',
@@ -12,6 +13,33 @@ base_datos = new sqlite3.Database('proyectoweb.db',
         }
     }
 );
+
+var transporter = nodemailer.createTransport({
+	service: 'gmail',
+	auth: {
+	  user: 'tecnologiasinteractivasEPSG@gmail.com',
+	  pass: 'gti525gti'
+	}
+  });
+
+
+  function enviarMail(origen, destinatario, asunto, mensaje){
+	var mailOptions = {
+		from: origen,
+		to: destinatario,
+		subject: asunto,
+		text: mensaje
+	  };
+
+	  transporter.sendMail(mailOptions, function(error, info){
+		if (error) {
+		  console.log(error);
+		} else {
+		  console.log('Email enviado: ' + info.response);
+		}
+	  });
+
+  }
 
 /*=================== SETTINGS ======================
 ====================================================*/
@@ -628,13 +656,10 @@ app.get("/generarCodigo", ( pet, res ) =>{
 	if(row){
 
 	base_datos.run( queryP , [codigoGenerado , pet.query.email]) ;
+	
+	enviarMail("tecnoligiasinteractivasEPSG@gmail.com", "dianahdezsoler@gmail.com", "Código para cambiar contraseña", `El código de seguridad es: ${codigoGenerado}`);
 
-
-	res.status(200).send({servidor: `El código de seguridad es: ${codigoGenerado}`}) ;
-
-	console.log(`El código de seguridad es: ${codigoGenerado}`) ;
-
-	//setTimeout(destruirCodigo(pet.query.email), 10000) ;
+	res.status(200) ;
 
 	res.end();
 
