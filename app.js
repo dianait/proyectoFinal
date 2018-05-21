@@ -600,9 +600,7 @@ app.post('/vertices', [comprobar_login, (peticion, respuesta) => {
 }]);
 
 
-app.listen(app.get('port'), function () {
-	console.log('Node está funcionando en el puerto: ', app.get('port'));
-});
+
 
 /*===================================================
 ====================================================*/
@@ -657,9 +655,9 @@ app.get("/generarCodigo", ( pet, res ) =>{
 
 	base_datos.run( queryP , [codigoGenerado , pet.query.email]) ;
 	
-	enviarMail("tecnoligiasinteractivasEPSG@gmail.com", "dianahdezsoler@gmail.com", "Código para cambiar contraseña", `El código de seguridad es: ${codigoGenerado}`);
+	enviarMail("tecnoligiasinteractivasEPSG@gmail.com", "osblasae@epsg.upv.es", "Código para cambiar contraseña", `El código de seguridad es: ${codigoGenerado}`);
 
-	res.status(200) ;
+	res.status(200);
 
 	res.end();
 
@@ -706,4 +704,13 @@ function cambiarContrasenya (pet, respuesta) {
 				respuesta.status(200).send({Servidor: "Contraseña cambiada correctamente."})
 			});
 
-} // cambiarContrasenya()
+} 
+
+app.post("/sensor/data", function(peticion, respuesta){
+	console.log(peticion.body);
+});
+
+app.listen(app.get('port'), function () {
+	console.log('Node está funcionando en el puerto: ', app.get('port'));
+});
+
