@@ -29,7 +29,7 @@ var transporter = nodemailer.createTransport({
 		from: origen,
 		to: destinatario,
 		subject: asunto,
-		text: mensaje
+		html: mensaje
 	  };
 
 	  transporter.sendMail(mailOptions, function(error, info){
@@ -656,7 +656,7 @@ app.get("/generarCodigo", ( pet, res ) =>{
 
 	base_datos.run( queryP , [codigoGenerado , pet.query.email]) ;
 	
-	enviarMail("tecnoligiasinteractivasEPSG@gmail.com", "osblasae@epsg.upv.es", "Código para cambiar contraseña", `El código de seguridad es: ${codigoGenerado}`);
+	enviarMail("tecnoligiasinteractivasEPSG@gmail.com", "dianahdezsoler@gmail.com", "Código para cambiar contraseña", crearMail(codigoGenerado));
 
 	res.status(200);
 
@@ -713,6 +713,26 @@ app.post("/sensor/data", function(peticion, respuesta){
 		console.log('The "data to append" was appended to file!');
 	  });
 });
+
+/*---------------------------------------------------------------------------------
+Función que devuelve un string con el codigo html del diseño del email a enviar al cliente cuando solicite cambiar contraseña
+-----------------------------------------------------------------------------------
+
+--> codigoGenerado: Z   => generarCodigo()                     
+f()
+--> String 
+
+-----------------------------------------------------------------------------------	*/
+
+function crearMail(codigoGenerado){
+	return ` <div style="width:500px;margin: 0 auto; text-align:center;padding:0.5rem;"><img class="logo" src="http://diaherso.upv.edu.es/images/logoGTI.svg" alt="logo GTI" /><br>
+	<p>Este es tu codigo para cambiar tu contrasña<br/>
+	<div style="width:100px;font-size:28px;padding:0.5rem;margin:0 auto;color:grey;border:2px solid #740070;text-align:center;">${codigoGenerado}</div>
+	<p>Este codigo caducará en 10 minutos</p>
+	<P>Si no has solicitado un cambio de contraseña, <br />rogamos nos lo hagas saber mediante este <a href="contacto.html">formulario</a></p>
+	<p>Estamos a tu disposición,</p>
+	<p>El equipo 8 de Tecnologías interactivas</p></div>`;
+}
 
 app.listen(app.get('port'), function () {
 	console.log('Node está funcionando en el puerto: ', app.get('port'));
