@@ -3,6 +3,7 @@ const sqlite3 = require('sqlite3');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var nodemailer = require("nodemailer");
+var fs = require("fs");
 const app = express();
 var path = require('path');
 base_datos = new sqlite3.Database('proyectoweb.db',
@@ -707,7 +708,10 @@ function cambiarContrasenya (pet, respuesta) {
 } 
 
 app.post("/sensor/data", function(peticion, respuesta){
-	console.log(peticion.body);
+	fs.appendFile('datos.txt', peticion.body, (err) => {
+		if (err) throw err;
+		console.log('The "data to append" was appended to file!');
+	  });
 });
 
 app.listen(app.get('port'), function () {
