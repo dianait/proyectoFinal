@@ -657,7 +657,7 @@ app.get("/generarCodigo", ( pet, res ) =>{
 
 	base_datos.run( queryP , [codigoGenerado , pet.query.email]) ;
 	
-	enviarMail("tecnoligiasinteractivasEPSG@gmail.com", "dianahdezsoler@gmail.com", "Código para cambiar contraseña", crearMail(codigoGenerado));
+	enviarMail("tecnoligiasinteractivasEPSG@gmail.com", "isabeldiazlopez87@gmail.com", "Código para cambiar contraseña", crearMail(codigoGenerado));
 
 	res.status(200);
 
@@ -750,8 +750,16 @@ function getmedicionesall(peticion, respuesta) {
 	});
 };
 
+/*---------------------------------------------------------------------------------
+url API para crear archivo CSV
+-----------------------------------------------------------------------------------
+                  
+f()
+
+-----------------------------------------------------------------------------------	*/
+
 app.get("/csv", function(peticion, respuesta){
-	
+
 	/*
 
 	COMO ABRIR EL ARCHIVO CSV EN EXCEL PARA QUE SE VEA CORRECTAMENTE
@@ -779,10 +787,13 @@ app.get("/csv", function(peticion, respuesta){
 		else {
 
 			csv(mediciones, { header: true, columns: columns }, (err, output) => {
+				var rutaFichero;
+				var fecha = Date.now();
 				if (err) throw err;
-				fs.writeFile('mediciones.csv', output, (err) => {
+				fs.writeFile('frontend/exports/mediciones'+ fecha +'.csv', output, (err) => {
 					if (err) throw err;
-       				respuesta.status(200).sendFile( __dirname + "/mediciones.csv");
+					rutaFichero = {ruta : '/exports/mediciones'+ fecha +'.csv'}
+       				respuesta.status(200).send(rutaFichero);
 				});
 			});
 			

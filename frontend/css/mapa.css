@@ -168,8 +168,11 @@ ul#iconosSensoresUtimaMedicion {
   
   .level > div {
     height: 0.6rem;
-    border-bottom: 2px solid grey;
+  
     
+  }
+  .level > div:nth-child(even) {
+    border-bottom: 2px solid grey;
   }
   
   .level > div:last-child {
