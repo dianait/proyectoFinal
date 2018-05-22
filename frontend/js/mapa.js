@@ -744,6 +744,7 @@ function mostrarDatos(elemento) {
 	var sondaNumero = document.getElementById("firstHeading").innerText.split(" ")[1];
 
 	valoresGet(tipo, email, sondaNumero, function (objetoJson) {
+		console.log(objetoJson);
 		for (i in objetoJson) {
 
 			valoresSensor.push(objetoJson[i][tipo]);

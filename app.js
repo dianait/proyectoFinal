@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var nodemailer = require("nodemailer");
 var fs = require("fs");
+var csv = require("csv-stringify");
 const app = express();
 var path = require('path');
 base_datos = new sqlite3.Database('proyectoweb.db',
@@ -718,9 +719,9 @@ app.post("/sensor/data", function(peticion, respuesta){
 Función que devuelve un string con el codigo html del diseño del email a enviar al cliente cuando solicite cambiar contraseña
 -----------------------------------------------------------------------------------
 
---> codigoGenerado: Z   => generarCodigo()                     
+--> codigoGenerado: Z  => lo devuelve la función generarCodigo()                     
 f()
---> String 
+--> String => se utiliza como parámetro en enviarMail(origen, destino, asunto, --> crearMail(CodigoGenerado) <-- );
 
 -----------------------------------------------------------------------------------	*/
 
@@ -733,6 +734,63 @@ function crearMail(codigoGenerado){
 	<p>Estamos a tu disposición,</p>
 	<p>El equipo 8 de Tecnologías interactivas</p></div>`;
 }
+
+
+app.get("/mediciones/all", getmedicionesall);
+
+function getmedicionesall(peticion, respuesta) {
+	var queryMediciones = "SELECT * FROM medidas";
+
+	base_datos.all(queryMediciones, function (error, mediciones) {
+		if (error) {
+			console.log("error: " + error)
+		} else {
+			respuesta.status(200).send(mediciones);
+		}
+	});
+};
+
+app.get("/csv", function(peticion, respuesta){
+	
+	/*
+
+	COMO ABRIR EL ARCHIVO CSV EN EXCEL PARA QUE SE VEA CORRECTAMENTE
+	Fuente: https://www.geeknetic.es/Noticia/11610/Trucos-Como-abrir-correctamente-un-archivo-CSV-en-Excel.html
+
+	*/
+
+	var columns = {
+		id: "id",
+		tiempo: "tiempo",
+		temperatura: "temperatura",
+		humedad: "humedad",
+		salinidad: "salinidad",
+		iluminacion: "iluminacion",
+		presion: "presion"
+	  };
+
+	var queryMediciones = "SELECT * FROM medidas";
+	base_datos.all(queryMediciones, function (error, mediciones) {
+		
+		if (error) {
+			console.log("error: " + error)
+		} 
+		
+		else {
+
+			csv(mediciones, { header: true, columns: columns }, (err, output) => {
+				if (err) throw err;
+				fs.writeFile('mediciones.csv', output, (err) => {
+					if (err) throw err;
+       				respuesta.status(200).sendFile( __dirname + "/mediciones.csv");
+				});
+			});
+			
+		}
+	});
+       return;
+});
+
 
 app.listen(app.get('port'), function () {
 	console.log('Node está funcionando en el puerto: ', app.get('port'));
