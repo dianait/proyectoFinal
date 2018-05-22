@@ -10,6 +10,7 @@ var tipoSensores, email, zonas, marcadores, listaMarcadores, alertasguardadas, m
 	listaMarcadores = [];
 	var listaAlertas = document.getElementById("listaAlertas");
 	alertasguardadas = [];
+	var f = new Date();
 
 	sensoresGet(email, function (datosSondas) {
 		datosSondas.forEach(function (sonda) {
@@ -1296,4 +1297,24 @@ function vaciar(elemento) {
 		elemento.innerHTML = "";
 	}
 
+}
+
+function getPDF(){
+	var f = new Date();
+	
+	html2canvas($("#pdf"), {
+		onrendered: function(canvas) {         
+			var imgData = canvas.toDataURL(
+				'image/png');              
+			var doc = new jsPDF('p', 'mm');
+		
+			doc.addImage("http://localhost:4000/images/logoGTI.jpg", 'JPG', 50, 10, 100, 40);
+			doc.addImage(imgData, 'PNG', 40, 60);
+			doc.setFont('arial');
+			doc.text(85, 55, "- " + f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear() + " -");
+			doc.text(90, 280, "El equipo 8 de Tecnologías Interactivas");
+			
+			doc.save('medicion.pdf');
+		}
+	}); 
 }

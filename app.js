@@ -752,6 +752,10 @@ function getmedicionesall(peticion, respuesta) {
 
 /*---------------------------------------------------------------------------------
 url API para crear archivo CSV
+	Fuente: https://stackoverflow.com/questions/10227107/write-to-a-csv-in-node-js
+	
+COMO ABRIR EL ARCHIVO CSV EN EXCEL PARA QUE SE VEA CORRECTAMENTE
+	Fuente: https://www.geeknetic.es/Noticia/11610/Trucos-Como-abrir-correctamente-un-archivo-CSV-en-Excel.html
 -----------------------------------------------------------------------------------
                   
 f()
@@ -759,13 +763,6 @@ f()
 -----------------------------------------------------------------------------------	*/
 
 app.get("/csv", function(peticion, respuesta){
-
-	/*
-
-	COMO ABRIR EL ARCHIVO CSV EN EXCEL PARA QUE SE VEA CORRECTAMENTE
-	Fuente: https://www.geeknetic.es/Noticia/11610/Trucos-Como-abrir-correctamente-un-archivo-CSV-en-Excel.html
-
-	*/
 
 	var columns = {
 		id: "id",

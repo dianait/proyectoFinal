@@ -114,6 +114,7 @@
 						
 						</button></li> 
 						</ul> 
+						<div id="pdf">
 					<canvas id="grafica"></canvas>
 					<div class="alert alert-primary" role="alert">
 						La
@@ -129,12 +130,12 @@
 							<span class="badge badge-info">Información</span>
 						</a>
 					</div>
-
+				</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"  onclick="getCsv()">
 						<img src="images/excel.png" alt="excel"> Exportar Excel </button>
-					<button type="button" class="btn btn-primary">
+					<button type="button" class="btn btn-primary" onclick="getPDF()">
 						<img src="images/pdf.png" alt="pdf" > Guardar PDF </button>
 				</div>
 
@@ -247,6 +248,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
 		crossorigin="anonymous"></script>
 		<script src="js/html2canvas.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.0/jspdf.min.js"></script>
 </body>
 
 
