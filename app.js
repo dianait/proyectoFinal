@@ -657,7 +657,7 @@ app.get("/generarCodigo", ( pet, res ) =>{
 
 	base_datos.run( queryP , [codigoGenerado , pet.query.email]) ;
 	
-	enviarMail("tecnoligiasinteractivasEPSG@gmail.com", "isabeldiazlopez87@gmail.com", "Código para cambiar contraseña", crearMail(codigoGenerado));
+	enviarMail("tecnoligiasinteractivasEPSG@gmail.com", "mawco@gmail.com", "Código para cambiar contraseña", crearMail(codigoGenerado));
 
 	res.status(200);
 
@@ -798,6 +798,23 @@ app.get("/csv", function(peticion, respuesta){
 	});
        return;
 });
+
+function crearObjetoMediciones(array){
+var datos = {
+   mac : array["field1"],
+   tiempo : array["field2"],
+   lat : array["field3"],
+   lng : array["field4"],
+   alt : array["field5"],
+   temperatura : array["field6"],
+   humedad : array["field7"],
+   salinidad : array["field8"],
+   iluminacion : array["field9"],
+   presion : array["field10"],
+   alarma : array["field11"]
+};
+ return datos;
+}
 
 
 app.listen(app.get('port'), function () {

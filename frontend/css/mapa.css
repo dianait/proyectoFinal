@@ -626,6 +626,16 @@ color: #7F7F7F;
     color:white;
 }
 
+#tiempo {
+    max-width: 347px;
+    min-width:330px;
+    margin: 0 auto;
+}
+
+#tiempo div{
+    border:none !important;
+}
+
 @media (min-width: 1200px){
     .form-inline .input-group {
         width: 300px;
