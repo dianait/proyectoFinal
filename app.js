@@ -2,6 +2,9 @@ const express = require('express');
 const sqlite3 = require('sqlite3');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+var nodemailer = require("nodemailer");
+var fs = require("fs");
+var csv = require("csv-stringify");
 const app = express();
 var path = require('path');
 base_datos = new sqlite3.Database('proyectoweb.db',
@@ -12,6 +15,33 @@ base_datos = new sqlite3.Database('proyectoweb.db',
         }
     }
 );
+
+var transporter = nodemailer.createTransport({
+	service: 'gmail',
+	auth: {
+	  user: 'tecnologiasinteractivasEPSG@gmail.com',
+	  pass: 'gti525gti'
+	}
+  });
+
+
+  function enviarMail(origen, destinatario, asunto, mensaje){
+	var mailOptions = {
+		from: origen,
+		to: destinatario,
+		subject: asunto,
+		html: mensaje
+	  };
+
+	  transporter.sendMail(mailOptions, function(error, info){
+		if (error) {
+		  console.log(error);
+		} else {
+		  console.log('Email enviado: ' + info.response);
+		}
+	  });
+
+  }
 
 /*=================== SETTINGS ======================
 ====================================================*/
@@ -572,9 +602,7 @@ app.post('/vertices', [comprobar_login, (peticion, respuesta) => {
 }]);
 
 
-app.listen(app.get('port'), function () {
-	console.log('Node está funcionando en el puerto: ', app.get('port'));
-});
+
 
 /*===================================================
 ====================================================*/
@@ -628,13 +656,10 @@ app.get("/generarCodigo", ( pet, res ) =>{
 	if(row){
 
 	base_datos.run( queryP , [codigoGenerado , pet.query.email]) ;
+	
+	enviarMail("tecnoligiasinteractivasEPSG@gmail.com", "mawco@gmail.com", "Código para cambiar contraseña", crearMail(codigoGenerado));
 
-
-	res.status(200).send({servidor: `El código de seguridad es: ${codigoGenerado}`}) ;
-
-	console.log(`El código de seguridad es: ${codigoGenerado}`) ;
-
-	//setTimeout(destruirCodigo(pet.query.email), 10000) ;
+	res.status(200);
 
 	res.end();
 
@@ -681,4 +706,118 @@ function cambiarContrasenya (pet, respuesta) {
 				respuesta.status(200).send({Servidor: "Contraseña cambiada correctamente."})
 			});
 
-} // cambiarContrasenya()
+} 
+
+app.post("/sensor/data", function(peticion, respuesta){
+	fs.appendFile('datos.txt', peticion.body, (err) => {
+		if (err) throw err;
+		console.log('The "data to append" was appended to file!');
+	  });
+});
+
+/*---------------------------------------------------------------------------------
+Función que devuelve un string con el codigo html del diseño del email a enviar al cliente cuando solicite cambiar contraseña
+-----------------------------------------------------------------------------------
+
+--> codigoGenerado: Z  => lo devuelve la función generarCodigo()                     
+f()
+--> String => se utiliza como parámetro en enviarMail(origen, destino, asunto, --> crearMail(CodigoGenerado) <-- );
+
+-----------------------------------------------------------------------------------	*/
+
+function crearMail(codigoGenerado){
+	return ` <div style="width:500px;margin: 0 auto; text-align:center;padding:0.5rem;"><img class="logo" src="http://diaherso.upv.edu.es/images/logoGTI.svg" alt="logo GTI" /><br>
+	<p>Este es tu codigo para cambiar tu contrasña<br/>
+	<div style="width:100px;font-size:28px;padding:0.5rem;margin:0 auto;color:grey;border:2px solid #740070;text-align:center;">${codigoGenerado}</div>
+	<p>Este codigo caducará en 10 minutos</p>
+	<P>Si no has solicitado un cambio de contraseña, <br />rogamos nos lo hagas saber mediante este <a href="contacto.html">formulario</a></p>
+	<p>Estamos a tu disposición,</p>
+	<p>El equipo 8 de Tecnologías interactivas</p></div>`;
+}
+
+
+app.get("/mediciones/all", getmedicionesall);
+
+function getmedicionesall(peticion, respuesta) {
+	var queryMediciones = "SELECT * FROM medidas";
+
+	base_datos.all(queryMediciones, function (error, mediciones) {
+		if (error) {
+			console.log("error: " + error)
+		} else {
+			respuesta.status(200).send(mediciones);
+		}
+	});
+};
+
+/*---------------------------------------------------------------------------------
+url API para crear archivo CSV
+	Fuente: https://stackoverflow.com/questions/10227107/write-to-a-csv-in-node-js
+	
+COMO ABRIR EL ARCHIVO CSV EN EXCEL PARA QUE SE VEA CORRECTAMENTE
+	Fuente: https://www.geeknetic.es/Noticia/11610/Trucos-Como-abrir-correctamente-un-archivo-CSV-en-Excel.html
+-----------------------------------------------------------------------------------
+                  
+f()
+
+-----------------------------------------------------------------------------------	*/
+
+app.get("/csv", function(peticion, respuesta){
+
+	var columns = {
+		id: "id",
+		tiempo: "tiempo",
+		temperatura: "temperatura",
+		humedad: "humedad",
+		salinidad: "salinidad",
+		iluminacion: "iluminacion",
+		presion: "presion"
+	  };
+
+	var queryMediciones = "SELECT * FROM medidas";
+	base_datos.all(queryMediciones, function (error, mediciones) {
+		
+		if (error) {
+			console.log("error: " + error)
+		} 
+		
+		else {
+
+			csv(mediciones, { header: true, columns: columns }, (err, output) => {
+				var rutaFichero;
+				var fecha = Date.now();
+				if (err) throw err;
+				fs.writeFile('frontend/exports/mediciones'+ fecha +'.csv', output, (err) => {
+					if (err) throw err;
+					rutaFichero = {ruta : '/exports/mediciones'+ fecha +'.csv'}
+       				respuesta.status(200).send(rutaFichero);
+				});
+			});
+			
+		}
+	});
+       return;
+});
+
+function crearObjetoMediciones(array){
+var datos = {
+   mac : array["field1"],
+   tiempo : array["field2"],
+   lat : array["field3"],
+   lng : array["field4"],
+   alt : array["field5"],
+   temperatura : array["field6"],
+   humedad : array["field7"],
+   salinidad : array["field8"],
+   iluminacion : array["field9"],
+   presion : array["field10"],
+   alarma : array["field11"]
+};
+ return datos;
+}
+
+
+app.listen(app.get('port'), function () {
+	console.log('Node está funcionando en el puerto: ', app.get('port'));
+});
+

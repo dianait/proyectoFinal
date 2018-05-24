@@ -114,27 +114,32 @@
 						
 						</button></li> 
 						</ul> 
+						<div id="pdf">
 					<canvas id="grafica"></canvas>
 					<div class="alert alert-primary" role="alert">
 						La
 						<strong id="sensorValorMedio">temperatura</strong> media es de:
 						<button id="valorMedio" idtype="button" class="btn btn-primary btn-sm">22.3ºC</button>
 					</div>
-
-					<div class="alert alert-danger" role="alert">
+					  <!-- www.tutiempo.net - Ancho:347px - Alto:91px -->
+					  <div id="tiempo">
+<div id="TT_yyJE1E11k2EcAQhA7fxjzjDDj6lA1Aj2LtEdkZy5KkDI3I35m">El tiempo - Tutiempo.net</div>
+<script type="text/javascript" src="https://www.tutiempo.net/s-widget/l_yyJE1E11k2EcAQhA7fxjzjDDj6lA1Aj2LtEdkZy5KkDI3I35m"></script>
+</div>
+					<!-- 
 						<strong>¡Alerta!</strong>
 						Se prevé una tormenta en tu zona
 						<a href="https://www.accuweather.com/es/es/gandia/306359/weather-forecast/306359"
 						    target="_blanck">
 							<span class="badge badge-info">Información</span>
 						</a>
-					</div>
-
+					 -->
+				</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal" disabled>
+					<button type="button" class="btn btn-secondary"  onclick="getCsv()">
 						<img src="images/excel.png" alt="excel"> Exportar Excel </button>
-					<button style="background-color: grey" type="button" class="btn btn-primary" disabled>
+					<button type="button" class="btn btn-primary" onclick="getPDF()">
 						<img src="images/pdf.png" alt="pdf" > Guardar PDF </button>
 				</div>
 
@@ -247,6 +252,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
 		crossorigin="anonymous"></script>
 		<script src="js/html2canvas.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.0/jspdf.min.js"></script>
 </body>
 
 

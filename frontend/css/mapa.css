@@ -168,8 +168,11 @@ ul#iconosSensoresUtimaMedicion {
   
   .level > div {
     height: 0.6rem;
-    border-bottom: 2px solid grey;
+  
     
+  }
+  .level > div:nth-child(even) {
+    border-bottom: 2px solid grey;
   }
   
   .level > div:last-child {
@@ -621,6 +624,16 @@ color: #7F7F7F;
 
 #iconoAlertas span {
     color:white;
+}
+
+#tiempo {
+    max-width: 347px;
+    min-width:330px;
+    margin: 0 auto;
+}
+
+#tiempo div{
+    border:none !important;
 }
 
 @media (min-width: 1200px){

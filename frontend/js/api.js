@@ -438,3 +438,26 @@ fetch(url).then((res)=>{
   console.log(data);
 })
 }
+
+
+/* ----------------------------------------
+Llamada a la API que genera un archivo csv con TODAS las mediciones
+si se ha creado correctamente, aparecererá en descargas del navegador
+-------------------------------------------
+
+f()
+
+*/
+
+function getCsv(){
+
+   //Hacemos la peticion
+   fetch(urlBase + "/csv", {credentials: 'include'})
+   .then(function(datos) {
+     return datos.json();
+   })
+   .then(function(fileName) {
+     window.location.href = urlBase  + fileName.ruta;
+ 
+   });
+}
