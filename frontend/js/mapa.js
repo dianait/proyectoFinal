@@ -741,6 +741,7 @@ function mostrarDatos(elemento) {
 
 	var tituloSensor = document.getElementById("exampleModalLabel");
 	tituloSensor.innerHTML = nombreZona.toUpperCase() + " || SONDA " + numeroSonda;
+	//document.getElementsClassName("modal-header")[0].style.backgroundColor = zonas[id].color;
 	var valoresSensor = [];
 	var sondaNumero = document.getElementById("firstHeading").innerText.split(" ")[1];
 

@@ -83,8 +83,8 @@
 		<button id="irSeleccionarZona" class="btn btn-primary" onclick="seleccionarZona()">VER</button>
 	</section>
 	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal fade modal-fullscreen-md-down" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">TEMPERATURA </h5>
@@ -134,13 +134,20 @@
 							<span class="badge badge-info">Información</span>
 						</a>
 					 -->
+					 
 				</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"  onclick="getCsv()">
+			<div class="modal-footer"> 
+						<div class="descarga">
+								<div><img src="https://www.hostinet.com/formacion/wp-content/uploads/2016/02/PDF.jpg" /></div>
+								<div><img src="http://www.iconarchive.com/download/i86104/graphicloads/filetype/excel-xls.ico" /></div>
+								<div></div>
+								  
+								</div>
+				<!--	 <button style="background-color:#2D7E37" type="button" class="btn btn-secondary"  onclick="getCsv()">
 						<img src="images/excel.png" alt="excel"> Exportar Excel </button>
-					<button type="button" class="btn btn-primary" onclick="getPDF()">
-						<img src="images/pdf.png" alt="pdf" > Guardar PDF </button>
+					<button style="background-color:#EF5143" type="button" class="btn btn-primary" onclick="getPDF()">
+						<img src="images/pdf.png" alt="pdf" > Guardar PDF </button> -->
 				</div>
 
 			</div>
