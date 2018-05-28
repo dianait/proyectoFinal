@@ -820,9 +820,9 @@ var datos = {
 Petición para recoger las tolerancias de un cultivo en concreto
 ---------------------------------------------------------------------------------- */
 
-app.get("/tolerancia/:cultivo", /* [comprobar_login, */
+app.get("/tolerancia/:cultivo", [comprobar_login, 
 	function(peticion, respuesta){
-		respuesta.setHeader('Access-Control-Allow-Origin', '*');
+		//respuesta.setHeader('Access-Control-Allow-Origin', '*'); PARA HACER PRUEBAS
 		console.log(peticion.params.cultivo);
 		var queryTolerancias = "SELECT * FROM tolerancias WHERE cultivo =?";
 		base_datos.all(queryTolerancias, [peticion.params.cultivo], function (error, tolerancias) {
@@ -836,16 +836,16 @@ app.get("/tolerancia/:cultivo", /* [comprobar_login, */
 			}
 		});
 	} 
-/*]*/);
+]);
 
 
 /* --------------------------------------------------------------------------------
 Petición para recoger los cultivos disponibles en la BBDD
 ---------------------------------------------------------------------------------- */
 
-app.get("/cultivos", /*[comprobar_login, */
+app.get("/cultivos", [comprobar_login, 
 	function(peticion, respuesta){
-		respuesta.setHeader('Access-Control-Allow-Origin', '*');
+		//respuesta.setHeader('Access-Control-Allow-Origin', '*'); PARA HACER PRUEBAS
 		var queryCultivos = "SELECT cultivo FROM tolerancias";
 		base_datos.all(queryCultivos, function (error, cultivos) {
 		
@@ -858,7 +858,7 @@ app.get("/cultivos", /*[comprobar_login, */
 			}
 		});
 	} 
-/*] */);
+] );
 
 
 app.listen(app.get('port'), function () {

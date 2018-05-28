@@ -430,7 +430,7 @@ function codigoDeleted(email){
 
 function changePassword(email, clave){
 
-  var url = `${urlBase}/cambiarPassword/${email}/${clave}` ;
+  var url = `${urlBase}/cambiarPassword/${email}/${clave}`;
 
 fetch(url).then((res)=>{
   return res.json();
@@ -460,4 +460,50 @@ function getCsv(){
      window.location.href = urlBase  + fileName.ruta;
  
    });
+}
+
+/* ----------------------------------------
+Llamada a la API que recoge la lista de cultivos disponibles
+-------------------------------------------
+--> callback: Función que ejecutará lo que queramos hacer con los datos obtenidos
+f()
+--> [
+  {"cultivo": "Brócoli"}, 
+  {"cultivo": "Fresa"} 
+  ... ];
+*/
+
+function getCultivos(callback){
+  //Hacemos la peticion
+  fetch(urlBase + "/cultivos", {credentials: 'include'})
+  .then(function(datos) {
+    return datos.json();
+  })
+  .then(function(cultivos) {
+    callback(cultivos);
+  });
+}
+
+/* ----------------------------------------
+Llamada a la API que recoge la lista de tolerancias de un cultivo en concreto
+La tolerancia es un rango 30-50 dónde por debajo de 30 y por encima de 50 se crearía una alerta
+-------------------------------------------
+--> cultivo: TEXT 
+--> callback: Función que ejecutará lo que queramos hacer con los datos obtenidos
+f()
+--> [
+  {"id": 1, "cultivo": "Brócoli", "temperatura": "34-45" ... }, 
+  {"id": 2, "cultivo": "Fresa" ... } 
+  ... ];
+*/
+
+function getCultivos(cultivo, callback){
+  //Hacemos la peticion
+  fetch(`${urlBase}/tolerancia/${cultivo}`, {credentials: 'include'})
+  .then(function(datos) {
+    return datos.json();
+  })
+  .then(function(tolerancias) {
+    callback(tolerancias);
+  });
 }
