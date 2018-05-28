@@ -816,6 +816,50 @@ var datos = {
  return datos;
 }
 
+/* --------------------------------------------------------------------------------
+Petición para recoger las tolerancias de un cultivo en concreto
+---------------------------------------------------------------------------------- */
+
+app.get("/tolerancia/:cultivo", /* [comprobar_login, */
+	function(peticion, respuesta){
+		respuesta.setHeader('Access-Control-Allow-Origin', '*');
+		console.log(peticion.params.cultivo);
+		var queryTolerancias = "SELECT * FROM tolerancias WHERE cultivo =?";
+		base_datos.all(queryTolerancias, [peticion.params.cultivo], function (error, tolerancias) {
+		
+			if (error) {
+				console.log("error: " + error)
+			} 
+		
+			else {
+				respuesta.status(200).send(tolerancias);
+			}
+		});
+	} 
+/*]*/);
+
+
+/* --------------------------------------------------------------------------------
+Petición para recoger los cultivos disponibles en la BBDD
+---------------------------------------------------------------------------------- */
+
+app.get("/cultivos", /*[comprobar_login, */
+	function(peticion, respuesta){
+		respuesta.setHeader('Access-Control-Allow-Origin', '*');
+		var queryCultivos = "SELECT cultivo FROM tolerancias";
+		base_datos.all(queryCultivos, function (error, cultivos) {
+		
+			if (error) {
+				console.log("error: " + error)
+			} 
+		
+			else {
+				respuesta.status(200).send(cultivos);
+			}
+		});
+	} 
+/*] */);
+
 
 app.listen(app.get('port'), function () {
 	console.log('Node está funcionando en el puerto: ', app.get('port'));
