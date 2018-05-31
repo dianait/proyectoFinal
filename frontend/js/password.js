@@ -121,7 +121,6 @@ function dibujarPassword(){
 }
 
 function comprobarClave(){
-    console.log("ELEMENTO");
 
     var email = "demo";
    var clave1 = document.getElementById("clave1").value

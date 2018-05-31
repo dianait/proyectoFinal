@@ -41,6 +41,8 @@ function getLogin()
                       //Dirigimos la aplicación a la pagína de zonas
                       window.location.href = urlDestino
                     } else {
+                      //GUARDARLO EN LA COOKIE 
+                      //****    TOKEN   ************/
                       // Creamos la url de destino, la página de perfil con los datos del usuario en la url  
                       var urlDestino = "/perfil";
                       //Dirigimos la aplicación al a pagína de perfil con la variable url antes declarada
