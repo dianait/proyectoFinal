@@ -470,12 +470,14 @@ function editarUsuario(peticion, respuesta) {
 /*================= ADD ZONA ========================
 ====================================================*/
 /* Método que añade una zona a la base de datos  */
-app.get("/addZona",  [comprobar_login, addZona]);
+app.get("/anyadirZona",  [comprobar_login, anyadirZona]);
 
-function addZona(peticion, respuesta) {
+function anyadirZona(peticion, respuesta) {
+	var valorColor = '#'+peticion.query.color
 	var queryAddZona = "INSERT INTO zonas (NOMBRE, COLOR) VALUES(?,?)";
-
-	base_datos.run(queryAddZona, [peticion.query.nombre, peticion.query.color],
+	console.log(peticion.query.nombre)
+	console.log(valorColor)
+	base_datos.run(queryAddZona, [peticion.query.nombre, valorColor],
 		(error) => {
 			if (error) {
 				console.log("error: " + error)
@@ -485,7 +487,6 @@ function addZona(peticion, respuesta) {
 			}
 		});
 };
-
 /*===================================================
 ====================================================*/
 /*============== DELETE ZONA ========================

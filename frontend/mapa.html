@@ -26,8 +26,9 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/locale/es.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-		<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
+		crossorigin="anonymous"></script>
+	
+	<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
 </head>
 
 <body>
@@ -81,7 +82,8 @@
 			<option value="" selected="selected">Seleccione zona</option>
 		</select>
 		<button id="irSeleccionarZona" type="button" class="btn btn-primary" onclick="seleccionarZona()"><i class="fa fa-eye"></i></button>
-		<button id="irAñadirZona"  type="button" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+		<a href="./zonaAdd.html"><button id="irAñadirZona"  type="button" class="btn btn-primary" onclick="ubicacionActual()"><i class="fa fa-plus"></i></button></a>
+
 	</section>
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
