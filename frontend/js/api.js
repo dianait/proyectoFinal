@@ -283,7 +283,6 @@ function zonaDelete(datos, callback) {
 function zonaAdd(datosZona, callback) {
   //creamos la URL para hacer la peticion a la api
   var urlAddZona = urlBase + "/anyadirZona" + datosZona;
-  
   console.log(urlAddZona)
   //Hacemos la peticion
   fetch(urlAddZona, {credentials: 'include'})

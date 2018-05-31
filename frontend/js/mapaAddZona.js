@@ -102,6 +102,9 @@ var poligono; // variable que guarda los vertices del poligono creado para la cr
     /*Función que añada la nueva ZONA con un poligono sin SONDAS*/ 
     //futuras mejoras: añadir la SONDAS a la ZONA
     function guardarNuevaZona(elemento){
+        
+        //recoger el email del cliente para recoger de la base de datos el ID del CLIENTE
+        var email = getCookie("email");
         //recogemos los valores del formulario
         var nombre = document.getElementById("inputNombre").value;
         //console.log(nombre)
@@ -115,7 +118,7 @@ var poligono; // variable que guarda los vertices del poligono creado para la cr
         }*/
         //parámetros para la petición a la api con los datos recogidos del formulario
         
-        var trozoUrl = `?nombre=`+nombre+`&color=`+color;
+        var trozoUrl = `?email=`+email+`&nombre=`+nombre+`&color=`+color;
         console.log(trozoUrl)
 
         zonaAdd(trozoUrl, function (res){
@@ -171,3 +174,31 @@ var poligono; // variable que guarda los vertices del poligono creado para la cr
             verticesUpdate(id, vertices);
         }
     };
+
+    /*---------------------------------------------------------------------------------
+A Function to Get a Cookie
+fuente => https://www.w3schools.com/js/js_cookies.asp
+-----------------------------------------------------------------------------------
+
+--> cname: TEXT  
+COOKIE ==> {" --> EMAIL <-- = demo"} 
+f() 
+-->TEXT 
+COOKE ==> {"email = --> DEMO <-- "}
+
+-----------------------------------------------------------------------------------	*/
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }

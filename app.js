@@ -474,19 +474,59 @@ app.get("/anyadirZona",  [comprobar_login, anyadirZona]);
 
 function anyadirZona(peticion, respuesta) {
 	var valorColor = '#'+peticion.query.color
-	var queryAddZona = "INSERT INTO zonas (NOMBRE, COLOR) VALUES(?,?)";
+	//Consulta para introducir los datos de la ZONA
+	var queryAddZona = 'INSERT INTO zonas (NOMBRE, COLOR) VALUES(?,?)';
+	//Consulta para introducir la conexión entre la ZONA y el cliente
+	var queryAddZonaDos = 'INSERT INTO zonantes (ZONA, CLIENTE) VALUES (?,?)';
+	//Consulta para recoger el ID del cliente
+	var queryRecogerIdCliente = 'SELECT ID FROM clientes WHERE email=?';
+	var idCliente;
+	//Consulta para recoger el ID de la nueva ZONA
+	var queryRecogerIdZonaNueva = 'SELECT VERTICE_ID FROM zonas WHERE NOMBRE=? AND COLOR=?';
+	var idZona;
 	console.log(peticion.query.nombre)
+	console.log(peticion.query.email)
 	console.log(valorColor)
+	base_datos.get(queryRecogerIdCliente, [peticion.query.email], function(err, row){
+		if(err){
+			console.log("Error: "+ err)
+			return
+		}
+		console.log(row)
+		idCliente = row.ID;
+		console.log(idCliente)
+	} );
+	
 	base_datos.run(queryAddZona, [peticion.query.nombre, valorColor],
 		(error) => {
 			if (error) {
 				console.log("error: " + error)
-			} else {
-				console.log("Zona creada correctamente");
 
+			} else {
+				//Conexión en base de datos de la ZONA y el CLIENTE que la ha añadido
+				base_datos.get(queryRecogerIdZonaNueva, [peticion.query.nombre, valorColor], function(err, row){
+					if(err){
+						console.log("Error: "+ err)
+						return
+					}
+					console.log(row)
+					idZona = row.VERTICE_ID
+					console.log(idZona)
+					base_datos.run(queryAddZonaDos, [idZona, idCliente] , function(error){
+						if(error){
+							console.log("Error: "+error)
+							return
+						}
+						console.log("Zona creada correctamente");
+					} )
+				});
+				
+				
 			}
 		});
+
 };
+
 /*===================================================
 ====================================================*/
 /*============== DELETE ZONA ========================
