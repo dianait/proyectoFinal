@@ -117,7 +117,7 @@
 						</ul> 
 						<div id="pdf">
 					<canvas id="grafica"></canvas>
-					<div class="alert alert-primary" role="alert">
+					<div class="alert alert-primary text-center" role="alert">
 						La
 						<strong id="sensorValorMedio">temperatura</strong> media es de:
 						<button id="valorMedio" idtype="button" class="btn btn-primary btn-sm">22.3ºC</button>
@@ -140,15 +140,11 @@
 				</div>
 			<div class="modal-footer"> 
 						<div class="descarga">
-								<div><img src="https://www.hostinet.com/formacion/wp-content/uploads/2016/02/PDF.jpg" /></div>
-								<div><img src="http://www.iconarchive.com/download/i86104/graphicloads/filetype/excel-xls.ico" /></div>
+								<div><img onclick="getCsv()" src="https://www.hostinet.com/formacion/wp-content/uploads/2016/02/PDF.jpg" /></div>
+								<div><img  onclick="getPDF()" src="http://www.iconarchive.com/download/i86104/graphicloads/filetype/excel-xls.ico" /></div>
 								<div></div>
 								  
 								</div>
-				<!--	 <button style="background-color:#2D7E37" type="button" class="btn btn-secondary"  onclick="getCsv()">
-						<img src="images/excel.png" alt="excel"> Exportar Excel </button>
-					<button style="background-color:#EF5143" type="button" class="btn btn-primary" onclick="getPDF()">
-						<img src="images/pdf.png" alt="pdf" > Guardar PDF </button> -->
 				</div>
 
 			</div>

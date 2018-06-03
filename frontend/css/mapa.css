@@ -15,14 +15,6 @@ html,body{
     }
 
 
-
-.modal-header {
-    background-color:#721952;
-    color: white; 
-    padding: 1.3rem !important;
-  
-}
-
 body > nav > div.navbar-header.d-flex.col {
     height: 3.5rem;
 }
@@ -64,12 +56,14 @@ div.contenedorAlerta{
 }
 
 #iconosSensores li, #iconosSensoresUtimaMedicion button {
-     border-radius:10%;
-    /* border: 1px solid black; */
     box-shadow: 4px 2px #888888; 
     border-radius: 50%;
     padding: 0.4rem;
-    background-color: #DCC6E0;
+   background-color: lightgrey;
+}
+
+#iconosSensores {
+    margin-top:1rem;
 }
 
 button {
@@ -413,16 +407,16 @@ div.badge-info div:last-child {
 }
 
 /* fin QUITAR OPACIDAD AL MAPA ==> NO HAY ZONA SELECCIONADA */
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 700px !important;
+        margin: inherit .5 rem auto;
+      
+    }
+}
 
 
 /********* fin CSS DEL ARCHIVO STYLE.CSS ***************/
-
-.modal-dialog:not(#deleteModal){
-    width: 98%;
-    height: 92%;
-    padding: 0;
-  }
-  
 
   h5 {
       text-align:center;
@@ -481,14 +475,6 @@ div.badge-info div:last-child {
 .search-box {
     position: relative;
 }	
-
-.nav-link {
-   /*  color:white !important; */
-}
-
-.avatar {
-    /* background-color:white; */ 
-}
 .search-box input {
     box-shadow: none;
     padding-right: 35px;
@@ -611,16 +597,6 @@ margin-left: 0 !important;
 
 }
 
-.modal-dialog {
-    width: 98%;
-    height: 92%;
-    padding: 0;
-  }
-  
-  .modal-content {
-    height: 99%;
-  }
-
 #iconoAlertas {
 color: #7F7F7F;
 }
@@ -653,28 +629,6 @@ color: #7F7F7F;
   .descarga div {
     padding:0.5rem;
   }
- .modal-body {
-     padding: 0 !important;
- }
-  .modal-dialog {
-    width: 98%;
-    height: 98%;
-    padding: 0;
-    margin: 0;
-}
-.modal-content {
-    height: 98%;
-    min-height: 98%;
-    height: auto;
-    border-radius: 0;
-} /*
-
- .modal {
-    top: -1rem !important;
-    right: -0.1rem !important;
-    bottom: -0.5rem !important;
-    left: -1rem !important;
-} */
 
 @media (min-width: 1200px){
     .form-inline .input-group {
