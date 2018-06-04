@@ -860,6 +860,27 @@ app.get("/cultivos", [comprobar_login,
 	} 
 ] );
 
+/* --------------------------------------------------------------------------------
+Petición para recoger los cultivos disponibles en la BBDD
+---------------------------------------------------------------------------------- */
+
+app.get("/sondas/:zona", [comprobar_login, 
+	function(peticion, respuesta){
+		//respuesta.setHeader('Access-Control-Allow-Origin', '*'); PARA HACER PRUEBAS
+		var queryCultivos = "SELECT * FROM sondas_zonas WHERE zona = ?";
+		base_datos.all(queryCultivos, [peticion.params.zona], function (error, sondas) {
+		
+			if (error) {
+				console.log("error: " + error)
+			} 
+		
+			else {
+				respuesta.status(200).send(sondas);
+			}
+		});
+	} 
+] );
+
 
 app.listen(app.get('port'), function () {
 	console.log('Node está funcionando en el puerto: ', app.get('port'));
