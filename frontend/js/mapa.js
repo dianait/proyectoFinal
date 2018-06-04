@@ -17,7 +17,6 @@ var tipoSensores, email, zonas, marcadores, listaMarcadores, alertasguardadas, m
 			listaMarcadores.push(sonda);
 		});
 	});
-	 console.log(listaMarcadores);
 
 	alertasGet(function (alertas) {
 		alertas.forEach(function (alerta) {
@@ -323,16 +322,20 @@ function editarZona(id) {
 
 }
 
-function cargarSensores() {
-
-
-	listaMarcadores.forEach(function (sonda) {
-
-		var alerta = getAlerta(sonda, alertasguardadas);
-
-		crearMarcador(sonda, alerta);
-	});
-	marcadores = true;
+function cargarSensores(id) {
+    getSondasByZona(id, function(sondas){
+		var arraySondasByZona = [];
+		sondas.forEach(function(sonda){
+			arraySondasByZona.push(sonda.SONDA);
+		});
+	
+		var array = sondasZonaSeleccionada(arraySondasByZona, listaMarcadores);
+		array.forEach(function (sonda) {
+			var alerta = getAlerta(sonda, alertasguardadas);
+			crearMarcador(sonda, alerta);
+		});
+		marcadores = true;
+	});	
 }
 
 var infowindow;
@@ -512,8 +515,8 @@ function seleccionarZona(elemento) {
 	}
 
 	if (!marcadores) {
-
-		cargarSensores();
+        console.log(zonaSeleccionada);
+		cargarSensores((zonaSeleccionada + 1));
 
 
 	}
@@ -1325,4 +1328,33 @@ function getPDF(){
 			doc.save('medicion.pdf');
 		}
 	}); 
+}
+
+/*---------------------------------------------------------------------------------
+Función que crea un array con las sondas de una zona determinada
+-----------------------------------------------------------------------------------
+-->  sondasZonas: Array con los id de las sondas de una zona determinada
+[1,2,6,7,9]
+--> listaZonas: Array con todas las sondas de un usuario en concreto
+ [
+  {ID_SONDA: 1, MAC: 1000101, LAT: 38.979432, LNG: -0.175505}, 
+  ... ];
+f() 
+--> Array con las sondas (Objeto completo) de una zona concreta
+-----------------------------------------------------------------------------------	*/
+function sondasZonaSeleccionada(sondasZona, listaZonas){
+	var i; 
+	var array = [];
+	listaZonas.forEach(function(zona){
+		for (i = 0; i<sondasZona.length;i++){
+			if (zona.ID_SONDA == sondasZona[i]) {
+
+				array.push(zona);
+			}
+
+		}
+		
+	});
+	return array;
+
 }
