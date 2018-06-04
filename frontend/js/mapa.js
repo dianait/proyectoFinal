@@ -1348,13 +1348,9 @@ function sondasZonaSeleccionada(sondasZona, listaZonas){
 	listaZonas.forEach(function(zona){
 		for (i = 0; i<sondasZona.length;i++){
 			if (zona.ID_SONDA == sondasZona[i]) {
-
 				array.push(zona);
 			}
-
-		}
-		
+		}		
 	});
 	return array;
-
 }

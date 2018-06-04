@@ -78,6 +78,18 @@ app.get('/perfil', [comprobar_login, function (req, res) {
 	res.sendFile(__dirname + "/frontend/profile.html");
 }]);
 
+app.get('/recuperacion', [comprobar_login, function (req, res) {
+	res.sendFile(__dirname + "/frontend/password.html");
+}]);
+
+app.get('/recuperacionCodigo', [comprobar_login, function (req, res) {
+	res.sendFile(__dirname + "/frontend/password2.html");
+}]);
+
+app.get('/recuperacionCuenta', [comprobar_login, function (req, res) {
+	res.sendFile(__dirname + "/frontend/password3.html");
+}]);
+
 /*
     Función para comprobar el login
     Si la cookie no está presente o es incorrecta se envia el formulario de acceso.
@@ -652,30 +664,26 @@ app.get("/generarCodigo", ( pet, res ) =>{
 	var queryP = "UPDATE clientes SET codigoemail = ? WHERE email = ? ;" ;
 
 	var codigoGenerado = generarCodigo();
+	console.log(codigoGenerado);
 
 	if(row){
 
 	base_datos.run( queryP , [codigoGenerado , pet.query.email]) ;
 	
-	enviarMail("tecnoligiasinteractivasEPSG@gmail.com", "mawco@gmail.com", "Código para cambiar contraseña", crearMail(codigoGenerado));
+	enviarMail("tecnoligiasinteractivasEPSG@gmail.com", "dianahdezsoler@gmail.com", "Código para cambiar contraseña", crearMail(codigoGenerado));
 
 	res.status(200);
 
 	res.end();
 
 }
-	
 	if(!row){
 		 console.log("no se ha encontrado el usuario") ;
 		 res.end();
 	}
-	
-
 })
 
 });
-
-
 
 app.get('/comprobarCodigo/:email/', comprobanding);
 

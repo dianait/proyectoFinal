@@ -388,20 +388,23 @@ function alertasGet(callback){
  *****T***************************/ 
 
 function codigoGenerated(datos){
-
+  console.log(datos);
   var urlP = urlBase + "/generarCodigo" + datos ;
 
   fetch(urlP).then((res)=>{
-    return res.json();
+    return res;
 
   }).then((data)=>{
     console.log(data) ;
-    dibujarCodigo();
+    window.location.href = "/password2.html"
   })
 
 }
 
 function comprobandoCodigo(datos, codigoIntroducido){
+  console.log(datos);
+  console.log(codigoIntroducido);
+
   var urlCC = `${urlBase}/${datos}` ;
 
   fetch(urlCC).then((res)=>{
@@ -409,7 +412,7 @@ function comprobandoCodigo(datos, codigoIntroducido){
   }).then((data)=>{
     console.log(data);
     if(data.CODIGOEMAIL ==  codigoIntroducido){
-    dibujarPassword();
+      window.location.href = "/password3.html"
     }
   })
 }
@@ -419,7 +422,7 @@ function codigoDeleted(email){
   var urlP = urlBase + "/destruir" + email ;
 
   fetch(urlP).then((res)=>{
-    return res.json();
+    return res;
 
   }).then((data)=>{
     console.log(data) ;
@@ -433,7 +436,7 @@ function changePassword(email, clave){
   var url = `${urlBase}/cambiarPassword/${email}/${clave}`;
 
 fetch(url).then((res)=>{
-  return res.json();
+  return res;
 }).then((data)=>{
   console.log(data);
 })
