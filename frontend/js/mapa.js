@@ -15,10 +15,9 @@ var tipoSensores, email, zonas, marcadores, listaMarcadores, alertasguardadas, m
 	sensoresGet(email, function (datosSondas) {
 		datosSondas.forEach(function (sonda) {
 			listaMarcadores.push(sonda);
-
 		});
-
 	});
+	 console.log(listaMarcadores);
 
 	alertasGet(function (alertas) {
 		alertas.forEach(function (alerta) {

@@ -507,3 +507,25 @@ function getCultivos(cultivo, callback){
     callback(tolerancias);
   });
 }
+
+/* ----------------------------------------
+Llamada a la API que recoge los sensores de una zona determinada
+-------------------------------------------
+--> zona: Z (id de la zona) 
+--> callback: Función que ejecutará lo que queramos hacer con los datos obtenidos
+f()
+--> [
+  {ID_SONDA: 1, MAC: 1000101, LAT: 38.979432, LNG: -0.175505}, 
+  ... ];
+*/
+
+function getSondasByZona(zona, callback){
+  //Hacemos la peticion
+  fetch(`${urlBase}/sondas/${zona}`, {credentials: 'include'})
+  .then(function(datos) {
+    return datos.json();
+  })
+  .then(function(sondas) {
+    callback(sondas);
+  });
+}
