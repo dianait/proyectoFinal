@@ -630,6 +630,9 @@ color: #7F7F7F;
     padding:0.5rem;
   }
 
+
+/* cambio vista horizontal y vertical */
+
 @media (min-width: 1200px){
     .form-inline .input-group {
         width: 300px;

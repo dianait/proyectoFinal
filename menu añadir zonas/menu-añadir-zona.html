@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>GTI | Del campo a tu movil</title>
+<link rel="shortcut icon" href="./images/favicon.ico">
+<!-- ******************* POR DEFECTO ANCHO = ANCHO DISPOSITIVO, SIN ZOOM -->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- ******************* COMPATIBILIDAD CON Internet Explorer/EDGE -->
+<meta http-equiv="x-ua-compatible" content="ie-edge">
+<!-- ******************* Bootstrap 4.0 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+    crossorigin="anonymous">
+
+
+<style>
+	#container-añadir {
+		padding: 0;
+	}
+
+	#container-añadir * {
+		margin-top: .2rem;
+	}
+	#titulo-añadir {
+		background-color: rgb(129, 0, 81);
+		color: white;
+	}
+
+	#iconosFrutas button {
+		border-radius: 50%;
+	}
+
+	#iconosFrutas button img {
+		width: 3rem;
+		padding: .2rem;
+	}
+</style>
+
+
+</head>
+
+<body>
+
+	<section id="añadirZonas">
+		<div class="container-fluid" id="container-añadir">
+			<h4 id="titulo-añadir" class="h3 font-weight-blod text-center">Añadir Zona</h4>
+			<div class="row">
+
+				<input type="text" name="nombreNuevaZona" id="nombreNuevaZona" placeholder="Nombre de la zona" class="col-6 col-md-6">
+
+				<div class="col-6 col-md-4 d-flex justify-content-center">
+					<h5>Color:</h5>
+					<input type="color" name="inputColor" id="inputColor">
+				</div>
+
+				<a href="#" class="col-6 col-md-2">¿Donde estoy?</a>
+
+				<h5 class="col-md-4 d-none d-md-block text-center d-flex flex-wrap align-content-center">Elija el tipo de cultivo:</h5>
+
+				<div id="iconosFrutas" class="d-none d-md-block d-md-flex flex-column flex-md-row justify-content-md-around col-md-8">
+					<button class="btn btn-outline-success">
+						<img src="./melon.svg" alt="icono melon">
+					</button>
+					<button class="btn btn-outline-success">
+						<img src="./uva.svg" alt="icono uva">
+					</button>
+					<button class="btn btn-outline-success">
+						<img src="./berenjena.svg" alt="icono berenjena">
+					</button>
+					<button class="btn btn-outline-success">
+						<img src="./calabaza.svg" alt="icono calabaza">
+					</button>
+					<button class="btn btn-outline-success">
+						<img src="./naranja.svg" alt="icono naranja">
+					</button>
+				</div>
+
+				<select class="form-control d-md-none d-block col-6" id="desplegable-frutos">
+					<option value="" selected="selected">Seleccione un tipo de cultivo</option>
+					<option value="2">MELONES</option>
+					<option value="3">BERENJENA</option>
+					<option value="5">UVAS</option>
+					<option value="5">CALABAZA</option>
+					<option value="5">NARANJA</option>
+				</select>
+
+				<a href="#" class="btn btn-secondary">Añadir</a>
+			</div>
+		</div>
+		<div id="map"></div>
+	</section>
+
+	<script>
+		// Add active class to the current button (highlight it)
+		var header = document.getElementById("myDIV");
+		var btns = header.getElementsByClassName("btn");
+		for (var i = 0; i < btns.length; i++) {
+			btns[i].addEventListener("click", function () {
+				var current = document.getElementsByClassName("active");
+				current[0].className = current[0].className.replace(" active", "");
+				this.className += " active";
+			});
+		}
+	</script>
+</body>
+
+</html>
