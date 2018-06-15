@@ -73,7 +73,11 @@ button {
     background-color:transparent;
 
 }
-#iconosSensores, #iconosSensoresUtimaMedicion {
+
+#iconosSensores{
+    list-style:none;
+}
+#iconosSensoresUtimaMedicion {
     display:flex;
     list-style:none;
     justify-content: space-evenly;
@@ -606,7 +610,7 @@ color: #7F7F7F;
 }
 
 #tiempo {
-    max-width: 347px;
+    max-width: 335px;
     min-width:330px;
     margin: 0 auto;
 }
@@ -622,8 +626,6 @@ color: #7F7F7F;
   .descarga {
     padding:1rem;
     max-width:400px;
-    display:flex;
-    justify-content:center;
   }
   
   .descarga div {
@@ -631,7 +633,6 @@ color: #7F7F7F;
   }
 
 
-/* cambio vista horizontal y vertical */
 
 @media (min-width: 1200px){
     .form-inline .input-group {

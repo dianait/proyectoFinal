@@ -120,9 +120,11 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<div class="container">
+					<div class="container-fluid">
 						<div class="row">
-							<ul id="iconosSensores ">
+							
+							<div id="pdf" class="col-12 d-flex flex-wrap order-1">
+								<ul id="iconosSensores" class="col-12 d-flex flex-row justify-content-around">
 								<li class="active">
 									<button type="button" onclick="mostrarDatos(this)">
 										<img src="./images/sensores/ther.svg" alt="icono temperatura" />
@@ -151,41 +153,28 @@
 									</button>
 								</li>
 							</ul>
-							<div id="pdf">
-								<canvas id="grafica"></canvas>
-								<div class="alert alert-primary text-center" role="alert">
+								<canvas id="grafica" class="col-12 d-flex"></canvas>
+								<div class="alert alert-primary col-12 d-flex justify-content-center" id="apartadoMedia" role="alert">
 									La
 									<strong id="sensorValorMedio">temperatura</strong> media es de:
-									<button id="valorMedio" idtype="button" class="btn btn-primary btn-sm">22.3ºC</button>
+									<button id="valorMedio" idtype="button" class="btn btn-primary btn-sm d-flex align-items-end">22.3ºC</button>
 								</div>
 								<!-- www.tutiempo.net - Ancho:347px - Alto:91px -->
-								<div id="tiempo">
+								<div id="tiempo" class="col-12 d-flex justify-content-center m-0 m-0 p-0 w-100">
 									<div id="TT_yyJE1E11k2EcAQhA7fxjzjDDj6lA1Aj2LtEdkZy5KkDI3I35m">El tiempo - Tutiempo.net</div>
 									<script type="text/javascript" src="https://www.tutiempo.net/s-widget/l_yyJE1E11k2EcAQhA7fxjzjDDj6lA1Aj2LtEdkZy5KkDI3I35m"></script>
 								</div>
-								<!-- 
-						<strong>¡Alerta!</strong>
-						Se prevé una tormenta en tu zona
-						<a href="https://www.accuweather.com/es/es/gandia/306359/weather-forecast/306359"
-						    target="_blanck">
-							<span class="badge badge-info">Información</span>
-						</a>
-					 -->
-
 							</div>
-							<div class="modal-footer">
-								<div class="descarga">
+							<div class="modal-footer col-12 d-flex order-2" id="descargaPDF">
+								<div class="descarga d-flex flex-row" id="descargaPDFIconos">
 									<div>
 										<img onclick="getCsv()" src="https://www.hostinet.com/formacion/wp-content/uploads/2016/02/PDF.jpg" />
 									</div>
 									<div>
 										<img onclick="getPDF()" src="http://www.iconarchive.com/download/i86104/graphicloads/filetype/excel-xls.ico" />
 									</div>
-									<div></div>
-
 								</div>
 							</div>
-
 						</div>
 
 					</div>

@@ -21,7 +21,7 @@ var tipoSensores, email, zonas, marcadores, listaMarcadores, alertasguardadas, m
 	alertasGet(function (alertas) {
 		alertas.forEach(function (alerta) {
 			alertasguardadas.push(alerta);
-			
+
 		});
 
 		rellenar(listaAlertas, alertas);
@@ -188,7 +188,7 @@ function getFotoZona() {
 
 	var options = {
 		width: 450,
-		height:250,
+		height: 250,
 		x: 150,
 		y: 350,
 		scale: 3,
@@ -212,20 +212,20 @@ function getFotoZona() {
 // 
 
 //-----------------------------------------------------------------------------------
-function guardarZona(id){
+function guardarZona(id) {
 	//recogemos los valores del formulario
 	var nombre = document.getElementById("inputZona").value;
 	var color = document.getElementById("inputColor").value;
 	//console.log(id)
 	color = color.split('#')[1];
 	//console.log(color)
-	if(vertices.length != 0){
+	if (vertices.length != 0) {
 		guardarVertices(id)
 	}
 	//parámetros para la petición a la api con los datos recogidos del formulario
-	var trozoUrl = `?nombre=`+nombre+`&color=`+color+`&id=`+id;
+	var trozoUrl = `?nombre=` + nombre + `&color=` + color + `&id=` + id;
 	//console.log(trozoUrl)
-	zonaEditar(trozoUrl, function (res){
+	zonaEditar(trozoUrl, function (res) {
 		console.log(res)
 	});
 
@@ -241,7 +241,7 @@ function guardarZona(id){
 		document.getElementById("cerrarModal").click();
 	}, 3000);
 
-	
+
 }
 
 //-----------------------------------------------------------------------------------
@@ -293,7 +293,7 @@ function editarZona(id) {
 		`<br/>color: <div style="display:inline-block;background:` + zonas[id].color + `;width:20px;height:20px;border:1px solid grey;"></div>
 	  <hr /> 
 	  ¿Seguro que quiere actualizar la zona con estos datos? 
-	  <br /><br /><button style="width:100px;float:right;margin:0.2rem;" class="btn btn-outline-success" onclick="guardarZona(`+ zonas[id].id +`)" >SI</button>
+	  <br /><br /><button style="width:100px;float:right;margin:0.2rem;" class="btn btn-outline-success" onclick="guardarZona(` + zonas[id].id + `)" >SI</button>
 	  <button style="width:100px;float:right;margin:0.2rem;" data-dismiss="modal" class="btn btn-outline-danger">NO</button>
 	</div>
   </div>`;
@@ -323,19 +323,19 @@ function editarZona(id) {
 }
 
 function cargarSensores(id) {
-    getSondasByZona(id, function(sondas){
+	getSondasByZona(id, function (sondas) {
 		var arraySondasByZona = [];
-		sondas.forEach(function(sonda){
+		sondas.forEach(function (sonda) {
 			arraySondasByZona.push(sonda.SONDA);
 		});
-	
+
 		var array = sondasZonaSeleccionada(arraySondasByZona, listaMarcadores);
 		array.forEach(function (sonda) {
 			var alerta = getAlerta(sonda, alertasguardadas);
 			crearMarcador(sonda, alerta);
 		});
 		marcadores = true;
-	});	
+	});
 }
 
 var infowindow;
@@ -515,7 +515,7 @@ function seleccionarZona(elemento) {
 	}
 
 	if (!marcadores) {
-        console.log(zonaSeleccionada);
+		console.log(zonaSeleccionada);
 		cargarSensores((zonaSeleccionada + 1));
 
 
@@ -1133,10 +1133,10 @@ function mostrarAlerta(lista, alerta) {
 
 	for (var i = 0; i < lista.length; i++) {
 		var sensor = lista[i].alt.split(" ")[1];
-	if (alerta.sensor == sensor) {
+		if (alerta.sensor == sensor) {
 			document.getElementById(sensor).innerHTML = `<i style="color:` + alerta.nivel + `;font-size:1.5rem" class="fa fa-exclamation-triangle" ></i>
-			<div class="iconoLevelSensor"><img src="images/sensores/`+ sensor + `.svg" /></div>`;
-		} 
+			<div class="iconoLevelSensor"><img src="images/sensores/` + sensor + `.svg" /></div>`;
+		}
 	}
 };
 
@@ -1310,24 +1310,24 @@ f()
 -->
 -----------------------------------------------------------------------------------	*/
 
-function getPDF(){
+function getPDF() {
 	var f = new Date();
-	
+
 	html2canvas($("#pdf"), {
-		onrendered: function(canvas) {         
+		onrendered: function (canvas) {
 			var imgData = canvas.toDataURL(
-				'image/png');              
+				'image/png');
 			var doc = new jsPDF('p', 'mm');
-		
+
 			doc.addImage("http://localhost:4000/images/logoGTI.jpg", 'JPG', 50, 10, 100, 40);
 			doc.addImage(imgData, 'PNG', 40, 60);
 			doc.setFont('arial');
 			doc.text(85, 55, "- " + f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear() + " -");
 			doc.text(90, 280, "El equipo 8 de Tecnologías Interactivas");
-			
+
 			doc.save('medicion.pdf');
 		}
-	}); 
+	});
 }
 
 /*---------------------------------------------------------------------------------
@@ -1342,15 +1342,44 @@ Función que crea un array con las sondas de una zona determinada
 f() 
 --> Array con las sondas (Objeto completo) de una zona concreta
 -----------------------------------------------------------------------------------	*/
-function sondasZonaSeleccionada(sondasZona, listaZonas){
-	var i; 
+function sondasZonaSeleccionada(sondasZona, listaZonas) {
+	var i;
 	var array = [];
-	listaZonas.forEach(function(zona){
-		for (i = 0; i<sondasZona.length;i++){
+	listaZonas.forEach(function (zona) {
+		for (i = 0; i < sondasZona.length; i++) {
 			if (zona.ID_SONDA == sondasZona[i]) {
 				array.push(zona);
 			}
-		}		
+		}
 	});
 	return array;
 }
+
+function cambioVista() {
+
+	if (window.matchMedia("(orientation:landscape)").matches) {
+
+		document.getElementById("iconosSensores").classList.toggle("col-2",document.getElementById("iconosSensores").classList.contains("col-2") )
+		document.getElementById("iconosSensores").classList.toggle("flex-column",document.getElementById("iconosSensores").classList.contains("flex-colum"))
+		document.getElementById("grafica").classList.toggle("col-11",document.getElementById("grafica").classList.contains("col-11"))
+		document.getElementById("apartadoMedia").classList.toggle("d-none",document.getElementById("grafica").classList.contains("d-none") )
+		document.getElementById("iconosSensores").classList.add("col-12")
+		document.getElementById("iconosSensores").classList.add("flex-row")
+		document.getElementById("grafica").classList.add("col-12")
+		document.getElementById("grafica").classList.add("d-flex")
+
+
+	} if (window.matchMedia("(orientation:portrait)").matches) {
+
+		document.getElementById("iconosSensores").classList.replace("col-12", "col-1")
+		document.getElementById("iconosSensores").classList.replace("flex-row", "flex-column")
+		document.getElementById("grafica").classList.replace("col-12","col-11")
+		document.getElementById("apartadoMedia").classList.replace("d-flex", "d-none")
+		//document.getElementById("tiempo").classList.replace("d-flex", "d-none")
+		//document.getElementById("descargaPDF").classList.replace("d-flex","d-none")
+
+	}
+
+}
+
+window.addEventListener("orientationchange", cambioVista);
