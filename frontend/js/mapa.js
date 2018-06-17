@@ -1,4 +1,4 @@
-var tipoSensores, email, zonas, marcadores, listaMarcadores, alertasguardadas, mapa;
+var tipoSensores, email, zonas, marcadores, listaMarcadores, alertasguardadas, mapa, mapaAddZona;
 //-----------------------------------------------------------------------------------
 //Función anónima autoejecutable para recoger el email del usuario logueado
 //-----------------------------------------------------------------------------------
@@ -85,6 +85,7 @@ function initMap() {
 
 
 }
+
 var divZonas = document.getElementById("zonas");
 
 function cargarZonas() {

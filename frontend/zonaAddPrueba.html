@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mapa add zona</title>
+    
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script src="./js/mapaAddZona.js"></script>
+</head>
+<body>
+    <!-- Formulario -->
+    <div>
+        <form>
+            <input type="text" name="inputNombre" >
+            <input type="color" name="inputColor">
+            <a onclick="creacionPoligono()" name="ubicacionActual">Añadir</a>
+        </form>
+    </div>
+
+    <!-- Creación del mapa -->
+    <div id="map"></div>
+
+    <!-- Hacemos referencia a nuestro archivo api.js con las llamadas al servidor -->
+    <!-- <script type="application/javascript" src="./js/api.js"></script> -->
+
+    <!-- API KEY GOOGLE MAPS = AIzaSyDFywdsyQQMsG_DHQKaKlcYOcHqSbOuDyc-->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFywdsyQQMsG_DHQKaKlcYOcHqSbOuDyc&callback=initMap"></script>
+</body>
+</html>

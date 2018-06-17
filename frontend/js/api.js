@@ -282,15 +282,14 @@ function zonaDelete(datos, callback) {
 //AÑADIR ZONA
 function zonaAdd(datosZona, callback) {
   //creamos la URL para hacer la peticion a la api
-  var urlAddZona = urlBase + "/addZona" + datosZona;
-
+  var urlAddZona = urlBase + "/anyadirZona" + datosZona;
+  console.log(urlAddZona)
   //Hacemos la peticion
   fetch(urlAddZona, {credentials: 'include'})
     .then(function(respuesta) {
       return respuesta.json();
     })
     .then(function(data) {
-   
       callback(data);
     });
 }

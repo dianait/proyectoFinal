@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>GTI | Del campo a tu movil</title>
+	<link rel="shortcut icon" href="./images/favicon.ico">
+	<!-- ******************* POR DEFECTO ANCHO = ANCHO DISPOSITIVO, SIN ZOOM -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- ******************* COMPATIBILIDAD CON Internet Explorer/EDGE -->
+	<meta http-equiv="x-ua-compatible" content="ie-edge">
+	<!-- ******************* Bootstrap 4.0 -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+	
+	<style>
+	section#añadirZonas #titulo {
+		color: white;
+		background: #711450;
+	}
+    /* Always set the map height explicitly to define the size of the div
+    * element that contains the map. */
+    #map {
+      height: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+	</style>
+
+	<script src="./js/mapaAddZona.js"></script>
+	
+</head>
+<body>
+
+        <section id="añadirZonas">
+
+			<div class="container">
+				<h4 id="titulo" class="h3 font-weight-blod">Añadir Zona</h4>
+				
+				<input type="text" id="inputNombre" name="nombreNuevaZona" placeholder="Nombre de la zona">
+				<div class="row">
+					<h5 class="h4 font-weight-blod" style="margin:1rem;">Color:</h5>
+					<input type="color" id="inputColor" style="margin:1.3rem;" id="colorNuevaZona">
+				</div>
+				<a onclick="creacionPoligono()" id="inputVertices">Añadir poligono</a>
+
+				<!--<select class="form-control" id="desplegable">
+					<option name="inputCultivo" value="" selected="selected">Seleccione cultivo</option>
+				</select>-->
+
+				<button type="submit" onclick="guardarNuevaZona(this)" style="margin:1rem;">AÑADIR</button>
+			</div>
+			
+		</section>
+
+		<!-- Creación del mapa -->
+		<div id="map"></div>
+
+		<!-- Hacemos referencia a nuestro archivo api.js con las llamadas al servidor -->
+		<script type="application/javascript" src="./js/api.js"></script>
+		<!-- <script type="application/javascript" src="./js/mapa.js"></script> -->
+		
+		<!-- API KEY GOOGLE MAPS = AIzaSyDFywdsyQQMsG_DHQKaKlcYOcHqSbOuDyc-->
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFywdsyQQMsG_DHQKaKlcYOcHqSbOuDyc&callback=initMap"></script>
+</body>
+</html>
