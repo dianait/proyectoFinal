@@ -285,9 +285,9 @@ function editarZona(id) {
 	titleZonaAdd.innerHTML = "ACTUALIZAR zona de " + zonas[id].nombre;
 	var infoZona = document.getElementById("infoZona");
 	infoZona.style.backgroundColor = "white";
-	infoZona.style.position = "absolute";
+	/* infoZona.style.position = "absolute";
 	infoZona.style.top = "285px";
-	infoZona.style.width = "91%";
+	infoZona.style.width = "91%"; */
 	var prueba = `<div class="card-body">
 	  <h5 class="card-title">` + zonas[id].nombre + `</h5>
 	   Número de vértices: ` + zonas[id].poligono.getPath().getArray().length +
@@ -305,8 +305,8 @@ function editarZona(id) {
 
 	var opciones = document.getElementById("opciones");
 	opciones.innerHTML =
-		//
-		`<img id="guardarZona" src="./images/savewhite.svg" alt="icono guardar" data-toggle="modal" data-target="#updateZona" onclick="getFotoZona()" />`;
+		//onclick="getFotoZona()"
+		`<img id="guardarZona" src="./images/savewhite.svg" alt="icono guardar" data-toggle="modal" data-target="#updateZona" />`;
 
 	var zona_btn = document.getElementById("formEditarZona");
 	zona_btn.innerHTML = `
