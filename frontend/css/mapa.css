@@ -619,18 +619,18 @@ color: #7F7F7F;
     border:none !important;
 }
 
-.descarga img {
+#descargaPDFIconos img {
     width:50px;
   }
   
-  .descarga {
+ /* .descarga {
     padding:1rem;
     max-width:400px;
   }
   
   .descarga div {
     padding:0.5rem;
-  }
+  } */
 
 
 

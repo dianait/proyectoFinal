@@ -1362,22 +1362,25 @@ function cambioVista() {
 		document.getElementById("iconosSensores").classList.toggle("col-2",document.getElementById("iconosSensores").classList.contains("col-2") )
 		document.getElementById("iconosSensores").classList.toggle("flex-column",document.getElementById("iconosSensores").classList.contains("flex-colum"))
 		document.getElementById("grafica").classList.toggle("col-11",document.getElementById("grafica").classList.contains("col-11"))
-		document.getElementById("apartadoMedia").classList.toggle("d-none",document.getElementById("grafica").classList.contains("d-none") )
+		document.getElementById("apartadoMedia").classList.toggle("d-none",document.getElementById("apartadoMedia").classList.contains("d-none") )
+		document.getElementById("tiempo").classList.toggle("col-8",document.getElementById("tiempo").classList.contains("col-8"))
+		document.getElementById("descargaPDF").classList.toggle("col-5",document.getElementById("descargaPDF").classList.contains("col-5") )
 		document.getElementById("iconosSensores").classList.add("col-12")
 		document.getElementById("iconosSensores").classList.add("flex-row")
 		document.getElementById("grafica").classList.add("col-12")
-		document.getElementById("grafica").classList.add("d-flex")
+		document.getElementById("apartadoMedia").classList.add("d-flex")
+		document.getElementById("tiempo").classList.add("col-12")
+		document.getElementById("descargaPDF").classList.add("col-12")
 
 
-	} if (window.matchMedia("(orientation:portrait)").matches) {
+	} else {
 
 		document.getElementById("iconosSensores").classList.replace("col-12", "col-1")
 		document.getElementById("iconosSensores").classList.replace("flex-row", "flex-column")
 		document.getElementById("grafica").classList.replace("col-12","col-11")
 		document.getElementById("apartadoMedia").classList.replace("d-flex", "d-none")
-		//document.getElementById("tiempo").classList.replace("d-flex", "d-none")
-		//document.getElementById("descargaPDF").classList.replace("d-flex","d-none")
-
+		document.getElementById("tiempo").classList.replace("col-12", "col-8")
+		document.getElementById("descargaPDF").classList.replace("col-12", "col-5")
 	}
 
 }
