@@ -14,7 +14,7 @@
   "author": "Grupo 8 GTI",
   "license": "ISC",
   "dependencies": {
-     "deep-extend": ">=0.5.1",
+
     "cookie-parser": "^1.4.3",
     "csv-stringify": "^3.0.0",
     "express": "^4.16.2",
@@ -24,6 +24,6 @@
     "sqlite3": "^3.1.13"
   },
   "devDependencies": {
-   "deep-extend": ">=0.5.1"
+
   }
 }
