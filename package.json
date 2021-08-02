@@ -20,7 +20,7 @@
     "fs": "0.0.1-security",
     "nodemailer": "^4.6.4",
     "nodemon": "^1.17.2",
-    "sqlite3": "^3.1.13"
+    "sqlite3": "latest"
   },
   "devDependencies": {}
 }
